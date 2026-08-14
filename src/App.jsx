@@ -1,22 +1,22 @@
 import { useState, useEffect, useRef } from 'react';
-import { 
-  Layers, 
-  Activity, 
-  Compass, 
-  ZoomIn, 
-  ZoomOut, 
-  Sun, 
-  Moon, 
-  Info, 
-  Settings, 
-  Database, 
-  Play, 
-  Trash2, 
-  MapPin, 
-  Ruler, 
-  RefreshCw, 
-  Shield, 
-  Eye, 
+import {
+  Layers,
+  Activity,
+  Compass,
+  ZoomIn,
+  ZoomOut,
+  Sun,
+  Moon,
+  Info,
+  Settings,
+  Database,
+  Play,
+  Trash2,
+  MapPin,
+  Ruler,
+  RefreshCw,
+  Shield,
+  Eye,
   HelpCircle,
   BarChart2,
   Map,
@@ -136,12 +136,12 @@ function App() {
     { id: 18, text: 'Hospitals Near Me', timestamp: '2 weeks ago' },
     { id: 19, text: 'Compare healthcare facilities...', timestamp: '2 weeks ago' },
   ]);
-  
+
   // Left strip floating popovers & basemap selection
   const [activeLeftPopover, setActiveLeftPopover] = useState(null); // 'basemap' | 'legend' | 'draw' | null
   const [activeBasemap, setActiveBasemap] = useState('streets');
   const [activeDrawTool, setActiveDrawTool] = useState('polygon');
-  
+
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     if (theme === 'dark') {
@@ -235,7 +235,7 @@ function App() {
       return dict[name] || name;
     }
   };
-  
+
   // Layer visibilities (default to clean view as per reference UI)
   const [layers, setLayers] = useState({
     elevationSurface: false,
@@ -247,26 +247,22 @@ function App() {
 
   const [selectedLevel, setSelectedLevel] = useState('All');
   const [selectedBuilding, setSelectedBuilding] = useState(null);
-  
+
   // Sidebar open/close state (hidden initially as per reference UI)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  
+
   // Coordinates and elevation tracked on mouse move
   const [hoveredCoords, setHoveredCoords] = useState({ lat: 0, lon: 0, elevation: 0 });
   const [isHovered, setIsHovered] = useState(false);
-  
+
   // Volume measurement states
   const [volumeToolActive, setVolumeToolActive] = useState(false);
   // Toast notifications
   const [toastMessage, setToastMessage] = useState(null);
 
   const showToast = (message) => {
-    if (!message) return;
-    const msgStr = typeof message === 'object' ? (message.message || JSON.stringify(message)) : String(message);
-    setToastMessage(msgStr);
-    setTimeout(() => {
-      setToastMessage(null);
-    }, 3000);
+    // Popup notifications disabled per request
+    return;
   };
 
   const toast = Object.assign(
@@ -305,10 +301,27 @@ function App() {
     return 'مركز أبوظبي الجغرافي';
   };
 
-  // AI Assistant Search state ('button' | 'bar' | 'panel')
+  // AI Assistant Search state ('button' | 'panel')
   const [aiState, setAiState] = useState('panel');
+  const [isAiClosing, setIsAiClosing] = useState(false);
   const isAISearchBarOpen = aiState === 'panel';
-  const setIsAISearchBarOpen = (open) => setAiState(open ? 'panel' : 'bar');
+
+  const handleCloseAiPanel = () => {
+    setIsAiClosing(true);
+    setTimeout(() => {
+      setAiState('button');
+      setIsAiClosing(false);
+    }, 300);
+  };
+
+  const setIsAISearchBarOpen = (open) => {
+    if (open) {
+      setIsAiClosing(false);
+      setAiState('panel');
+    } else {
+      handleCloseAiPanel();
+    }
+  };
   const [isAIPanelExpanded, setIsAIPanelExpanded] = useState(false);
   const [aiSearchQuery, setAiSearchQuery] = useState('');
   const [chatMessages, setChatMessages] = useState([
@@ -319,6 +332,8 @@ function App() {
   ]);
 
   const chatEndRef = useRef(null);
+  const aiPanelRef = useRef(null);
+
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chatMessages, isAISearchBarOpen]);
@@ -332,7 +347,7 @@ function App() {
   const [expandedCategory, setExpandedCategory] = useState('Education');
   const [categorySearchQuery, setCategorySearchQuery] = useState('');
   const [selectedSubcategories, setSelectedSubcategories] = useState({});
-  
+
   // Profile Dropdown state
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const profileMenuRef = useRef(null);
@@ -366,7 +381,7 @@ function App() {
   useEffect(() => {
     const handleClickOutsidePopover = (event) => {
       if (
-        leftPopoverRef.current && 
+        leftPopoverRef.current &&
         !leftPopoverRef.current.contains(event.target) &&
         !event.target.closest('.map-controls-left-strip')
       ) {
@@ -378,10 +393,10 @@ function App() {
     }
     return () => document.removeEventListener('mousedown', handleClickOutsidePopover);
   }, [activeLeftPopover]);
-  
+
   // Logs console
   const [logs, setLogs] = useState([]);
-  
+
   const mapContainerRef = useRef(null);
   const mapInstanceRef = useRef(null);
   const [clickPoints, setClickPoints] = useState([]);
@@ -394,7 +409,45 @@ function App() {
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [activeDetailTab, setActiveDetailTab] = useState('overview');
 
+  // Isolate AI Panel completely from Leaflet map dragging and mouse movements
+  useEffect(() => {
+    const el = aiPanelRef.current;
+    if (!el) return;
+
+    const stopEvt = (e) => {
+      e.stopPropagation();
+      if (e.stopImmediatePropagation) {
+        e.stopImmediatePropagation();
+      }
+    };
+
+    const events = [
+      'mousedown', 'mousemove', 'mouseup',
+      'pointerdown', 'pointermove', 'pointerup',
+      'click', 'dblclick', 'contextmenu',
+      'touchstart', 'touchmove', 'touchend', 'wheel'
+    ];
+
+    events.forEach(evt => {
+      el.addEventListener(evt, stopEvt, { capture: true });
+    });
+
+    if (window.L && window.L.DomEvent) {
+      try {
+        window.L.DomEvent.disableClickPropagation(el);
+        window.L.DomEvent.disableScrollPropagation(el);
+      } catch (err) {}
+    }
+
+    return () => {
+      events.forEach(evt => {
+        el.removeEventListener(evt, stopEvt, { capture: true });
+      });
+    };
+  }, [isAISearchBarOpen, isAiClosing, selectedLocation]);
+
   const handleUnifiedSearch = (searchOptions = {}) => {
+    setSelectedLocation(null);
     if (panelHeight <= 100) setPanelHeight(200);
     const { query = searchQuery, category = '' } = searchOptions;
     const cleanQuery = typeof query === 'string' ? query.trim() : '';
@@ -530,16 +583,16 @@ function App() {
     ]);
 
     setTimeout(() => {
-      setChatMessages(prev => prev.map(msg => 
-        msg.id === searchId 
+      setChatMessages(prev => prev.map(msg =>
+        msg.id === searchId
           ? {
-              sender: 'ai',
-              text: aiIntroText,
-              structuredResults: structuredResultsPayload,
-              isExpanded: true,
-              chips: radiusChips,
-              id: searchId
-            }
+            sender: 'ai',
+            text: aiIntroText,
+            structuredResults: structuredResultsPayload,
+            isExpanded: true,
+            chips: radiusChips,
+            id: searchId
+          }
           : msg
       ));
     }, 2000);
@@ -596,11 +649,11 @@ function App() {
   const getGeoValues = (svgX, svgY) => {
     const scaleX = 0.0001;
     const scaleY = -0.00008;
-    
+
     // Base coordinate on the center of the viewport (roughly 250, 200)
     const lat = activeProject.lat + (svgY - 200) * scaleY;
     const lon = activeProject.lon + (svgX - 250) * scaleX;
-    
+
     // Simulate elevation calculation based on proximity to topographical features
     // Uses simple wave equation centered at coordinate values
     const distCenter = Math.sqrt(Math.pow(svgX - 250, 2) + Math.pow(svgY - 200, 2));
@@ -608,7 +661,7 @@ function App() {
     const elevRange = activeProject.maxElevation - activeProject.minElevation;
     // Elev is highest in center, lowest at edges
     const elevation = activeProject.minElevation + (1 - normalizedDist) * elevRange + Math.sin(svgX / 20) * 3;
-    
+
     return {
       lat: parseFloat(lat.toFixed(6)),
       lon: parseFloat(lon.toFixed(6)),
@@ -621,11 +674,11 @@ function App() {
     const rect = mapContainerRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    
+
     // Keep within bounds
     const svgX = Math.max(0, Math.min(x, 500));
     const svgY = Math.max(0, Math.min(y, 400));
-    
+
     const geo = getGeoValues(svgX, svgY);
     setHoveredCoords(geo);
     setIsHovered(true);
@@ -640,10 +693,10 @@ function App() {
     const rect = mapContainerRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    
+
     const svgX = Math.max(0, Math.min(x, 500));
     const svgY = Math.max(0, Math.min(y, 400));
-    
+
     const geo = getGeoValues(svgX, svgY);
 
     if (volumeToolActive) {
@@ -662,22 +715,22 @@ function App() {
         // Set point B and calculate
         const pB = { x: svgX, y: svgY, ...geo };
         const pA = clickPoints[0];
-        
+
         // Calculate distance and volume
         const dx = pB.x - pA.x;
         const dy = pB.y - pA.y;
         const distancePx = Math.sqrt(dx * dx + dy * dy);
         const distanceM = parseFloat((distancePx * 0.45).toFixed(2)); // scale factor
-        
+
         // Calculate Cut/Fill (never zero!)
         const avgElev = (pA.elevation + pB.elevation) / 2;
         const elevDiff = Math.abs(pA.elevation - pB.elevation);
-        
+
         // Dynamic formula for Cut and Fill
         const baseArea = distanceM * 8.5; // width * path length
         const cutVol = parseFloat((baseArea * (elevDiff * 0.4 + 1.2)).toFixed(2));
         const fillVol = parseFloat((baseArea * (avgElev * 0.05 + 0.5)).toFixed(2));
-        
+
         setClickPoints([pA, pB]);
         setVolumeResult({
           distance: distanceM,
@@ -685,7 +738,7 @@ function App() {
           fillVolume: fillVol,
           netVolume: parseFloat((cutVol - fillVol).toFixed(2))
         });
-        
+
         addLog('Analysis', `Volume Analysis: Point B registered at Lat ${pB.lat}, Lon ${pB.lon}`, 'info');
         addLog('Analysis', `Volume Calculation Complete. Cut: ${cutVol} m³, Fill: ${fillVol} m³`, 'success');
         showToast("Volume calculation completed!");
@@ -758,7 +811,7 @@ function App() {
 
   return (
     <div className="app-container">
-      
+
       {/* HEADER SECTION (SHARED WITH HOME PAGE) */}
       <CommonHeader
         showMap={showMap}
@@ -791,22 +844,31 @@ function App() {
 
       {/* MAIN WORKSPACE */}
       <main className="main-content">
-        
+
         {/* SIDEBAR PANEL (TOGGLABLE) */}
         {isSidebarOpen && (
           <aside className="sidebar">
-            
+
             {/* TAB 0: SEARCH HISTORY (MATCHING CATEGORY PANEL GLASS STYLE & NOTCHED SHAPE) */}
             {activeTab === 'history' && (
-              <div className="search-history-left-panel">
+              <div
+            className="search-history-left-panel"
+            onMouseDown={(e) => e.stopPropagation()}
+            onMouseMove={(e) => e.stopPropagation()}
+            onMouseUp={(e) => e.stopPropagation()}
+            onPointerDown={(e) => e.stopPropagation()}
+            onPointerMove={(e) => e.stopPropagation()}
+            onPointerUp={(e) => e.stopPropagation()}
+            onWheel={(e) => e.stopPropagation()}
+          >
                 {/* DEDICATED PULSATING WHITE INNER GLOW OVERLAY */}
                 <div className="category-drawer-inner-glow" />
 
                 {/* Static White SVG Border Stroke Overlay matching Categories Panel */}
                 <div className="category-drawer-border-container">
                   <svg viewBox="0 0 1 1" preserveAspectRatio="none">
-                    <path 
-                      d="M 0,0.030 Q 0,0 0.04,0 L 0.28,0 Q 0.30,0 0.305,0.003 L 0.33,0.013 Q 0.34,0.015 0.35,0.015 L 0.65,0.015 Q 0.66,0.015 0.67,0.013 L 0.695,0.003 Q 0.70,0 0.72,0 L 0.96,0 Q 1,0 1,0.030 L 1,0.970 Q 1,1 0.96,1 L 0.72,1 Q 0.70,1 0.695,0.997 L 0.67,0.987 Q 0.66,0.985 0.65,0.985 L 0.35,0.985 Q 0.34,0.985 0.33,0.987 L 0.305,0.997 Q 0.30,1 0.28,1 L 0.04,1 Q 0,1 0,0.970 Z" 
+                    <path
+                      d="M 0,0.030 Q 0,0 0.04,0 L 0.28,0 Q 0.30,0 0.305,0.003 L 0.33,0.013 Q 0.34,0.015 0.35,0.015 L 0.65,0.015 Q 0.66,0.015 0.67,0.013 L 0.695,0.003 Q 0.70,0 0.72,0 L 0.96,0 Q 1,0 1,0.030 L 1,0.970 Q 1,1 0.96,1 L 0.72,1 Q 0.70,1 0.695,0.997 L 0.67,0.987 Q 0.66,0.985 0.65,0.985 L 0.35,0.985 Q 0.34,0.985 0.33,0.987 L 0.305,0.997 Q 0.30,1 0.28,1 L 0.04,1 Q 0,1 0,0.970 Z"
                       className="map-ai-panel-border-stroke"
                       vectorEffect="non-scaling-stroke"
                     />
@@ -816,7 +878,7 @@ function App() {
                 {/* SECTION TITLE & SIDEBAR TOGGLE ICON */}
                 <div className="search-history-title-row">
                   <h2 className="search-history-title">Search History</h2>
-                  <button 
+                  <button
                     className="search-history-toggle-btn"
                     onClick={() => setIsSidebarOpen(false)}
                     title="Toggle Side Panel"
@@ -827,8 +889,8 @@ function App() {
 
                 {/* SEARCH FILTER INPUT BAR */}
                 <div className="search-history-filter-box">
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     className="search-history-filter-input"
                     placeholder="Search"
                     value={historyFilterQuery}
@@ -837,51 +899,39 @@ function App() {
                   <Search size={16} className="search-history-filter-icon" />
                 </div>
 
-                {/* RECENT SEARCHES CARD CONTAINER */}
+                {/* RECENT SEARCHES CARD CONTAINER - DIRECT HISTORY LIST */}
                 <div className="search-history-card">
-                  {/* ACCORDION HEADER */}
-                  <div 
-                    className="search-history-accordion-header"
-                    onClick={() => setIsRecentAccordionOpen(prev => !prev)}
-                  >
-                    {isRecentAccordionOpen ? <ChevronDown size={14} color="#64748B" /> : <ChevronRight size={14} color="#64748B" />}
-                    <span>Recent</span>
+                  <div className="search-history-list">
+                    {searchHistory
+                      .filter(item => !historyFilterQuery || item.text.toLowerCase().includes(historyFilterQuery.toLowerCase()))
+                      .map((item) => {
+                        const isActive = activeHistoryId === item.id;
+                        return (
+                          <div
+                            key={item.id}
+                            className={`search-history-item ${isActive ? 'active-history-item' : ''}`}
+                            onClick={() => {
+                              setActiveHistoryId(item.id);
+                              handleUnifiedSearch({ query: item.text });
+                              setIsAISearchBarOpen(true);
+                              setPanelHeight(200);
+                            }}
+                          >
+                            <span className="search-history-item-text">{item.text}</span>
+                            {isActive && (
+                              <button
+                                className="search-history-item-more"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                }}
+                              >
+                                <MoreVertical size={14} color="#64748B" />
+                              </button>
+                            )}
+                          </div>
+                        );
+                      })}
                   </div>
-
-                  {/* SCROLLABLE HISTORY LIST */}
-                  {isRecentAccordionOpen && (
-                    <div className="search-history-list">
-                      {searchHistory
-                        .filter(item => !historyFilterQuery || item.text.toLowerCase().includes(historyFilterQuery.toLowerCase()))
-                        .map((item) => {
-                          const isActive = activeHistoryId === item.id;
-                          return (
-                            <div 
-                              key={item.id}
-                              className={`search-history-item ${isActive ? 'active-history-item' : ''}`}
-                              onClick={() => {
-                                setActiveHistoryId(item.id);
-                                handleUnifiedSearch({ query: item.text });
-                                setIsAISearchBarOpen(true);
-                                setPanelHeight(200);
-                              }}
-                            >
-                              <span className="search-history-item-text">{item.text}</span>
-                              {isActive && (
-                                <button 
-                                  className="search-history-item-more"
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                  }}
-                                >
-                                  <MoreVertical size={14} color="#64748B" />
-                                </button>
-                              )}
-                            </div>
-                          );
-                        })}
-                    </div>
-                  )}
                 </div>
               </div>
             )}
@@ -892,7 +942,7 @@ function App() {
                 {/* SECTION TITLE & SIDEBAR TOGGLE ICON */}
                 <div className="collections-title-row">
                   <h2 className="collections-title">My Collections</h2>
-                  <button 
+                  <button
                     className="collections-toggle-btn"
                     onClick={() => setIsSidebarOpen(false)}
                     title="Toggle Side Panel"
@@ -903,7 +953,7 @@ function App() {
 
                 {/* SUB-TABS: SAVED QUERIES & FAVORITES */}
                 <div className="collections-tab-switcher">
-                  <button 
+                  <button
                     className={`collections-tab-btn ${collectionsTab === 'queries' ? 'active' : ''}`}
                     onClick={() => setCollectionsTab('queries')}
                   >
@@ -911,7 +961,7 @@ function App() {
                     <span>Saved Queries</span>
                     <span className="collections-count-badge">{savedQueries.length}</span>
                   </button>
-                  <button 
+                  <button
                     className={`collections-tab-btn ${collectionsTab === 'favorites' ? 'active' : ''}`}
                     onClick={() => setCollectionsTab('favorites')}
                   >
@@ -923,8 +973,8 @@ function App() {
 
                 {/* SEARCH FILTER INPUT BAR */}
                 <div className="collections-filter-box">
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     className="collections-filter-input"
                     placeholder={collectionsTab === 'queries' ? "Search saved queries..." : "Search favorites..."}
                     value={collectionsFilterQuery}
@@ -940,8 +990,8 @@ function App() {
                       {savedQueries
                         .filter(item => !collectionsFilterQuery || item.title.toLowerCase().includes(collectionsFilterQuery.toLowerCase()) || item.category.toLowerCase().includes(collectionsFilterQuery.toLowerCase()))
                         .map((item) => (
-                          <div 
-                            key={item.id} 
+                          <div
+                            key={item.id}
                             className="collections-item"
                             onClick={() => {
                               handleUnifiedSearch({ query: item.title });
@@ -957,7 +1007,7 @@ function App() {
                                 <span className="collections-date">{item.date}</span>
                               </div>
                             </div>
-                            <button 
+                            <button
                               className="collections-item-action-btn"
                               title="Options"
                               onClick={(e) => {
@@ -980,8 +1030,8 @@ function App() {
                       {favoritesList
                         .filter(item => !collectionsFilterQuery || item.title.toLowerCase().includes(collectionsFilterQuery.toLowerCase()) || item.area.toLowerCase().includes(collectionsFilterQuery.toLowerCase()))
                         .map((item) => (
-                          <div 
-                            key={item.id} 
+                          <div
+                            key={item.id}
                             className="collections-item"
                             onClick={() => {
                               if (mapInstanceRef.current) {
@@ -1011,7 +1061,7 @@ function App() {
                                 <span className="collections-date">{item.area}</span>
                               </div>
                             </div>
-                            <button 
+                            <button
                               className="collections-item-action-btn"
                               title="Options"
                               onClick={(e) => {
@@ -1031,11 +1081,20 @@ function App() {
 
             {/* TAB: CATEGORIES */}
             {activeTab === 'categories' && (
-              <div className="categories-left-panel">
+              <div
+                className="categories-left-panel"
+                onMouseDown={(e) => e.stopPropagation()}
+                onMouseMove={(e) => e.stopPropagation()}
+                onMouseUp={(e) => e.stopPropagation()}
+                onPointerDown={(e) => e.stopPropagation()}
+                onPointerMove={(e) => e.stopPropagation()}
+                onPointerUp={(e) => e.stopPropagation()}
+                onWheel={(e) => e.stopPropagation()}
+              >
                 {/* SECTION TITLE & SIDEBAR TOGGLE ICON */}
                 <div className="categories-title-row">
                   <h2 className="categories-title">{t.categories || 'Categories'}</h2>
-                  <button 
+                  <button
                     className="categories-toggle-btn"
                     onClick={() => setIsSidebarOpen(false)}
                     title="Toggle Side Panel"
@@ -1046,8 +1105,8 @@ function App() {
 
                 {/* SEARCH FILTER INPUT BAR */}
                 <div className="categories-filter-box">
-                  <input 
-                    type="text" 
+                  <input
+                    type="text"
                     className="categories-filter-input"
                     placeholder="Search categories..."
                     value={categorySearchQuery}
@@ -1060,8 +1119,8 @@ function App() {
                 <div className="categories-card">
                   <div className="categories-accordion-list">
                     {CATEGORY_TREE
-                      .filter(cat => 
-                        !categorySearchQuery || 
+                      .filter(cat =>
+                        !categorySearchQuery ||
                         cat.name.toLowerCase().includes(categorySearchQuery.toLowerCase()) ||
                         cat.subcategories.some(sub => sub.toLowerCase().includes(categorySearchQuery.toLowerCase()))
                       )
@@ -1069,7 +1128,7 @@ function App() {
                         const isExpanded = expandedCategory === cat.name;
                         return (
                           <div key={cat.id} className="categories-accordion-item">
-                            <div 
+                            <div
                               className={`categories-accordion-header ${isExpanded ? 'expanded' : ''}`}
                               onClick={() => setExpandedCategory(isExpanded ? null : cat.name)}
                             >
@@ -1083,8 +1142,8 @@ function App() {
                             {isExpanded && (
                               <div className="categories-subcategories-list">
                                 {cat.subcategories.map(subcat => (
-                                  <div 
-                                    key={subcat} 
+                                  <div
+                                    key={subcat}
                                     className={`categories-subcat-item ${selectedSubcategories[subcat] ? 'active' : ''}`}
                                     onClick={() => {
                                       const nextState = !selectedSubcategories[subcat];
@@ -1120,7 +1179,7 @@ function App() {
             {activeTab !== 'history' && activeTab !== 'collections' && activeTab !== 'categories' && (
               <div className="project-card">
                 <span className="meta-label" style={{ marginBottom: '-4px' }}>Active WebScene Project</span>
-                <select 
+                <select
                   className="project-select"
                   value={selectedProjectId}
                   onChange={handleProjectChange}
@@ -1129,7 +1188,7 @@ function App() {
                     <option key={p.id} value={p.id}>{p.name}</option>
                   ))}
                 </select>
-                
+
                 <div className="meta-grid">
                   <div className="meta-item">
                     <span className="meta-label">Region</span>
@@ -1157,10 +1216,10 @@ function App() {
             {activeTab === 'layers' && (
               <div className="sidebar-section">
                 <span className="section-title">
-                  Operational Layers 
+                  Operational Layers
                   <Layers size={14} style={{ color: 'var(--text-muted)' }} />
                 </span>
-                
+
                 <div className="layer-list">
                   <div className={`layer-item ${layers.elevationSurface ? 'active' : ''}`}>
                     <div className="layer-info">
@@ -1168,10 +1227,10 @@ function App() {
                       <span>Elevation Surface (Contours)</span>
                     </div>
                     <label className="switch">
-                      <input 
-                        type="checkbox" 
-                        checked={layers.elevationSurface} 
-                        onChange={() => toggleLayer('elevationSurface')} 
+                      <input
+                        type="checkbox"
+                        checked={layers.elevationSurface}
+                        onChange={() => toggleLayer('elevationSurface')}
                       />
                       <span className="slider"></span>
                     </label>
@@ -1183,10 +1242,10 @@ function App() {
                       <span>Esri 3D Buildings (Multipatch)</span>
                     </div>
                     <label className="switch">
-                      <input 
-                        type="checkbox" 
-                        checked={layers.buildings3D} 
-                        onChange={() => toggleLayer('buildings3D')} 
+                      <input
+                        type="checkbox"
+                        checked={layers.buildings3D}
+                        onChange={() => toggleLayer('buildings3D')}
                       />
                       <span className="slider"></span>
                     </label>
@@ -1198,11 +1257,11 @@ function App() {
                       <span>BIM Architectural Sublayers</span>
                     </div>
                     <label className="switch">
-                      <input 
-                        type="checkbox" 
+                      <input
+                        type="checkbox"
                         disabled={!layers.buildings3D}
-                        checked={layers.bimSublayers && layers.buildings3D} 
-                        onChange={() => toggleLayer('bimSublayers')} 
+                        checked={layers.bimSublayers && layers.buildings3D}
+                        onChange={() => toggleLayer('bimSublayers')}
                       />
                       <span className="slider"></span>
                     </label>
@@ -1214,10 +1273,10 @@ function App() {
                       <span>Project Boundaries</span>
                     </div>
                     <label className="switch">
-                      <input 
-                        type="checkbox" 
-                        checked={layers.projectBoundary} 
-                        onChange={() => toggleLayer('projectBoundary')} 
+                      <input
+                        type="checkbox"
+                        checked={layers.projectBoundary}
+                        onChange={() => toggleLayer('projectBoundary')}
                       />
                       <span className="slider"></span>
                     </label>
@@ -1229,10 +1288,10 @@ function App() {
                       <span>Terrain slope Heatmap</span>
                     </div>
                     <label className="switch">
-                      <input 
-                        type="checkbox" 
-                        checked={layers.heatmapOverlay} 
-                        onChange={() => toggleLayer('heatmapOverlay')} 
+                      <input
+                        type="checkbox"
+                        checked={layers.heatmapOverlay}
+                        onChange={() => toggleLayer('heatmapOverlay')}
                       />
                       <span className="slider"></span>
                     </label>
@@ -1245,7 +1304,7 @@ function App() {
                 <span className="section-title">BIM Building Floor Slicer</span>
                 <p className="meta-label" style={{ padding: '0 16px', marginTop: '6px' }}>Filter visual rendering depth by active floor level</p>
                 <div className="levels-grid" style={{ padding: '0 16px' }}>
-                  <button 
+                  <button
                     className={`level-btn ${selectedLevel === 'All' ? 'active' : ''}`}
                     onClick={() => {
                       setSelectedLevel('All');
@@ -1255,7 +1314,7 @@ function App() {
                     All
                   </button>
                   {activeProject.levels.map(lvl => (
-                    <button 
+                    <button
                       key={lvl}
                       className={`level-btn ${selectedLevel === lvl ? 'active' : ''}`}
                       onClick={() => {
@@ -1274,13 +1333,13 @@ function App() {
             {activeTab === 'analysis' && (
               <div className="sidebar-section">
                 <span className="section-title">Volume Measurement Analysis</span>
-                
+
                 <div style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: '140%' }}>
                     Compute cut and fill volumes between coordinates on the current elevation surface.
                   </p>
-                  
-                  <button 
+
+                  <button
                     className={`tab-btn ${volumeToolActive ? 'active' : ''}`}
                     onClick={toggleVolumeTool}
                     style={{
@@ -1294,7 +1353,7 @@ function App() {
                       fontWeight: 'bold'
                     }}
                   >
-                    <Ruler size={16} /> 
+                    <Ruler size={16} />
                     {volumeToolActive ? 'Deactivate Volume Tool' : 'Activate Volume Tool'}
                   </button>
 
@@ -1358,7 +1417,7 @@ function App() {
                       <span>Cross Section (W-E)</span>
                       <span style={{ color: 'var(--accent-cyan)' }}>Active</span>
                     </div>
-                    
+
                     {/* SVG graph dynamically plots elevation profile from min/max elevation */}
                     <svg className="elevation-graph-svg" viewBox="0 0 100 40" preserveAspectRatio="none">
                       {(() => {
@@ -1375,10 +1434,10 @@ function App() {
                         return <path className="elevation-graph-path" d={d} />;
                       })()}
                     </svg>
-                    
+
                     <div className="elevation-profile-values">
                       <span>{activeProject.minElevation}m</span>
-                      <span>{((activeProject.minElevation + activeProject.maxElevation)/2).toFixed(1)}m</span>
+                      <span>{((activeProject.minElevation + activeProject.maxElevation) / 2).toFixed(1)}m</span>
                       <span>{activeProject.maxElevation}m</span>
                     </div>
                   </div>
@@ -1390,14 +1449,14 @@ function App() {
             {activeTab === 'projects' && (
               <div className="sidebar-section" style={{ padding: '16px' }}>
                 <span className="section-title" style={{ padding: 0, marginBottom: '12px' }}>Project Registry</span>
-                
+
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', lineHeight: '140%' }}>
                     Manage remote data endpoints and database connections for ArcGIS Server portal.
                   </p>
-                  
-                  <button 
-                    className="tab-btn" 
+
+                  <button
+                    className="tab-btn"
                     onClick={handleRefreshRegistry}
                     style={{
                       backgroundColor: 'rgba(255,255,255,0.05)',
@@ -1417,7 +1476,7 @@ function App() {
                 </div>
 
                 <div className="section-divider"></div>
-                
+
                 {selectedBuilding ? (
                   <div className="glass-panel" style={{ padding: '14px', backgroundColor: 'rgba(0,0,0,0.1)' }}>
                     <div style={{ fontSize: '0.8rem', fontWeight: 'bold', color: 'var(--accent-cyan)', marginBottom: '8px' }}>
@@ -1443,41 +1502,41 @@ function App() {
                     Select an architectural building component in the scene view map to inspect BIM sublayer attributes.
                   </p>
                 )}
-            </div>
-          )}
-        </aside>
+              </div>
+            )}
+          </aside>
         )}
 
         {/* MAP VIEWPORT SECTION (MATCHING REFERENCE UI) */}
         <section className="map-viewport-container">
-          
+
           {/* TOP-LEFT FLOATING CONTROLS: PANEL TOGGLE & ABU DHABI BADGE */}
-          <div 
-            className="map-controls-top-left" 
-            style={{ 
-              position: 'absolute', 
-              top: '80px', 
-              left: isSidebarOpen ? '380px' : '16px', 
-              zIndex: 1000, 
-              display: 'flex', 
-              alignItems: 'center', 
+          <div
+            className="map-controls-top-left"
+            style={{
+              position: 'absolute',
+              top: '76px',
+              left: isSidebarOpen ? 'calc(15% + 36px)' : '20px',
+              zIndex: 1000,
+              display: 'flex',
+              alignItems: 'center',
               gap: '10px',
               transition: 'left 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
             }}
           >
             {!isSidebarOpen && (
-              <button 
-                className="map-glass-icon-btn" 
+              <button
+                className="map-glass-icon-btn"
                 onClick={() => setIsSidebarOpen(true)}
                 title="Toggle Side Panel"
               >
                 <PanelLeft size={18} />
               </button>
             )}
-            <button 
+            <button
               className="map-location-badge"
               onClick={() => {
-                if (mapInstanceRef.current) mapInstanceRef.current.flyTo([24.4539, 54.3773], 12);
+                if (mapInstanceRef.current) mapInstanceRef.current.setView([24.4539, 54.3773], 12, { animate: true });
                 showToast("Centered on Abu Dhabi");
               }}
             >
@@ -1487,37 +1546,37 @@ function App() {
           </div>
 
           {/* LEFT FLOATING VERTICAL TOOLBAR STRIP */}
-          <div 
-            className="map-controls-left-strip" 
-            style={{ 
-              position: 'absolute', 
-              top: '128px', 
-              left: isSidebarOpen ? '380px' : '16px', 
-              zIndex: 1000, 
-              display: 'flex', 
-              flexDirection: 'column', 
+          <div
+            className="map-controls-left-strip"
+            style={{
+              position: 'absolute',
+              top: '124px',
+              left: isSidebarOpen ? 'calc(15% + 36px)' : '20px',
+              zIndex: 1000,
+              display: 'flex',
+              flexDirection: 'column',
               gap: '6px',
               transition: 'left 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
             }}
           >
 
-            <button 
-              className={`map-glass-icon-btn ${activeLeftPopover === 'basemap' ? 'active' : ''}`} 
-              title="Basemap Gallery" 
+            <button
+              className={`map-glass-icon-btn ${activeLeftPopover === 'basemap' ? 'active' : ''}`}
+              title="Basemap Gallery"
               onClick={() => setActiveLeftPopover(prev => prev === 'basemap' ? null : 'basemap')}
             >
               <Grid size={18} />
             </button>
-            <button 
-              className={`map-glass-icon-btn ${activeLeftPopover === 'legend' ? 'active' : ''}`} 
-              title="Legend & Analysis" 
+            <button
+              className={`map-glass-icon-btn ${activeLeftPopover === 'legend' ? 'active' : ''}`}
+              title="Legend & Analysis"
               onClick={() => setActiveLeftPopover(prev => prev === 'legend' ? null : 'legend')}
             >
               <List size={18} />
             </button>
-            <button 
-              className={`map-glass-icon-btn ${activeLeftPopover === 'draw' ? 'active' : ''}`} 
-              title="Measurement & Draw" 
+            <button
+              className={`map-glass-icon-btn ${activeLeftPopover === 'draw' ? 'active' : ''}`}
+              title="Measurement & Draw"
               onClick={() => setActiveLeftPopover(prev => prev === 'draw' ? null : 'draw')}
             >
               <Edit size={18} />
@@ -1526,13 +1585,13 @@ function App() {
 
           {/* FLOATING BASEMAP POPOVER CARD WITH 2 COLUMNS (MATCHING REFERENCE UI) */}
           {activeLeftPopover === 'basemap' && (
-            <div ref={leftPopoverRef} className="map-popover-card basemap-grid-popover" style={{ top: '128px', left: isSidebarOpen ? '426px' : '62px' }}>
+            <div ref={leftPopoverRef} className="map-popover-card basemap-grid-popover" style={{ top: '124px', left: isSidebarOpen ? 'calc(15% + 82px)' : '62px' }}>
               <div className="popover-header">
                 <h3>Basemap</h3>
               </div>
-              
+
               <div className="basemap-grid-2col">
-                <button 
+                <button
                   className={`basemap-card-2col ${activeBasemap === 'light' ? 'active' : ''}`}
                   onClick={() => {
                     setActiveBasemap('light');
@@ -1544,7 +1603,7 @@ function App() {
                   <span className="basemap-card-title">Light Gray</span>
                 </button>
 
-                <button 
+                <button
                   className={`basemap-card-2col ${activeBasemap === 'streets' ? 'active' : ''}`}
                   onClick={() => {
                     setActiveBasemap('streets');
@@ -1556,7 +1615,7 @@ function App() {
                   <span className="basemap-card-title">Streets</span>
                 </button>
 
-                <button 
+                <button
                   className={`basemap-card-2col ${activeBasemap === 'satellite' ? 'active' : ''}`}
                   onClick={() => {
                     setActiveBasemap('satellite');
@@ -1572,9 +1631,9 @@ function App() {
           )}
 
           {activeLeftPopover === 'draw' && (
-            <div ref={leftPopoverRef} className="map-popover-card" style={{ top: '208px', left: isSidebarOpen ? '426px' : '62px' }}>
+            <div ref={leftPopoverRef} className="map-popover-card" style={{ top: '204px', left: isSidebarOpen ? 'calc(15% + 82px)' : '62px' }}>
               <div className="popover-grid">
-                <button 
+                <button
                   className={`popover-tile ${activeDrawTool === 'circle' ? 'active' : ''}`}
                   onClick={() => {
                     setActiveDrawTool('circle');
@@ -1585,7 +1644,7 @@ function App() {
                   <Circle size={20} />
                   <span>Circle</span>
                 </button>
-                <button 
+                <button
                   className={`popover-tile ${activeDrawTool === 'rectangle' ? 'active' : ''}`}
                   onClick={() => {
                     setActiveDrawTool('rectangle');
@@ -1596,7 +1655,7 @@ function App() {
                   <Square size={20} />
                   <span>Rectangle</span>
                 </button>
-                <button 
+                <button
                   className={`popover-tile ${activeDrawTool === 'polygon' ? 'active' : ''}`}
                   onClick={() => {
                     setActiveDrawTool('polygon');
@@ -1607,7 +1666,7 @@ function App() {
                   <Pentagon size={20} />
                   <span>Polygon</span>
                 </button>
-                <button 
+                <button
                   className={`popover-tile ${activeDrawTool === 'click' ? 'active' : ''}`}
                   onClick={() => {
                     setActiveDrawTool('click');
@@ -1618,7 +1677,7 @@ function App() {
                   <MousePointer size={20} />
                   <span>Click</span>
                 </button>
-                <button 
+                <button
                   className={`popover-tile ${activeDrawTool === 'line' ? 'active' : ''}`}
                   onClick={() => {
                     setActiveDrawTool('line');
@@ -1629,7 +1688,7 @@ function App() {
                   <Minus size={20} style={{ transform: 'rotate(-45deg)' }} />
                   <span>Line</span>
                 </button>
-                <button 
+                <button
                   className={`popover-tile ${activeDrawTool === 'square' ? 'active' : ''}`}
                   onClick={() => {
                     setActiveDrawTool('square');
@@ -1645,7 +1704,7 @@ function App() {
           )}
 
           {activeLeftPopover === 'legend' && (
-            <div ref={leftPopoverRef} className="map-popover-card" style={{ top: '168px', left: isSidebarOpen ? '426px' : '62px', width: '280px' }}>
+            <div ref={leftPopoverRef} className="map-popover-card" style={{ top: '164px', left: isSidebarOpen ? 'calc(15% + 82px)' : '62px', width: '280px' }}>
               <div style={{ padding: '4px 2px' }}>
                 <h4 style={{ fontSize: '13px', fontWeight: '600', color: '#1E293B', marginBottom: '8px' }}>Map Legend & Layers</h4>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -1667,52 +1726,52 @@ function App() {
           )}
 
           {/* TOP-RIGHT FLOATING VERTICAL NAVIGATION STACK */}
-          <div 
-            className="map-controls-top-right" 
-            style={{ 
-              position: 'absolute', 
-              top: '80px', 
-              right: isCategoryDrawerOpen ? '380px' : '16px', 
-              zIndex: 1000, 
-              display: 'flex', 
-              flexDirection: 'column', 
+          <div
+            className="map-controls-top-right"
+            style={{
+              position: 'absolute',
+              top: '76px',
+              right: isCategoryDrawerOpen ? 'calc(15% + 36px)' : '20px',
+              zIndex: 1000,
+              display: 'flex',
+              flexDirection: 'column',
               gap: '6px',
               transition: 'right 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
             }}
           >
-            <button 
-              className="map-glass-icon-btn" 
-              title="Zoom In" 
-              onClick={() => { 
-                if (mapInstanceRef.current) mapInstanceRef.current.zoomIn(); 
-                showToast("Zoomed In"); 
+            <button
+              className="map-glass-icon-btn"
+              title="Zoom In"
+              onClick={() => {
+                if (mapInstanceRef.current) mapInstanceRef.current.zoomIn();
+                showToast("Zoomed In");
               }}
             >
               <ZoomIn size={18} />
             </button>
-            <button 
-              className="map-glass-icon-btn" 
-              title="Zoom Out" 
-              onClick={() => { 
-                if (mapInstanceRef.current) mapInstanceRef.current.zoomOut(); 
-                showToast("Zoomed Out"); 
+            <button
+              className="map-glass-icon-btn"
+              title="Zoom Out"
+              onClick={() => {
+                if (mapInstanceRef.current) mapInstanceRef.current.zoomOut();
+                showToast("Zoomed Out");
               }}
             >
               <ZoomOut size={18} />
             </button>
-            <button 
-              className="map-glass-icon-btn" 
-              title="Home View" 
-              onClick={() => { 
-                if (mapInstanceRef.current) mapInstanceRef.current.flyTo([24.4539, 54.3773], 12); 
-                showToast("Reset to Abu Dhabi Home View"); 
+            <button
+              className="map-glass-icon-btn"
+              title="Home View"
+              onClick={() => {
+                if (mapInstanceRef.current) mapInstanceRef.current.flyTo([24.4539, 54.3773], 12);
+                showToast("Reset to Abu Dhabi Home View");
               }}
             >
               <Home size={18} />
             </button>
-            <button 
-              className="map-glass-icon-btn" 
-              title="Compass / Orient North" 
+            <button
+              className="map-glass-icon-btn"
+              title="Compass / Orient North"
               onClick={() => showToast("Map Oriented North")}
             >
               <Compass size={18} />
@@ -1756,70 +1815,11 @@ function App() {
             </div>
           )}
 
-          {/* SYMBOLOGY MAP OVERLAY (REPLACING FILTER BADGE) */}
-          {(activeSearchFilterTag || activeSearchResults.length > 0) && (
-            <div 
-              className="map-symbology-overlay-card"
-              style={{
-                position: 'absolute',
-                top: '80px',
-                left: isSidebarOpen ? '350px' : '170px',
-                zIndex: 1000,
-                transition: 'left 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
-              }}
-            >
-              <div className="symbology-card-header">
-                <div className="symbology-header-title">
-                  <Layers size={14} style={{ color: '#2563EB' }} />
-                  <span>Symbology</span>
-                  {activeSearchFilterTag && (
-                    <span className="symbology-query-tag">: {activeSearchFilterTag.label}</span>
-                  )}
-                </div>
-                <button 
-                  className="symbology-close-btn"
-                  onClick={() => {
-                    setActiveSearchFilterTag(null);
-                    setActiveSearchResults([]);
-                    setSelectedLocation(null);
-                    showToast("Cleared Search & Symbology");
-                  }}
-                  title="Clear Symbology Filter"
-                >
-                  <X size={13} />
-                </button>
-              </div>
-              <div className="symbology-card-body">
-                {(() => {
-                  const categoriesInResults = Array.from(new Set(activeSearchResults.map(item => item.category)));
-                  const categoryColors = {
-                    Education: '#1d68f2',
-                    Healthcare: '#10b981',
-                    Government: '#6366f1',
-                    Park: '#059669',
-                    Transportation: '#f59e0b',
-                    Tourism: '#06b6d4',
-                    Utilities: '#6366f1'
-                  };
-                  return (categoriesInResults.length > 0 ? categoriesInResults : ['Education', 'Healthcare']).map(cat => {
-                    const count = activeSearchResults.filter(item => item.category === cat).length;
-                    const color = categoryColors[cat] || '#1d68f2';
-                    return (
-                      <div key={cat} className="symbology-item">
-                        <span className="symbology-color-dot" style={{ background: color }} />
-                        <span className="symbology-item-name">{cat}</span>
-                        {count > 0 && <span className="symbology-item-count">({count})</span>}
-                      </div>
-                    );
-                  });
-                })()}
-              </div>
-            </div>
-          )}
+
 
           {/* DYNAMIC LEAFLET MAP VIEWPORT */}
-          <div 
-            className="map-canvas-container" 
+          <div
+            className="map-canvas-container"
             style={{ width: '100%', height: '100%', position: 'relative' }}
           >
             <LeafletMap
@@ -1845,28 +1845,44 @@ function App() {
           </div>
 
           {/* FLOATING GEOVISION AI SPATIAL SEARCH PANEL */}
-          {isAISearchBarOpen ? (
-            <div 
-              className={`landing-search-card-wrapper map-ai-panel-wrapper ${selectedLocation ? 'expanded-info' : ''} ${!isSidebarOpen ? 'sidebar-collapsed' : ''}`}
+          {(isAISearchBarOpen || isAiClosing) ? (
+            <div
+              ref={aiPanelRef}
+              className={`landing-search-card-wrapper map-ai-panel-wrapper ${isAiClosing ? 'mac-closing' : ''} ${selectedLocation ? 'expanded-info' : ''} ${!isSidebarOpen ? 'sidebar-collapsed' : ''}`}
+              onMouseDownCapture={(e) => e.stopPropagation()}
+              onMouseMoveCapture={(e) => e.stopPropagation()}
+              onMouseUpCapture={(e) => e.stopPropagation()}
+              onPointerDownCapture={(e) => e.stopPropagation()}
+              onPointerMoveCapture={(e) => e.stopPropagation()}
+              onPointerUpCapture={(e) => e.stopPropagation()}
+              onClickCapture={(e) => e.stopPropagation()}
+              onWheelCapture={(e) => e.stopPropagation()}
+              onMouseDown={(e) => e.stopPropagation()}
+              onMouseMove={(e) => e.stopPropagation()}
+              onMouseUp={(e) => e.stopPropagation()}
+              onPointerDown={(e) => e.stopPropagation()}
+              onPointerMove={(e) => e.stopPropagation()}
+              onPointerUp={(e) => e.stopPropagation()}
+              onWheel={(e) => e.stopPropagation()}
+              onDoubleClick={(e) => e.stopPropagation()}
               style={{
                 position: 'absolute',
                 bottom: '0px',
                 marginBottom: '0px',
                 left: '50%',
                 transform: 'translateX(-50%)',
-                width: selectedLocation ? '85%' : '60%',
-                maxWidth: selectedLocation ? '1100px' : '780px',
+                width: selectedLocation ? 'calc(100vw - 36vw)' : '52%',
+                maxWidth: selectedLocation ? 'calc(100vw - 36vw)' : '720px',
                 zIndex: 1000,
                 transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
               }}
             >
-              {/* SVG CLIP PATH AND STROKE OVERLAY PRESERVING EXACT NOTCH DEPTH AND CORNER RADIUS IN BOTH MINIMIZED & EXPANDED STATES */}
+              {/* SVG CLIP PATH AND STROKE OVERLAY PRESERVING EXACT NOTCH DEPTH AND CORNER RADIUS */}
               {(() => {
-                const isMinimized = panelHeight <= 100;
-                const yCorner = isMinimized ? 0.1846 : 0.0400;
-                const yNotch = isMinimized ? 0.2307 : 0.0500;
-                const yNotchSlope = isMinimized ? 0.2077 : 0.0450;
-                const yNotchEntry = isMinimized ? 0.0462 : 0.0100;
+                const yCorner = 0.0400;
+                const yNotch = 0.0500;
+                const yNotchSlope = 0.0450;
+                const yNotchEntry = 0.0100;
                 const notchClipD = `M 0,1 L 0,${yCorner} Q 0,0 0.031,0 L 0.29,0 Q 0.30,0 0.305,${yNotchEntry} L 0.31875,${yNotchSlope} Q 0.322,${yNotch} 0.328,${yNotch} L 0.672,${yNotch} Q 0.678,${yNotch} 0.68125,${yNotchSlope} L 0.695,${yNotchEntry} Q 0.70,0 0.71,0 L 0.969,0 Q 1,0 1,${yCorner} L 1,1 Z`;
                 const notchStrokeD = `M 0,1 L 0,${yCorner} Q 0,0 0.031,0 L 0.29,0 Q 0.30,0 0.305,${yNotchEntry} L 0.31875,${yNotchSlope} Q 0.322,${yNotch} 0.328,${yNotch} L 0.672,${yNotch} Q 0.678,${yNotch} 0.68125,${yNotchSlope} L 0.695,${yNotchEntry} Q 0.70,0 0.71,0 L 0.969,0 Q 1,0 1,${yCorner} L 1,1`;
 
@@ -1887,8 +1903,8 @@ function App() {
                     {/* PANEL OUTER STROKE SVG OVERLAY INCLUDING 24PX CORNERS & MIDDLE NOTCH DIP */}
                     <div className="map-ai-panel-border-container">
                       <svg viewBox="0 0 1 1" preserveAspectRatio="none">
-                        <path 
-                          d={notchStrokeD} 
+                        <path
+                          d={notchStrokeD}
                           className="map-ai-panel-border-stroke"
                           vectorEffect="non-scaling-stroke"
                         />
@@ -1899,28 +1915,23 @@ function App() {
               })()}
 
               {/* TOP CENTER COLLAPSE HANDLE */}
-              <div 
-                className="map-ai-panel-collapse-handle" 
+              <div
+                className="map-ai-panel-collapse-handle"
                 onClick={(e) => {
                   e.stopPropagation();
-                  if (panelHeight <= 100) {
-                    setPanelHeight(200);
-                  } else {
-                    setPanelHeight(72);
-                  }
+                  handleCloseAiPanel();
                 }}
-                title="Click to toggle expand/collapse"
+                title="Click to close AI panel"
               >
                 <div className="drag-pill-indicator"></div>
-                {panelHeight <= 100 ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
+                <ChevronDown size={16} />
               </div>
 
-              <div 
+              <div
                 className="map-ai-panel-container landing-search-card"
                 style={{
-                  height: panelHeight <= 100 ? '130px' : '60vh',
+                  height: '60vh',
                   overflow: 'visible',
-                  transition: 'height 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
                   userSelect: 'auto',
                   width: '100%',
                   margin: 0,
@@ -1936,8 +1947,8 @@ function App() {
                   {/* LEFT COLUMN: CHAT STREAM & INPUT BAR */}
                   <div className="map-ai-panel-left-col" style={{ display: 'flex', flexDirection: 'column', height: '100%', flex: 1, justifyContent: 'space-between', margin: 0, padding: 0 }}>
                     {/* PANEL HEADER (INSIDE LEFT COLUMN ONLY) */}
-                    <div className="map-ai-panel-header" style={{ 
-                      opacity: 1, 
+                    <div className="map-ai-panel-header" style={{
+                      opacity: 1,
                       maxHeight: '60px',
                       overflow: 'visible',
                       transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
@@ -1951,8 +1962,8 @@ function App() {
                         <span>AI Spatial Search</span>
                       </div>
                       <div className="map-ai-dock" onMouseLeave={() => setHoveredDockIndex(null)}>
-                        <button 
-                          className="map-ai-dock-item" 
+                        <button
+                          className="map-ai-dock-item"
                           title="Search History"
                           onMouseEnter={() => setHoveredDockIndex(0)}
                           onClick={() => {
@@ -1964,9 +1975,9 @@ function App() {
                           <Clock size={16} />
                           <span className="dock-label">History</span>
                         </button>
-                        
-                        <button 
-                          className="map-ai-dock-item" 
+
+                        <button
+                          className="map-ai-dock-item"
                           title="Quick Start"
                           onMouseEnter={() => setHoveredDockIndex(1)}
                           onClick={() => handleUnifiedSearch({ query: 'schools & hospitals' })}
@@ -1974,11 +1985,11 @@ function App() {
                           <Search size={16} />
                           <span className="dock-label">Quick Start</span>
                         </button>
-                        
+
                         <div className="map-ai-dock-divider"></div>
-                        
-                        <button 
-                          className="map-ai-dock-item" 
+
+                        <button
+                          className="map-ai-dock-item"
                           title="Start New Chat"
                           onMouseEnter={() => setHoveredDockIndex(2)}
                           onClick={() => {
@@ -1999,235 +2010,234 @@ function App() {
                     </div>
 
                     {/* MIDDLE CHAT / CONVERSATION STREAM AREA */}
-                    <div className="map-ai-panel-body" style={{ 
-                      opacity: panelHeight <= 100 ? 0 : 1, 
-                      flex: panelHeight <= 100 ? '0 0 0px' : 1,
-                      margin: panelHeight <= 100 ? 0 : '4px 0',
-                      padding: panelHeight <= 100 ? 0 : '4px 4px 0px 4px',
-                      overflow: panelHeight <= 100 ? 'hidden' : 'auto',
-                      transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
-                      position: 'relative' 
+                    <div className="map-ai-panel-body" style={{
+                      opacity: 1,
+                      flex: 1,
+                      margin: '4px 0',
+                      padding: '4px 4px 0px 4px',
+                      overflow: 'auto',
+                      position: 'relative'
                     }}>
 
                       <div className="map-ai-chat-stream">
                         {chatMessages
-                      .filter(msg => {
-                        const isRedundantSpec = msg.text && msg.text.includes('Here are the detailed spatial specifications');
-                        if (isRedundantSpec && !msg.structuredResults && (!msg.chips || msg.chips.length === 0)) {
-                          return false;
-                        }
-                        return true;
-                      })
-                      .map((msg, idx) => (
-                        <div key={idx} className="chat-bubble-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '6px', width: '100%' }}>
-                          <div className={`chat-bubble ${msg.sender}`}>
-                            {msg.sender === 'ai' && (
-                              <div className="chat-avatar ai-avatar">
-                                <img src={aiIcon} alt="AI" className="chat-avatar-img" />
-                              </div>
-                            )}
-
-                            <div className="chat-bubble-content" style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                              {msg.isSearching ? (
-                                <div className="typing-indicator">
-                                  <span className="typing-dot"></span>
-                                  <span className="typing-dot"></span>
-                                  <span className="typing-dot"></span>
-                                </div>
-                              ) : msg.text && !msg.text.includes('Here are the detailed spatial specifications') ? (
-                                <div>{msg.text}</div>
-                              ) : null}
-
-                            {/* Structured Results Card Header & Body */}
-                            {msg.structuredResults && (
-                              <div className="structured-results-card">
-                                {/* Header Accordion */}
-                                <div className="structured-results-header">
-                                  <div className="structured-results-title-group">
-                                    <button 
-                                      className="structured-expand-btn"
-                                      onClick={() => {
-                                        setChatMessages(prev => prev.map((m, i) => i === idx ? { ...m, isExpanded: !m.isExpanded } : m));
-                                      }}
-                                    >
-                                      {msg.isExpanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
-                                    </button>
-                                    {msg.structuredResults.category === 'Healthcare' ? <Heart size={15} className="structured-cat-icon" /> :
-                                     msg.structuredResults.category === 'Park' ? <Trees size={15} className="structured-cat-icon" /> :
-                                     msg.structuredResults.category === 'Transportation' ? <Car size={15} className="structured-cat-icon" /> :
-                                     msg.structuredResults.category === 'Government' ? <Building size={15} className="structured-cat-icon" /> :
-                                     <GraduationCap size={15} className="structured-cat-icon" />}
-                                    <span className="structured-main-title">{msg.structuredResults.title}</span>
+                          .filter(msg => {
+                            const isRedundantSpec = msg.text && msg.text.includes('Here are the detailed spatial specifications');
+                            if (isRedundantSpec && !msg.structuredResults && (!msg.chips || msg.chips.length === 0)) {
+                              return false;
+                            }
+                            return true;
+                          })
+                          .map((msg, idx) => (
+                            <div key={idx} className="chat-bubble-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '6px', width: '100%' }}>
+                              <div className={`chat-bubble ${msg.sender}`}>
+                                {msg.sender === 'ai' && (
+                                  <div className="chat-avatar ai-avatar">
+                                    <img src={aiIcon} alt="AI" className="chat-avatar-img" />
                                   </div>
+                                )}
 
-                                  <button 
-                                    className="structured-view-all-btn"
-                                    onClick={() => {
-                                      setChatMessages(prev => prev.map((m, i) => i === idx ? { ...m, isExpanded: !m.isExpanded } : m));
-                                    }}
-                                  >
-                                    View all
-                                  </button>
+                                <div className="chat-bubble-content" style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                                  {msg.isSearching ? (
+                                    <div className="typing-indicator">
+                                      <span className="typing-dot"></span>
+                                      <span className="typing-dot"></span>
+                                      <span className="typing-dot"></span>
+                                    </div>
+                                  ) : msg.text && !msg.text.includes('Here are the detailed spatial specifications') ? (
+                                    <div>{msg.text}</div>
+                                  ) : null}
+
+                                  {/* Structured Results Card Header & Body */}
+                                  {msg.structuredResults && (
+                                    <div className="structured-results-card">
+                                      {/* Header Accordion */}
+                                      <div className="structured-results-header">
+                                        <div className="structured-results-title-group">
+                                          <button
+                                            className="structured-expand-btn"
+                                            onClick={() => {
+                                              setChatMessages(prev => prev.map((m, i) => i === idx ? { ...m, isExpanded: !m.isExpanded } : m));
+                                            }}
+                                          >
+                                            {msg.isExpanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
+                                          </button>
+                                          {msg.structuredResults.category === 'Healthcare' ? <Heart size={15} className="structured-cat-icon" /> :
+                                            msg.structuredResults.category === 'Park' ? <Trees size={15} className="structured-cat-icon" /> :
+                                              msg.structuredResults.category === 'Transportation' ? <Car size={15} className="structured-cat-icon" /> :
+                                                msg.structuredResults.category === 'Government' ? <Building size={15} className="structured-cat-icon" /> :
+                                                  <GraduationCap size={15} className="structured-cat-icon" />}
+                                          <span className="structured-main-title">{msg.structuredResults.title}</span>
+                                        </div>
+
+                                        <button
+                                          className="structured-view-all-btn"
+                                          onClick={() => {
+                                            setChatMessages(prev => prev.map((m, i) => i === idx ? { ...m, isExpanded: !m.isExpanded } : m));
+                                          }}
+                                        >
+                                          View all
+                                        </button>
+                                      </div>
+
+                                      {/* Expanded Body: Subcategory Tabs & Scrollable Item List */}
+                                      {msg.isExpanded && (
+                                        <div className="structured-results-body">
+                                          {msg.structuredResults.tabs && msg.structuredResults.tabs.length > 0 && (
+                                            <div className="structured-tabs-bar">
+                                              {msg.structuredResults.tabs.map(tab => (
+                                                <button
+                                                  key={tab.id}
+                                                  className={`structured-tab-btn ${msg.structuredResults.activeTabId === tab.id ? 'active' : ''}`}
+                                                  onClick={() => {
+                                                    setChatMessages(prev => prev.map((m, i) => {
+                                                      if (i === idx) {
+                                                        return {
+                                                          ...m,
+                                                          structuredResults: { ...m.structuredResults, activeTabId: tab.id }
+                                                        };
+                                                      }
+                                                      return m;
+                                                    }));
+                                                  }}
+                                                >
+                                                  {tab.name}
+                                                </button>
+                                              ))}
+                                            </div>
+                                          )}
+
+                                          <div className="structured-items-list">
+                                            {msg.structuredResults.items
+                                              .filter(item => !msg.structuredResults.activeTabId || item.subcategory === msg.structuredResults.activeTabId)
+                                              .map(item => (
+                                                <div
+                                                  key={item.id}
+                                                  className={`structured-item-card ${selectedLocation && selectedLocation.id === item.id ? 'active-selected' : ''}`}
+                                                  onClick={() => {
+                                                    setSelectedLocation({ ...item, locateTrigger: Date.now() });
+                                                  }}
+                                                >
+                                                  <div className="structured-item-info">
+                                                    <div className="structured-item-title">{item.title}</div>
+                                                    {item.arabicTitle && <div className="structured-item-arabic">{item.arabicTitle}</div>}
+                                                  </div>
+
+                                                  <div className="structured-item-actions">
+                                                    <button
+                                                      className={`structured-action-icon ${item.isFavorite ? 'fav' : ''}`}
+                                                      title="Favorite"
+                                                      onClick={() => {
+                                                        setChatMessages(prev => prev.map((m, i) => {
+                                                          if (i === idx) {
+                                                            const newItems = m.structuredResults.items.map(it => it.id === item.id ? { ...it, isFavorite: !it.isFavorite } : it);
+                                                            return { ...m, structuredResults: { ...m.structuredResults, items: newItems } };
+                                                          }
+                                                          return m;
+                                                        }));
+                                                        showToast(item.isFavorite ? "Removed from Favorites" : "Saved to Favorites");
+                                                      }}
+                                                    >
+                                                      <Heart size={14} fill={item.isFavorite ? "#EF4444" : "none"} color={item.isFavorite ? "#EF4444" : "#64748B"} />
+                                                    </button>
+
+                                                    <button
+                                                      className="structured-action-icon"
+                                                      title="View Info"
+                                                      onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        setSelectedLocation({ ...item, locateTrigger: Date.now() });
+                                                        showToast(`Loaded details for ${item.title}`);
+                                                      }}
+                                                    >
+                                                      <Info size={14} color="#64748B" />
+                                                    </button>
+
+                                                    <button
+                                                      className="structured-action-icon"
+                                                      title="Locate on Map"
+                                                      onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        setSelectedLocation({ ...item, locateTrigger: Date.now() });
+                                                        showToast(`Located ${item.title} on Map`);
+                                                      }}
+                                                    >
+                                                      <Search size={14} color="#64748B" />
+                                                    </button>
+                                                  </div>
+                                                </div>
+                                              ))}
+                                          </div>
+                                        </div>
+                                      )}
+                                    </div>
+                                  )}
                                 </div>
 
-                                {/* Expanded Body: Subcategory Tabs & Scrollable Item List */}
-                                {msg.isExpanded && (
-                                  <div className="structured-results-body">
-                                    {msg.structuredResults.tabs && msg.structuredResults.tabs.length > 0 && (
-                                      <div className="structured-tabs-bar">
-                                        {msg.structuredResults.tabs.map(tab => (
-                                          <button 
-                                            key={tab.id}
-                                            className={`structured-tab-btn ${msg.structuredResults.activeTabId === tab.id ? 'active' : ''}`}
-                                            onClick={() => {
-                                              setChatMessages(prev => prev.map((m, i) => {
-                                                if (i === idx) {
-                                                  return {
-                                                    ...m,
-                                                    structuredResults: { ...m.structuredResults, activeTabId: tab.id }
-                                                  };
-                                                }
-                                                return m;
-                                              }));
-                                            }}
-                                          >
-                                            {tab.name}
-                                          </button>
-                                        ))}
-                                      </div>
-                                    )}
-
-                                    <div className="structured-items-list">
-                                      {msg.structuredResults.items
-                                        .filter(item => !msg.structuredResults.activeTabId || item.subcategory === msg.structuredResults.activeTabId)
-                                        .map(item => (
-                                          <div 
-                                            key={item.id} 
-                                            className={`structured-item-card ${selectedLocation && selectedLocation.id === item.id ? 'active-selected' : ''}`}
-                                            onClick={() => {
-                                              setSelectedLocation({ ...item, locateTrigger: Date.now() });
-                                            }}
-                                          >
-                                            <div className="structured-item-info">
-                                              <div className="structured-item-title">{item.title}</div>
-                                              {item.arabicTitle && <div className="structured-item-arabic">{item.arabicTitle}</div>}
-                                            </div>
-
-                                            <div className="structured-item-actions">
-                                              <button 
-                                                className={`structured-action-icon ${item.isFavorite ? 'fav' : ''}`}
-                                                title="Favorite"
-                                                onClick={() => {
-                                                  setChatMessages(prev => prev.map((m, i) => {
-                                                    if (i === idx) {
-                                                      const newItems = m.structuredResults.items.map(it => it.id === item.id ? { ...it, isFavorite: !it.isFavorite } : it);
-                                                      return { ...m, structuredResults: { ...m.structuredResults, items: newItems } };
-                                                    }
-                                                    return m;
-                                                  }));
-                                                  showToast(item.isFavorite ? "Removed from Favorites" : "Saved to Favorites");
-                                                }}
-                                              >
-                                                <Heart size={14} fill={item.isFavorite ? "#EF4444" : "none"} color={item.isFavorite ? "#EF4444" : "#64748B"} />
-                                              </button>
-
-                                              <button 
-                                                className="structured-action-icon"
-                                                title="View Info"
-                                                onClick={(e) => {
-                                                  e.stopPropagation();
-                                                  setSelectedLocation({ ...item, locateTrigger: Date.now() });
-                                                  showToast(`Loaded details for ${item.title}`);
-                                                }}
-                                              >
-                                                <Info size={14} color="#64748B" />
-                                              </button>
-
-                                              <button 
-                                                className="structured-action-icon"
-                                                title="Locate on Map"
-                                                onClick={(e) => {
-                                                  e.stopPropagation();
-                                                  setSelectedLocation({ ...item, locateTrigger: Date.now() });
-                                                  showToast(`Located ${item.title} on Map`);
-                                                }}
-                                              >
-                                                <Search size={14} color="#64748B" />
-                                              </button>
-                                            </div>
-                                          </div>
-                                        ))}
-                                    </div>
+                                {msg.sender === 'user' && (
+                                  <div className="chat-avatar user-avatar">
+                                    <User size={14} className="chat-avatar-icon" />
                                   </div>
                                 )}
                               </div>
-                            )}
-                          </div>
 
-                          {msg.sender === 'user' && (
-                            <div className="chat-avatar user-avatar">
-                              <User size={14} className="chat-avatar-icon" />
+                              {/* Radius Chips Below AI Bubble */}
+                              {msg.chips && msg.chips.length > 0 && (
+                                <div className="structured-radius-chips">
+                                  {msg.chips.map((chip, cIdx) => (
+                                    <button
+                                      key={cIdx}
+                                      className="structured-radius-chip-btn"
+                                      onClick={() => handleUnifiedSearch({ query: chip.query })}
+                                    >
+                                      <span>{chip.label}</span>
+                                    </button>
+                                  ))}
+                                </div>
+                              )}
                             </div>
-                          )}
-                        </div>
-
-                        {/* Radius Chips Below AI Bubble */}
-                        {msg.chips && msg.chips.length > 0 && (
-                          <div className="structured-radius-chips">
-                            {msg.chips.map((chip, cIdx) => (
-                              <button 
-                                key={cIdx} 
-                                className="structured-radius-chip-btn"
-                                onClick={() => handleUnifiedSearch({ query: chip.query })}
-                              >
-                                <span>{chip.label}</span>
-                              </button>
-                            ))}
-                          </div>
-                        )}
+                          ))}
+                        <div ref={chatEndRef} />
                       </div>
-                    ))}
-                    <div ref={chatEndRef} />
-                  </div>
-                </div>
+                    </div>
 
-                {/* BOTTOM SEARCH INPUT BAR (HOMEPAGE SEARCH BAR UI) */}
-                <form 
-                  className="landing-search-container" 
-                  style={{ margin: '0 2px 4px 2px', width: 'calc(100% - 4px)', maxWidth: '100%', flex: '0 0 54px', height: '54px', minHeight: '54px', maxHeight: '54px' }}
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    if (aiSearchQuery.trim()) {
-                      handleUnifiedSearch({ query: aiSearchQuery });
-                      setAiSearchQuery('');
-                    }
-                  }}
-                >
-                  <div className="search-star-loader-wrapper">
-                    <div className="search-star-loader"></div>
-                    <FourPointStar className="landing-search-sparkle" size={16} />
-                  </div>
-                  <div className="landing-search-separator" />
-                  <input 
-                    type="text" 
-                    className="landing-search-input" 
-                    placeholder={t.searchPlaceholder || 'Ask Smart Map Anything About Places, Services, Or Locations...'}
-                    value={aiSearchQuery}
-                    onChange={(e) => setAiSearchQuery(e.target.value)}
-                    onFocus={() => { if (panelHeight <= 100) setPanelHeight(200); }}
-                    autoFocus
-                  />
-                  <div className="landing-search-btn-wrapper">
-                    <button type="submit" className="landing-search-btn-pill" disabled={!aiSearchQuery.trim()}>
-                      <span className="search-btn-text">{t.searchBtn || 'Search'}</span>
-                      <Send size={15} className="search-btn-icon" style={{ transform: lang === 'ar' ? 'scaleX(-1)' : 'none' }} />
-                    </button>
-                  </div>
-                </form>
+                    {/* BOTTOM SEARCH INPUT BAR (HOMEPAGE SEARCH BAR UI) */}
+                    <form
+                      className="landing-search-container"
+                      style={{ margin: '0 2px 4px 2px', width: 'calc(100% - 4px)', maxWidth: '100%', flex: '0 0 54px', height: '54px', minHeight: '54px', maxHeight: '54px' }}
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        if (aiSearchQuery.trim()) {
+                          handleUnifiedSearch({ query: aiSearchQuery });
+                          setAiSearchQuery('');
+                        }
+                      }}
+                    >
+                      <div className="search-star-loader-wrapper">
+                        <div className="search-star-loader"></div>
+                        <FourPointStar className="landing-search-sparkle" size={16} />
+                      </div>
+                      <div className="landing-search-separator" />
+                      <input
+                        type="text"
+                        className="landing-search-input"
+                        placeholder={t.searchPlaceholder || 'Ask Smart Map Anything About Places, Services, Or Locations...'}
+                        value={aiSearchQuery}
+                        onChange={(e) => setAiSearchQuery(e.target.value)}
+                        onFocus={() => { if (panelHeight <= 100) setPanelHeight(200); }}
+                        autoFocus
+                      />
+                      <div className="landing-search-btn-wrapper">
+                        <button type="submit" className="landing-search-btn-pill" disabled={!aiSearchQuery.trim()}>
+                          <span className="search-btn-text">{t.searchBtn || 'Search'}</span>
+                          <Send size={15} className="search-btn-icon" style={{ transform: lang === 'ar' ? 'scaleX(-1)' : 'none' }} />
+                        </button>
+                      </div>
+                    </form>
                   </div>
 
                   {/* RIGHT COLUMN: DETAILED INFORMATION PANEL (MATCHING REFERENCE IMAGE 2) */}
-                  {selectedLocation && (
+                  {isAISearchBarOpen && selectedLocation && (
                     <div className="map-ai-panel-right-col" style={{
                       opacity: panelHeight <= 100 ? 0 : 1,
                       maxWidth: panelHeight <= 100 ? 0 : '380px',
@@ -2241,7 +2251,7 @@ function App() {
                     }}>
                       <div className="detailed-info-header">
                         <span className="detailed-info-title-badge">Detailed Information</span>
-                        <button 
+                        <button
                           className="detailed-info-close-btn"
                           onClick={() => setSelectedLocation(null)}
                           title="Close details"
@@ -2258,7 +2268,7 @@ function App() {
                           )}
                         </div>
                         <div className="detailed-info-quick-actions">
-                          <button 
+                          <button
                             className="detailed-info-action-icon"
                             title="Favorite"
                             onClick={() => {
@@ -2269,7 +2279,7 @@ function App() {
                           >
                             <Heart size={14} fill={selectedLocation.isFavorite ? "#EF4444" : "none"} color={selectedLocation.isFavorite ? "#EF4444" : "#64748B"} />
                           </button>
-                          <button 
+                          <button
                             className="detailed-info-action-icon"
                             title="Locate on Map"
                             onClick={() => {
@@ -2286,13 +2296,13 @@ function App() {
 
                       {/* OVERVIEW / DETAILS TABS */}
                       <div className="detailed-info-tabs">
-                        <button 
+                        <button
                           className={`detailed-info-tab-btn ${activeDetailTab === 'overview' ? 'active' : ''}`}
                           onClick={() => setActiveDetailTab('overview')}
                         >
                           Overview
                         </button>
-                        <button 
+                        <button
                           className={`detailed-info-tab-btn ${activeDetailTab === 'details' ? 'active' : ''}`}
                           onClick={() => setActiveDetailTab('details')}
                         >
@@ -2361,7 +2371,7 @@ function App() {
             </div>
           ) : aiState === 'bar' ? (
             /* STAGE 2: FLOATING BOTTOM-CENTER AI SEARCH BAR */
-            <div 
+            <div
               className="map-bottom-ai-search-wrapper"
               style={{
                 position: 'absolute',
@@ -2373,8 +2383,8 @@ function App() {
                 maxWidth: '680px'
               }}
             >
-              <form 
-                className="landing-search-container map-floating-search-bar" 
+              <form
+                className="landing-search-container map-floating-search-bar"
                 style={{
                   margin: 0,
                   width: '100%',
@@ -2404,9 +2414,9 @@ function App() {
                   <FourPointStar className="landing-search-sparkle" size={16} />
                 </div>
                 <div className="landing-search-separator" />
-                <input 
-                  type="text" 
-                  className="landing-search-input" 
+                <input
+                  type="text"
+                  className="landing-search-input"
                   placeholder={t.searchPlaceholder || 'Ask Smart Map Anything About Places, Services, Or Locations...'}
                   value={aiSearchQuery}
                   onChange={(e) => setAiSearchQuery(e.target.value)}
@@ -2425,18 +2435,18 @@ function App() {
             </div>
           ) : (
             /* STAGE 1: INITIAL MAP VIEW WITH GEOVISION AI BUTTON AT BOTTOM RIGHT (MATCHING EXPLORE MAP VIEW BUTTON) */
-            <div 
-              className="geovision-ai-btn-wrapper" 
-              style={{ 
-                position: 'absolute', 
-                bottom: '20px', 
-                right: isCategoryDrawerOpen ? '380px' : '24px', 
+            <div
+              className="geovision-ai-btn-wrapper"
+              style={{
+                position: 'absolute',
+                bottom: '20px',
+                right: isCategoryDrawerOpen ? 'calc(15% + 36px)' : '24px',
                 zIndex: 1000,
                 transition: 'right 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
               }}
             >
-              <button 
-                className="geovision-ai-btn" 
+              <button
+                className="geovision-ai-btn"
                 onClick={() => {
                   setAiState('panel');
                   setPanelHeight(200);
@@ -2449,7 +2459,7 @@ function App() {
           )}
 
           {/* BOTTOM-LEFT FLOATING COORDINATES PILL & SCALE BAR */}
-          <div 
+          <div
             className="map-bottom-controls-left"
             style={{
               position: 'absolute',
@@ -2463,7 +2473,7 @@ function App() {
           >
             <div className="map-coords-pill" style={{ position: 'relative', bottom: 'auto', left: 'auto' }}>
               <span>
-                {isHovered && hoveredCoords.lat 
+                {isHovered && hoveredCoords.lat
                   ? `${hoveredCoords.lat.toFixed(6)} N  ${hoveredCoords.lon.toFixed(6)} E`
                   : '24.453900 N  54.377300 E'}
               </span>

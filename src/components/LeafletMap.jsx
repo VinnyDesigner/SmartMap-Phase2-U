@@ -4,18 +4,18 @@ import 'leaflet/dist/leaflet.css';
 import { ABU_DHABI_SPATIAL_DATASET } from '../services/spatialSearchService.js';
 import { GIS_CATEGORY_COLORS, getGisCategorySymbolSvg } from '../utils/gisSymbols.js';
 
-export default function LeafletMap({ 
-  activeProject, 
-  layers, 
-  selectedLevel, 
-  selectedBuilding, 
-  setSelectedBuilding, 
-  volumeToolActive, 
-  clickPoints, 
-  setClickPoints, 
-  theme, 
+export default function LeafletMap({
+  activeProject,
+  layers,
+  selectedLevel,
+  selectedBuilding,
+  setSelectedBuilding,
+  volumeToolActive,
+  clickPoints,
+  setClickPoints,
+  theme,
   activeBasemap = 'streets',
-  setHoveredCoords, 
+  setHoveredCoords,
   setIsHovered,
   addLog,
   showToast,
@@ -218,7 +218,7 @@ export default function LeafletMap({
     if (layers.buildings3D && activeProject.buildings) {
       activeProject.buildings.forEach(b => {
         const isSelected = selectedBuilding && selectedBuilding.id === b.id;
-        
+
         const iconHtml = `
           <div style="
             background: ${isSelected ? '#10b981' : '#00f2fe'};
@@ -359,11 +359,12 @@ export default function LeafletMap({
       .map(item => [parseFloat(item.lat), parseFloat(item.lon)])
       .filter(([lat, lon]) => !isNaN(lat) && !isNaN(lon));
 
+    const targetZoom = Math.max(map.getZoom(), 13.5);
     if (validPoints.length === 1) {
-      map.flyTo(validPoints[0], 16.5, { duration: 1.2 });
+      map.setView(validPoints[0], targetZoom, { animate: true, duration: 0.6 });
     } else if (validPoints.length > 1) {
       const bounds = L.latLngBounds(validPoints);
-      map.fitBounds(bounds, { padding: [70, 70], maxZoom: 15, duration: 1.2 });
+      map.fitBounds(bounds, { padding: [50, 50], maxZoom: 14, duration: 0.6 });
     }
   }, [activeSearchResults]);
 
@@ -385,8 +386,9 @@ export default function LeafletMap({
     const highlightGroup = selectedGraphicsLayerRef.current;
     highlightGroup.clearLayers();
 
-    // Pan & zoom map
-    map.flyTo([lat, lon], 16.5, { duration: 1.2 });
+    // Smooth pan to location without upward flyTo jump
+    const currentZoom = Math.max(map.getZoom(), 13.5);
+    map.setView([lat, lon], currentZoom, { animate: true, duration: 0.6 });
 
     const pinColor = GIS_CATEGORY_COLORS[selectedLocation.category] || '#1d68f2';
 
@@ -411,9 +413,9 @@ export default function LeafletMap({
       iconAnchor: [70, 52]
     });
 
-    L.marker([lat, lon], { 
+    L.marker([lat, lon], {
       icon: customGraphicIcon,
-      zIndexOffset: 2000 
+      zIndexOffset: 2000
     }).addTo(highlightGroup);
 
     // Toggle active pin DOM class highlight for background pins
