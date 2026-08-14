@@ -992,7 +992,7 @@ input:checked+.slider:before {
   inset: 0;
   width: 100vw;
   height: 100vh;
-  background: #011E3D url('./assets/home_bg.png') no-repeat center center;
+  background: #011E3D url('/assets/home_bg.png') no-repeat center center;
   background-size: cover;
   display: flex;
   flex-direction: column;
@@ -2331,7 +2331,7 @@ input:checked+.slider:before {
   max-width: 15% !important;
   height: calc(92vh - 76px) !important;
   max-height: calc(92vh - 76px) !important;
-  background: linear-gradient(rgba(255, 255, 255, 0.20), rgba(255, 255, 255, 0.20)), url('./assets/panel_bg.png') no-repeat center center / cover !important;
+  background: linear-gradient(rgba(255, 255, 255, 0.20), rgba(255, 255, 255, 0.20)), url('/assets/panel_bg.png') no-repeat center center / cover !important;
   backdrop-filter: blur(28px) saturate(190%) !important;
   -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
   border: none !important;
@@ -4735,7 +4735,7 @@ input:checked+.slider:before {
   max-width: 15% !important;
   height: calc(92vh - 76px) !important;
   max-height: calc(92vh - 76px) !important;
-  background: linear-gradient(rgba(255, 255, 255, 0.20), rgba(255, 255, 255, 0.20)), url('./assets/panel_bg.png') no-repeat center center / cover !important;
+  background: linear-gradient(rgba(255, 255, 255, 0.20), rgba(255, 255, 255, 0.20)), url('/assets/panel_bg.png') no-repeat center center / cover !important;
   backdrop-filter: blur(28px) saturate(190%) !important;
   -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
   border: none !important;

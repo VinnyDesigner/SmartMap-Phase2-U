@@ -316,7 +316,7 @@ export default function LeafletMap({
 
     const displayResults = (activeSearchResults && activeSearchResults.length > 0)
       ? activeSearchResults
-      : ABU_DHABI_SPATIAL_DATASET;
+      : [];
 
     displayResults.forEach(item => {
       const lat = parseFloat(item.lat);
