@@ -354,18 +354,6 @@ export default function LeafletMap({
         setSelectedLocation({ ...item, locateTrigger: Date.now() });
       });
     });
-
-    const validPoints = displayResults
-      .map(item => [parseFloat(item.lat), parseFloat(item.lon)])
-      .filter(([lat, lon]) => !isNaN(lat) && !isNaN(lon));
-
-    const targetZoom = Math.max(map.getZoom(), 13.5);
-    if (validPoints.length === 1) {
-      map.setView(validPoints[0], targetZoom, { animate: true, duration: 0.6 });
-    } else if (validPoints.length > 1) {
-      const bounds = L.latLngBounds(validPoints);
-      map.fitBounds(bounds, { padding: [50, 50], maxZoom: 14, duration: 0.6 });
-    }
   }, [activeSearchResults]);
 
   // Handle Selected Location Focusing & Dedicated GraphicsLayer Symbology Highlight

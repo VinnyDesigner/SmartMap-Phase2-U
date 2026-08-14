@@ -331,11 +331,11 @@ function App() {
     }
   ]);
 
-  const chatEndRef = useRef(null);
-  const aiPanelRef = useRef(null);
-
+  const chatMessagesContainerRef = useRef(null);
   useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (chatMessagesContainerRef.current) {
+      chatMessagesContainerRef.current.scrollTop = chatMessagesContainerRef.current.scrollHeight;
+    }
   }, [chatMessages, isAISearchBarOpen]);
 
   // AI Panel Height States (toggled between collapsed 72px and expanded 44vh)
@@ -408,43 +408,6 @@ function App() {
   const [activeSearchFilterTag, setActiveSearchFilterTag] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [activeDetailTab, setActiveDetailTab] = useState('overview');
-
-  // Isolate AI Panel completely from Leaflet map dragging and mouse movements
-  useEffect(() => {
-    const el = aiPanelRef.current;
-    if (!el) return;
-
-    const stopEvt = (e) => {
-      e.stopPropagation();
-      if (e.stopImmediatePropagation) {
-        e.stopImmediatePropagation();
-      }
-    };
-
-    const events = [
-      'mousedown', 'mousemove', 'mouseup',
-      'pointerdown', 'pointermove', 'pointerup',
-      'click', 'dblclick', 'contextmenu',
-      'touchstart', 'touchmove', 'touchend', 'wheel'
-    ];
-
-    events.forEach(evt => {
-      el.addEventListener(evt, stopEvt, { capture: true });
-    });
-
-    if (window.L && window.L.DomEvent) {
-      try {
-        window.L.DomEvent.disableClickPropagation(el);
-        window.L.DomEvent.disableScrollPropagation(el);
-      } catch (err) {}
-    }
-
-    return () => {
-      events.forEach(evt => {
-        el.removeEventListener(evt, stopEvt, { capture: true });
-      });
-    };
-  }, [isAISearchBarOpen, isAiClosing, selectedLocation]);
 
   const handleUnifiedSearch = (searchOptions = {}) => {
     setSelectedLocation(null);
@@ -851,16 +814,7 @@ function App() {
 
             {/* TAB 0: SEARCH HISTORY (MATCHING CATEGORY PANEL GLASS STYLE & NOTCHED SHAPE) */}
             {activeTab === 'history' && (
-              <div
-            className="search-history-left-panel"
-            onMouseDown={(e) => e.stopPropagation()}
-            onMouseMove={(e) => e.stopPropagation()}
-            onMouseUp={(e) => e.stopPropagation()}
-            onPointerDown={(e) => e.stopPropagation()}
-            onPointerMove={(e) => e.stopPropagation()}
-            onPointerUp={(e) => e.stopPropagation()}
-            onWheel={(e) => e.stopPropagation()}
-          >
+              <div className="search-history-left-panel">
                 {/* DEDICATED PULSATING WHITE INNER GLOW OVERLAY */}
                 <div className="category-drawer-inner-glow" />
 
@@ -1081,16 +1035,7 @@ function App() {
 
             {/* TAB: CATEGORIES */}
             {activeTab === 'categories' && (
-              <div
-                className="categories-left-panel"
-                onMouseDown={(e) => e.stopPropagation()}
-                onMouseMove={(e) => e.stopPropagation()}
-                onMouseUp={(e) => e.stopPropagation()}
-                onPointerDown={(e) => e.stopPropagation()}
-                onPointerMove={(e) => e.stopPropagation()}
-                onPointerUp={(e) => e.stopPropagation()}
-                onWheel={(e) => e.stopPropagation()}
-              >
+              <div className="categories-left-panel">
                 {/* SECTION TITLE & SIDEBAR TOGGLE ICON */}
                 <div className="categories-title-row">
                   <h2 className="categories-title">{t.categories || 'Categories'}</h2>
@@ -1847,24 +1792,7 @@ function App() {
           {/* FLOATING GEOVISION AI SPATIAL SEARCH PANEL */}
           {(isAISearchBarOpen || isAiClosing) ? (
             <div
-              ref={aiPanelRef}
               className={`landing-search-card-wrapper map-ai-panel-wrapper ${isAiClosing ? 'mac-closing' : ''} ${selectedLocation ? 'expanded-info' : ''} ${!isSidebarOpen ? 'sidebar-collapsed' : ''}`}
-              onMouseDownCapture={(e) => e.stopPropagation()}
-              onMouseMoveCapture={(e) => e.stopPropagation()}
-              onMouseUpCapture={(e) => e.stopPropagation()}
-              onPointerDownCapture={(e) => e.stopPropagation()}
-              onPointerMoveCapture={(e) => e.stopPropagation()}
-              onPointerUpCapture={(e) => e.stopPropagation()}
-              onClickCapture={(e) => e.stopPropagation()}
-              onWheelCapture={(e) => e.stopPropagation()}
-              onMouseDown={(e) => e.stopPropagation()}
-              onMouseMove={(e) => e.stopPropagation()}
-              onMouseUp={(e) => e.stopPropagation()}
-              onPointerDown={(e) => e.stopPropagation()}
-              onPointerMove={(e) => e.stopPropagation()}
-              onPointerUp={(e) => e.stopPropagation()}
-              onWheel={(e) => e.stopPropagation()}
-              onDoubleClick={(e) => e.stopPropagation()}
               style={{
                 position: 'absolute',
                 bottom: '0px',
@@ -1874,7 +1802,7 @@ function App() {
                 width: selectedLocation ? 'calc(100vw - 36vw)' : '52%',
                 maxWidth: selectedLocation ? 'calc(100vw - 36vw)' : '720px',
                 zIndex: 1000,
-                transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
+                transition: 'width 0.3s cubic-bezier(0.16, 1, 0.3, 1), max-width 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
               }}
             >
               {/* SVG CLIP PATH AND STROKE OVERLAY PRESERVING EXACT NOTCH DEPTH AND CORNER RADIUS */}
@@ -1994,6 +1922,8 @@ function App() {
                           onMouseEnter={() => setHoveredDockIndex(2)}
                           onClick={() => {
                             setAiSearchQuery('');
+                            setSelectedLocation(null);
+                            setActiveSearchResults([]);
                             setChatMessages([
                               {
                                 sender: 'ai',
@@ -2010,7 +1940,7 @@ function App() {
                     </div>
 
                     {/* MIDDLE CHAT / CONVERSATION STREAM AREA */}
-                    <div className="map-ai-panel-body" style={{
+                    <div ref={chatMessagesContainerRef} className="map-ai-panel-body" style={{
                       opacity: 1,
                       flex: 1,
                       margin: '4px 0',
@@ -2033,7 +1963,7 @@ function App() {
                               <div className={`chat-bubble ${msg.sender}`}>
                                 {msg.sender === 'ai' && (
                                   <div className="chat-avatar ai-avatar">
-                                    <img src={aiIcon} alt="AI" className="chat-avatar-img" />
+                                    <Sparkles size={14} color="#1d68f2" />
                                   </div>
                                 )}
 
@@ -2197,7 +2127,6 @@ function App() {
                               )}
                             </div>
                           ))}
-                        <div ref={chatEndRef} />
                       </div>
                     </div>
 
@@ -2422,7 +2351,6 @@ function App() {
                   onChange={(e) => setAiSearchQuery(e.target.value)}
                   onFocus={() => {
                     setAiState('panel');
-                    setPanelHeight(200);
                   }}
                 />
                 <div className="landing-search-btn-wrapper">
@@ -2449,7 +2377,6 @@ function App() {
                 className="geovision-ai-btn"
                 onClick={() => {
                   setAiState('panel');
-                  setPanelHeight(200);
                 }}
               >
                 <span>GeoVision AI</span>

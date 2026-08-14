@@ -5761,38 +5761,36 @@ input:checked+.slider:before {
 }
 
 /* ============================================================
-   CENTER SCALE OPEN & CLOSE ANIMATIONS FOR AI PANEL
-   Smooth Apple spring scaling from center with zero bottom displacement
+   ZERO-SHIFT STABLE OPEN & CLOSE ANIMATIONS FOR AI PANEL & BUTTON
+   Smooth fade & scale transitions with zero vertical displacement
    ============================================================ */
 .map-ai-panel-wrapper {
-  transform-origin: center center !important;
-  animation: macDockPanelOpen 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
-  will-change: transform, opacity, filter;
+  transform-origin: center bottom !important;
+  animation: macDockPanelOpen 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+  will-change: opacity, transform;
   bottom: 0px !important;
   margin-bottom: 0px !important;
 }
 
 .map-ai-panel-wrapper.mac-closing {
-  transform-origin: center center !important;
-  animation: macDockPanelClose 0.28s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
+  transform-origin: center bottom !important;
+  animation: macDockPanelClose 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
 }
 
 .geovision-ai-btn-wrapper {
-  transform-origin: bottom right !important;
-  animation: macDockBtnPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
-  will-change: transform, opacity, filter;
+  transform-origin: center center !important;
+  animation: macDockBtnPop 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+  will-change: opacity, transform;
 }
 
 @keyframes macDockPanelOpen {
   0% {
     opacity: 0;
-    transform: translateX(-50%) scale(0.88);
-    filter: blur(8px);
+    transform: translateX(-50%) scale(0.96);
   }
   100% {
     opacity: 1;
     transform: translateX(-50%) scale(1);
-    filter: blur(0px);
   }
 }
 
@@ -5800,59 +5798,20 @@ input:checked+.slider:before {
   0% {
     opacity: 1;
     transform: translateX(-50%) scale(1);
-    filter: blur(0px);
   }
   100% {
     opacity: 0;
-    transform: translateX(-50%) scale(0.88);
-    filter: blur(8px);
+    transform: translateX(-50%) scale(0.96);
   }
 }
 
 @keyframes macDockBtnPop {
   0% {
     opacity: 0;
-    transform: translateY(16px) scale(0.6);
-    filter: blur(6px);
-  }
-  65% {
-    opacity: 1;
-    transform: translateY(-2px) scale(1.04);
-    filter: blur(0px);
+    transform: scale(0.9);
   }
   100% {
     opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0px);
+    transform: scale(1);
   }
-}
-
-/* ============================================================
-   PANEL MOUSE EVENT ISOLATION & CURSOR POINTER STYLING
-   ============================================================ */
-.map-ai-panel-collapse-handle {
-  position: absolute !important;
-  top: 0px !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  width: 90px !important;
-  height: 28px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 4px !important;
-  cursor: pointer !important;
-  z-index: 1010 !important;
-}
-
-.map-ai-panel-collapse-handle *,
-.drag-pill-indicator {
-  cursor: pointer !important;
-}
-
-.map-ai-panel-wrapper,
-.search-history-left-panel,
-.categories-left-panel,
-.landing-categories-drawer {
-  pointer-events: auto !important;
 }
