@@ -2084,12 +2084,12 @@ function App() {
                         margin: '0',
                         width: '100%',
                         maxWidth: '100%',
-                        flex: '0 0 50px',
-                        height: '50px',
-                        minHeight: '50px',
-                        maxHeight: '50px',
+                        flex: '0 0 46px',
+                        height: '46px',
+                        minHeight: '46px',
+                        maxHeight: '46px',
                         position: 'relative',
-                        padding: '0 6px 0 10px',
+                        padding: '0 6px 0 8px',
                         boxSizing: 'border-box'
                       }}
                       onSubmit={(e) => {
@@ -2102,7 +2102,7 @@ function App() {
                       }}
                     >
                       {/* PLUS (+) ACTION BUTTON & POPUP MENU */}
-                      <div style={{ position: 'relative', display: 'flex', alignItems: 'center', margin: '0 4px 0 4px' }}>
+                      <div style={{ position: 'relative', display: 'flex', alignItems: 'center', margin: '0 2px 0 0' }}>
                         <button
                           type="button"
                           className="landing-search-plus-btn"
@@ -2112,8 +2112,8 @@ function App() {
                           }}
                           title="Actions Menu (History, Quick Start, New Chat)"
                           style={{
-                            width: '30px',
-                            height: '30px',
+                            width: '28px',
+                            height: '28px',
                             borderRadius: '50%',
                             background: showPlusMenu ? '#002B5B' : 'rgba(0, 43, 91, 0.08)',
                             color: showPlusMenu ? '#FFFFFF' : '#002B5B',
@@ -2126,7 +2126,7 @@ function App() {
                             flexShrink: 0
                           }}
                         >
-                          <Plus size={16} style={{ transform: showPlusMenu ? 'rotate(45deg)' : 'rotate(0deg)', transition: 'transform 0.2s ease' }} />
+                          <Plus size={15} style={{ transform: showPlusMenu ? 'rotate(45deg)' : 'rotate(0deg)', transition: 'transform 0.2s ease' }} />
                         </button>
 
                         {/* POPUP MENU WHEN PLUS IS CLICKED */}
@@ -2135,7 +2135,7 @@ function App() {
                             className="landing-search-plus-menu"
                             style={{
                               position: 'absolute',
-                              bottom: '48px',
+                              bottom: '44px',
                               left: '0',
                               background: 'rgba(255, 255, 255, 0.96)',
                               backdropFilter: 'blur(24px) saturate(190%)',
@@ -2252,10 +2252,7 @@ function App() {
                         )}
                       </div>
 
-                      <div className="search-star-loader-wrapper" style={{ marginRight: '10px' }}>
-                        <FourPointStar className="landing-search-sparkle" size={16} />
-                      </div>
-                      <div className="landing-search-separator" style={{ marginRight: '12px' }} />
+                      <div className="landing-search-separator" style={{ margin: '0 10px 0 6px', height: '20px' }} />
                       <input
                         type="text"
                         className="landing-search-input"
