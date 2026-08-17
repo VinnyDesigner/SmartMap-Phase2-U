@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Info, Sun, Moon, User, Bookmark } from 'lucide-react';
+import { Bookmark } from 'lucide-react';
 import leftLogo from '../assets/left.png';
 import rightLogo from '../assets/right.png';
 import lagIcon from '../assets/lag.svg';
@@ -7,6 +7,14 @@ import historyIcon from '../assets/History.svg';
 import feedbackIcon from '../assets/share feedback.svg';
 import helpIcon from '../assets/help.svg';
 import signInIcon from '../assets/sign in.svg';
+
+import homeSvg from '../assets/Icons 1/Icons/home.svg';
+import aboutUsSvg from '../assets/Icons 1/Icons/about us.svg';
+import arabicSvg from '../assets/Icons 1/Icons/Arabic.svg';
+import lightThemeSvg from '../assets/Icons 1/Icons/Light theme.svg';
+import darkThemeSvg from '../assets/Icons 1/Icons/Dark theme.svg';
+import profileSvg from '../assets/Icons 1/Icons/profile.svg';
+import collectionsSvg from '../assets/Icons 1/Icons/My Collections.svg';
 
 export default function CommonHeader({
   activeBasemap,
@@ -44,10 +52,10 @@ export default function CommonHeader({
           className={`landing-nav-item ${!showMap ? 'active' : ''}`} 
           onClick={() => setShowMap(false)}
         >
-          <Home size={14} /> {t.home}
+          <img src={homeSvg} alt="Home" style={{ width: '15px', height: '15px', objectFit: 'contain' }} /> {t.home}
         </button>
         <button className="landing-nav-item" onClick={() => handleSearchSubmit('')}>
-          <Info size={14} /> {t.aboutUs}
+          <img src={aboutUsSvg} alt="About Us" style={{ width: '15px', height: '15px', objectFit: 'contain' }} /> {t.aboutUs}
         </button>
       </nav>
 
@@ -55,14 +63,14 @@ export default function CommonHeader({
       <div className="landing-controls-right">
         <button className="landing-lang-btn" onClick={() => setLang(lang === 'en' ? 'ar' : 'en')}>
           {lang === 'en' ? (
-            <img src={lagIcon} alt="Arabic" style={{ width: '18px', height: '18px', filter: theme === 'dark' ? 'invert(1)' : 'none' }} />
+            <img src={arabicSvg} alt="Arabic" style={{ width: '18px', height: '18px', filter: theme === 'dark' ? 'invert(1)' : 'none' }} />
           ) : (
             <span style={{ color: '#022E5B', fontWeight: 600 }}>En</span>
           )}
         </button>
         
-        <button className="landing-icon-control" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
-          {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+        <button className="landing-icon-control" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} title="Toggle Theme">
+          <img src={theme === 'dark' ? lightThemeSvg : darkThemeSvg} alt="Theme" style={{ width: '18px', height: '18px', objectFit: 'contain' }} />
         </button>
         
         <div className="profile-menu-wrapper" ref={profileMenuRef}>
@@ -71,7 +79,7 @@ export default function CommonHeader({
             onClick={() => setIsProfileOpen(prev => !prev)}
             title="Profile"
           >
-            <User size={18} />
+            <img src={profileSvg} alt="Profile" style={{ width: '18px', height: '18px', objectFit: 'contain' }} />
           </button>
 
           {isProfileOpen && (

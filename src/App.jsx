@@ -78,6 +78,16 @@ import feedbackIcon from './assets/share feedback.svg';
 import basemapLightGrayImg from './assets/basemap_light_gray.png';
 import basemapStreetsImg from './assets/basemap_streets.png';
 import basemapSatelliteImg from './assets/basemap_satellite.png';
+
+import compassSvg from './assets/Icons 1/Icons/compass.svg';
+import navigationSvg from './assets/Icons 1/Icons/navigation.svg';
+import homeSvg from './assets/Icons 1/Icons/home.svg';
+import drawSvg from './assets/Icons 1/Icons/Draw.svg';
+import basemapSvg from './assets/Icons 1/Icons/Basemap.svg';
+import legendSvg from './assets/Icons 1/Icons/legend.svg';
+import locationSvg from './assets/Icons 1/Icons/location.svg';
+import categorySvg from './assets/Icons 1/Icons/category.svg';
+import collectionsSvg from './assets/Icons 1/Icons/My Collections.svg';
 import helpIcon from './assets/help.svg';
 import signInIcon from './assets/sign in.svg';
 import './App.css';
@@ -1562,26 +1572,28 @@ function App() {
               >
                 <PanelLeft size={18} />
               </button>
-              <div className="geovision-ai-btn-wrapper" style={{ borderRadius: '12px', padding: '2px' }}>
-                <button
-                  className="geovision-ai-btn map-all-categories-btn"
-                  onClick={() => {
-                    setIsSidebarOpen(true);
-                    setActiveTab('categories');
-                    showToast("All Categories Opened");
-                  }}
-                  style={{
-                    height: '36px',
-                    padding: '0 16px',
-                    borderRadius: '10px',
-                    fontSize: '13px',
-                    fontWeight: '600'
-                  }}
-                >
-                  <Grid size={16} className="ai-sparkle-icon" />
-                  <span>{t.allCategories}</span>
-                </button>
-              </div>
+              <button
+                className="map-glass-pill-btn map-all-categories-btn"
+                onClick={() => {
+                  setIsSidebarOpen(true);
+                  setActiveTab('categories');
+                  showToast("All Categories Opened");
+                }}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  padding: '0 14px',
+                  height: '36px',
+                  borderRadius: '10px',
+                  fontSize: '12.5px',
+                  fontWeight: '600',
+                  cursor: 'pointer'
+                }}
+              >
+                <img src={categorySvg} alt="Categories" style={{ width: '15px', height: '15px', objectFit: 'contain' }} />
+                <span>{t.allCategories}</span>
+              </button>
             </div>
           )}
 
@@ -1599,10 +1611,16 @@ function App() {
               transition: 'right 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
             }}
           >
-            <div className="map-location-badge">
-              <MapPin size={14} style={{ color: '#ef4444' }} />
+            <button
+              className="map-location-badge"
+              onClick={() => {
+                if (mapInstanceRef.current) mapInstanceRef.current.setView([24.4539, 54.3773], 12, { animate: true });
+                showToast("Centered on Abu Dhabi");
+              }}
+            >
+              <img src={locationSvg} alt="Location" style={{ width: '14px', height: '14px', objectFit: 'contain' }} />
               <span>Abu Dhabi</span>
-            </div>
+            </button>
           </div>
 
           {/* LEFT FLOATING VERTICAL & HORIZONTAL TOOLBAR STRIP (L-SHAPED LAYOUT AT BOTTOM-LEFT) */}
@@ -1627,21 +1645,21 @@ function App() {
                 title="Measurement & Draw"
                 onClick={() => setActiveLeftPopover(prev => prev === 'draw' ? null : 'draw')}
               >
-                <Edit size={18} />
+                <img src={drawSvg} alt="Draw" style={{ width: '18px', height: '18px', objectFit: 'contain' }} />
               </button>
               <button
                 className={`map-glass-icon-btn ${activeLeftPopover === 'basemap' ? 'active' : ''}`}
                 title="Basemap Gallery"
                 onClick={() => setActiveLeftPopover(prev => prev === 'basemap' ? null : 'basemap')}
               >
-                <Grid size={18} />
+                <img src={basemapSvg} alt="Basemap" style={{ width: '18px', height: '18px', objectFit: 'contain' }} />
               </button>
               <button
                 className={`map-glass-icon-btn ${activeLeftPopover === 'legend' ? 'active' : ''}`}
                 title="Legend & Analysis"
                 onClick={() => setActiveLeftPopover(prev => prev === 'legend' ? null : 'legend')}
               >
-                <List size={18} />
+                <img src={legendSvg} alt="Legend" style={{ width: '18px', height: '18px', objectFit: 'contain' }} />
               </button>
 
               {/* VERTICAL ZOOM IN / ZOOM OUT SEGMENTED GROUP BELOW LEGEND */}
@@ -1713,7 +1731,7 @@ function App() {
                 title="Compass / Orient North"
                 onClick={() => showToast("Map Oriented North")}
               >
-                <Compass size={18} />
+                <img src={compassSvg} alt="Compass" style={{ width: '18px', height: '18px', objectFit: 'contain' }} />
               </button>
               <button
                 className="map-glass-icon-btn"
@@ -1723,7 +1741,7 @@ function App() {
                   showToast("Centered to My Location (Abu Dhabi)");
                 }}
               >
-                <Navigation size={18} />
+                <img src={navigationSvg} alt="My Location" style={{ width: '18px', height: '18px', objectFit: 'contain' }} />
               </button>
               <button
                 className="map-glass-icon-btn"
@@ -1733,7 +1751,7 @@ function App() {
                   showToast("Reset to Abu Dhabi Home View");
                 }}
               >
-                <Home size={18} />
+                <img src={homeSvg} alt="Home" style={{ width: '18px', height: '18px', objectFit: 'contain' }} />
               </button>
               <div
                 className="map-glass-pill-btn"
