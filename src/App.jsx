@@ -1792,14 +1792,14 @@ function App() {
           {/* FLOATING GEOVISION AI SPATIAL SEARCH PANEL (RIGHT ALIGNED) */}
           {(isAISearchBarOpen || isAiClosing) ? (
             <div
-              className={`landing-search-card-wrapper map-ai-panel-wrapper ${isAiClosing ? 'mac-closing' : ''} ${selectedLocation ? 'expanded-info' : ''} ${!isSidebarOpen ? 'sidebar-collapsed' : ''}`}
+              className={`landing-search-card-wrapper map-ai-panel-wrapper ${isAiClosing ? 'mac-closing' : ''} ${!isSidebarOpen ? 'sidebar-collapsed' : ''}`}
               style={{
                 position: 'fixed',
                 top: '80px',
                 bottom: '48px',
                 right: '16px',
-                width: selectedLocation ? '540px' : '360px',
-                maxWidth: selectedLocation ? '540px' : '360px',
+                width: '350px',
+                maxWidth: '350px',
                 height: 'calc(100vh - 130px)',
                 maxHeight: 'calc(100vh - 130px)',
                 zIndex: 1001,
