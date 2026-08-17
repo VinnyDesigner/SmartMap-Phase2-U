@@ -5010,22 +5010,31 @@ input:checked+.slider:before {
 
 .map-glass-icon-btn:hover,
 .map-glass-pill-btn:hover,
+.map-location-badge:hover,
 .map-glass-icon-btn.active {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(205, 228, 255, 0.88) 100%), url('/assets/panel_bg.png') no-repeat center center / cover !important;
-  border-color: #2563EB !important;
-  color: #2563EB !important;
-  box-shadow: 0 10px 28px rgba(0, 43, 91, 0.2), 0 0 15px rgba(37, 99, 235, 0.25), inset 0 1px 2px #ffffff !important;
+  background: #215a9e !important;
+  border-color: #215a9e !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 16px rgba(33, 90, 158, 0.4) !important;
   transform: translateY(-1px) !important;
 }
 
-.map-glass-icon-btn.active {
-  color: #1D68F2 !important;
-  border-color: #1D68F2 !important;
+.map-glass-icon-btn:hover svg,
+.map-glass-pill-btn:hover svg,
+.map-location-badge:hover svg,
+.map-glass-icon-btn.active svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
 }
 
 .map-zoom-segmented-group-vertical .map-glass-icon-btn-segmented:hover {
-  background: rgba(37, 99, 235, 0.12) !important;
-  color: #2563EB !important;
+  background: #215a9e !important;
+  color: #ffffff !important;
+}
+
+.map-zoom-segmented-group-vertical .map-glass-icon-btn-segmented:hover svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
 }
 
 .search-history-logo-header {
