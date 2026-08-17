@@ -1104,12 +1104,14 @@ function App() {
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'space-between',
-                                padding: '4px 12px',
+                                height: '36px',
+                                padding: '0 12px',
                                 background: isExpanded ? 'rgba(37, 99, 235, 0.08)' : 'rgba(255, 255, 255, 0.45)',
                                 border: '1px solid rgba(255, 255, 255, 0.65)',
                                 borderRadius: '8px',
                                 cursor: 'pointer',
-                                transition: 'all 0.2s ease'
+                                transition: 'all 0.2s ease',
+                                marginRight: '4px'
                               }}
                             >
                               <div className="categories-header-title" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
