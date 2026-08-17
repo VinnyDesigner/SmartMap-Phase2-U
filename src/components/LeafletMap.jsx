@@ -65,14 +65,6 @@ export default function LeafletMap({
     boundaryGroupRef.current = L.layerGroup().addTo(map);
     volumeGroupRef.current = L.layerGroup().addTo(map);
 
-    // Standard GIS Graphic Scale Control (bottom-left)
-    L.control.scale({
-      position: 'bottomleft',
-      metric: true,
-      imperial: false,
-      maxWidth: 110
-    }).addTo(map);
-
     map.on('mousemove', (e) => {
       setHoveredCoords({
         lat: Number(e.latlng.lat.toFixed(5)),
