@@ -1593,7 +1593,7 @@ function App() {
                   cursor: 'pointer'
                 }}
               >
-                <GeoVisionGradientIcon src={categorySvg} size={15} alt="Categories" />
+                <GeoVisionGradientIcon src={categorySvg} size={13} alt="Categories" />
                 <span>{t.allCategories}</span>
               </button>
             </div>
@@ -1620,7 +1620,7 @@ function App() {
                 showToast("Centered on Abu Dhabi");
               }}
             >
-              <GeoVisionGradientIcon src={locationSvg} size={14} alt="Location" />
+              <GeoVisionGradientIcon src={locationSvg} size={12} alt="Location" />
               <span>Abu Dhabi</span>
             </button>
           </div>
@@ -1647,21 +1647,21 @@ function App() {
                 title="Measurement & Draw"
                 onClick={() => setActiveLeftPopover(prev => prev === 'draw' ? null : 'draw')}
               >
-                <GeoVisionGradientIcon src={drawSvg} size={18} alt="Draw" />
+                <GeoVisionGradientIcon src={drawSvg} size={16} alt="Draw" />
               </button>
               <button
                 className={`map-glass-icon-btn ${activeLeftPopover === 'basemap' ? 'active' : ''}`}
                 title="Basemap Gallery"
                 onClick={() => setActiveLeftPopover(prev => prev === 'basemap' ? null : 'basemap')}
               >
-                <GeoVisionGradientIcon src={basemapSvg} size={18} alt="Basemap" />
+                <GeoVisionGradientIcon src={basemapSvg} size={16} alt="Basemap" />
               </button>
               <button
                 className={`map-glass-icon-btn ${activeLeftPopover === 'legend' ? 'active' : ''}`}
                 title="Legend & Analysis"
                 onClick={() => setActiveLeftPopover(prev => prev === 'legend' ? null : 'legend')}
               >
-                <GeoVisionGradientIcon src={legendSvg} size={18} alt="Legend" />
+                <GeoVisionGradientIcon src={legendSvg} size={16} alt="Legend" />
               </button>
 
               {/* VERTICAL ZOOM IN / ZOOM OUT SEGMENTED GROUP BELOW LEGEND */}
@@ -1698,7 +1698,7 @@ function App() {
                     transition: 'all 0.2s ease'
                   }}
                 >
-                  <Plus size={18} strokeWidth={2.2} />
+                  <Plus size={16} strokeWidth={2.2} />
                 </button>
                 <button
                   className="map-glass-icon-btn-segmented"
@@ -1721,7 +1721,7 @@ function App() {
                     transition: 'all 0.2s ease'
                   }}
                 >
-                  <Minus size={18} strokeWidth={2.2} />
+                  <Minus size={16} strokeWidth={2.2} />
                 </button>
               </div>
             </div>
@@ -1733,7 +1733,7 @@ function App() {
                 title="Compass / Orient North"
                 onClick={() => showToast("Map Oriented North")}
               >
-                <GeoVisionGradientIcon src={compassSvg} size={18} alt="Compass" />
+                <GeoVisionGradientIcon src={compassSvg} size={16} alt="Compass" />
               </button>
               <button
                 className="map-glass-icon-btn"
@@ -1743,7 +1743,7 @@ function App() {
                   showToast("Centered to My Location (Abu Dhabi)");
                 }}
               >
-                <GeoVisionGradientIcon src={navigationSvg} size={18} alt="My Location" />
+                <GeoVisionGradientIcon src={navigationSvg} size={16} alt="My Location" />
               </button>
               <button
                 className="map-glass-icon-btn"
@@ -1753,7 +1753,7 @@ function App() {
                   showToast("Reset to Abu Dhabi Home View");
                 }}
               >
-                <GeoVisionGradientIcon src={homeSvg} size={18} alt="Home" />
+                <GeoVisionGradientIcon src={homeSvg} size={16} alt="Home" />
               </button>
               <div
                 className="map-glass-pill-btn"
