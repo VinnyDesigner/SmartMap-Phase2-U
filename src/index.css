@@ -1532,15 +1532,9 @@ input:checked+.slider:before {
   }
 }
 
-/* Animated Trace Lines around Search Card */
+/* Animated Trace Lines around Search Card (Disabled) */
 .search-card-traces {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 500px;
-  width: 330px;
-  pointer-events: none;
-  z-index: -1;
+  display: none !important;
 }
 
 .search-traces-left {
