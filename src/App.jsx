@@ -1515,7 +1515,7 @@ function App() {
               transition: 'left 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
             }}
           >
-            {/* VERTICAL ARM OF THE "L" (1. DRAW, 2. BASEMAP, 3. LEGENDS) */}
+            {/* VERTICAL ARM OF THE "L" (1. DRAW, 2. BASEMAP, 3. LEGENDS, 4 & 5. VERTICAL ZOOM CONTROL BELOW LEGEND) */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
               <button
                 className={`map-glass-icon-btn ${activeLeftPopover === 'draw' ? 'active' : ''}`}
@@ -1538,34 +1538,15 @@ function App() {
               >
                 <List size={18} />
               </button>
-            </div>
 
-            {/* HORIZONTAL BASE ARM OF THE "L" (4. COMPASS, 5. MY LOCATION, 6. ZOOM IN, 7. ZOOM OUT, 8. HOME, 9. COORDINATES, 10. SCALE) */}
-            <div style={{ display: 'flex', flexDirection: 'row', gap: '6px' }}>
-              <button
-                className="map-glass-icon-btn"
-                title="Compass / Orient North"
-                onClick={() => showToast("Map Oriented North")}
-              >
-                <Compass size={18} />
-              </button>
-              <button
-                className="map-glass-icon-btn"
-                title="My Location"
-                onClick={() => {
-                  if (mapInstanceRef.current) mapInstanceRef.current.flyTo([24.4539, 54.3773], 15);
-                  showToast("Centered to My Location (Abu Dhabi)");
-                }}
-              >
-                <Navigation size={18} />
-              </button>
-              {/* COMBINED ZOOM IN / ZOOM OUT SEGMENTED GROUP WITH PLUS & MINUS ICONS */}
+              {/* VERTICAL ZOOM IN / ZOOM OUT SEGMENTED GROUP BELOW LEGEND */}
               <div
-                className="map-zoom-segmented-group"
+                className="map-zoom-segmented-group-vertical"
                 style={{
-                  display: 'inline-flex',
-                  flexDirection: 'row',
+                  display: 'flex',
+                  flexDirection: 'column',
                   alignItems: 'center',
+                  width: '36px',
                   borderRadius: '10px',
                   background: 'rgba(255, 255, 255, 0.75)',
                   backdropFilter: 'blur(16px)',
@@ -1590,7 +1571,7 @@ function App() {
                     justifyContent: 'center',
                     background: 'transparent',
                     border: 'none',
-                    borderRight: '1px solid rgba(15, 23, 42, 0.12)',
+                    borderBottom: '1px solid rgba(15, 23, 42, 0.12)',
                     cursor: 'pointer',
                     color: '#0F172A',
                     padding: 0,
@@ -1623,6 +1604,27 @@ function App() {
                   <Minus size={18} strokeWidth={2.2} />
                 </button>
               </div>
+            </div>
+
+            {/* HORIZONTAL BASE ARM OF THE "L" (COMPASS, MY LOCATION, HOME, COORDINATES, SCALE) */}
+            <div style={{ display: 'flex', flexDirection: 'row', gap: '6px' }}>
+              <button
+                className="map-glass-icon-btn"
+                title="Compass / Orient North"
+                onClick={() => showToast("Map Oriented North")}
+              >
+                <Compass size={18} />
+              </button>
+              <button
+                className="map-glass-icon-btn"
+                title="My Location"
+                onClick={() => {
+                  if (mapInstanceRef.current) mapInstanceRef.current.flyTo([24.4539, 54.3773], 15);
+                  showToast("Centered to My Location (Abu Dhabi)");
+                }}
+              >
+                <Navigation size={18} />
+              </button>
               <button
                 className="map-glass-icon-btn"
                 title="Home View"
