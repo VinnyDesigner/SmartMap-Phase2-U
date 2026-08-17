@@ -1559,18 +1559,18 @@ function App() {
               >
                 <Navigation size={18} />
               </button>
-              {/* COMBINED ZOOM IN / ZOOM OUT SEGMENTED GROUP */}
+              {/* COMBINED ZOOM IN / ZOOM OUT SEGMENTED GROUP WITH PLUS & MINUS ICONS */}
               <div
                 className="map-zoom-segmented-group"
                 style={{
-                  display: 'flex',
+                  display: 'inline-flex',
                   flexDirection: 'row',
                   alignItems: 'center',
                   borderRadius: '10px',
-                  background: 'rgba(255, 255, 255, 0.45)',
+                  background: 'rgba(255, 255, 255, 0.75)',
                   backdropFilter: 'blur(16px)',
                   WebkitBackdropFilter: 'blur(16px)',
-                  border: '1px solid rgba(255, 255, 255, 0.65)',
+                  border: '1px solid rgba(255, 255, 255, 0.8)',
                   boxShadow: '0 2px 8px rgba(0, 43, 91, 0.08)',
                   overflow: 'hidden'
                 }}
@@ -1590,13 +1590,14 @@ function App() {
                     justifyContent: 'center',
                     background: 'transparent',
                     border: 'none',
-                    borderRight: '1px solid rgba(0, 43, 91, 0.12)',
+                    borderRight: '1px solid rgba(15, 23, 42, 0.12)',
                     cursor: 'pointer',
-                    color: '#002B5B',
+                    color: '#0F172A',
+                    padding: 0,
                     transition: 'all 0.2s ease'
                   }}
                 >
-                  <ZoomIn size={18} />
+                  <Plus size={18} strokeWidth={2.2} />
                 </button>
                 <button
                   className="map-glass-icon-btn-segmented"
@@ -1614,11 +1615,12 @@ function App() {
                     background: 'transparent',
                     border: 'none',
                     cursor: 'pointer',
-                    color: '#002B5B',
+                    color: '#0F172A',
+                    padding: 0,
                     transition: 'all 0.2s ease'
                   }}
                 >
-                  <ZoomOut size={18} />
+                  <Minus size={18} strokeWidth={2.2} />
                 </button>
               </div>
               <button
