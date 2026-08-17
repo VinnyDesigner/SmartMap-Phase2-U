@@ -4269,15 +4269,16 @@ input:checked+.slider:before {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  max-height: 110px;
+  max-height: 160px;
   overflow-y: auto;
+  overflow-x: hidden !important;
   padding: 8px 0 !important;
   width: 100% !important;
   box-sizing: border-box !important;
 }
 
 .structured-items-list::-webkit-scrollbar {
-  width: 5px;
+  width: 4px;
 }
 
 .structured-items-list::-webkit-scrollbar-thumb {
@@ -4286,19 +4287,77 @@ input:checked+.slider:before {
 }
 
 .structured-item-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
   border-radius: 8px;
   border: 1px solid rgba(226, 232, 240, 0.8);
   border-left: 2px solid #B7D1FF;
   background: rgba(233, 237, 243, 0.50);
   box-shadow: 0 4px 4px 0 rgba(0, 30, 61, 0.06);
-  padding: 6px 10px;
+  padding: 6px 8px !important;
   transition: all 0.2s ease;
   cursor: default;
   width: 100% !important;
+  max-width: 100% !important;
   box-sizing: border-box !important;
+  overflow: hidden !important;
+  gap: 4px !important;
+}
+
+.structured-item-info {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  overflow: hidden !important;
+}
+
+.structured-item-title {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: #0F172A !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  width: 100% !important;
+}
+
+.structured-item-arabic {
+  font-size: 10.5px !important;
+  color: #64748B !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  width: 100% !important;
+}
+
+.structured-item-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 3px !important;
+  flex-shrink: 0 !important;
+  margin-left: auto !important;
+}
+
+.structured-action-icon {
+  width: 22px !important;
+  height: 22px !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 4px !important;
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: background 0.15s ease;
+}
+
+.structured-action-icon:hover {
+  background: rgba(0, 43, 91, 0.08) !important;
+}
+
+.structured-action-icon.active {
+  background: rgba(29, 104, 242, 0.12) !important;
 }
 
 .structured-item-card:hover {
@@ -4312,6 +4371,46 @@ input:checked+.slider:before {
   border-left: 2px solid #458DE3;
   background: rgba(191, 223, 255, 0.50);
   box-shadow: 0 4px 4px 0 rgba(0, 30, 61, 0.06);
+}
+
+/* 1-Line Horizontal Radius Suggestion Chips */
+.structured-radius-chips {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: center !important;
+  gap: 6px !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  padding: 6px 0 2px 0 !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  scrollbar-width: none !important;
+}
+
+.structured-radius-chips::-webkit-scrollbar {
+  display: none !important;
+}
+
+.structured-radius-chip-btn {
+  flex: 0 0 auto !important;
+  white-space: nowrap !important;
+  background: rgba(255, 255, 255, 0.75) !important;
+  border: 1px solid rgba(0, 43, 91, 0.15) !important;
+  border-radius: 12px !important;
+  padding: 4px 10px !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  color: #002B5B !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 1px 3px rgba(0, 43, 91, 0.05) !important;
+}
+
+.structured-radius-chip-btn:hover {
+  background: #002B5B !important;
+  color: #FFFFFF !important;
+  border-color: #002B5B !important;
 }
 
 .spatial-marker-pin-wrapper {

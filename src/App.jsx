@@ -2013,15 +2013,20 @@ function App() {
                                                     </button>
 
                                                     <button
-                                                      className="structured-action-icon"
+                                                      className={`structured-action-icon ${item.showDetails ? 'active' : ''}`}
                                                       title="View Info"
                                                       onClick={(e) => {
                                                         e.stopPropagation();
-                                                        setSelectedLocation({ ...item, locateTrigger: Date.now() });
-                                                        showToast(`Loaded details for ${item.title}`);
+                                                        setChatMessages(prev => prev.map((m, i) => {
+                                                          if (i === idx) {
+                                                            const newItems = m.structuredResults.items.map(it => it.id === item.id ? { ...it, showDetails: !it.showDetails } : it);
+                                                            return { ...m, structuredResults: { ...m.structuredResults, items: newItems } };
+                                                          }
+                                                          return m;
+                                                        }));
                                                       }}
                                                     >
-                                                      <Info size={14} color="#64748B" />
+                                                      <Info size={14} color={item.showDetails ? "#1D68F2" : "#64748B"} />
                                                     </button>
 
                                                     <button
