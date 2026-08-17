@@ -3468,9 +3468,9 @@ input:checked+.slider:before {
   padding: clamp(14px, 1.2vw, 24px) clamp(10px, 1vw, 22px) clamp(14px, 1.2vw, 22px) clamp(10px, 1vw, 22px) !important;
   max-width: 100%;
   box-sizing: border-box !important;
-  background: linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.68)), url('/assets/panel_bg.png') no-repeat center center / cover !important;
-  backdrop-filter: blur(28px) saturate(130%) !important;
-  -webkit-backdrop-filter: blur(28px) saturate(130%) !important;
+  background: linear-gradient(rgba(255, 255, 255, 0.20), rgba(255, 255, 255, 0.20)), url(/assets/panel_bg.png) no-repeat center center / cover !important;
+  backdrop-filter: blur(28px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -3478,9 +3478,9 @@ input:checked+.slider:before {
   z-index: 1;
   clip-path: url(#categoryDrawerTopBottomNotchClip) !important;
   -webkit-clip-path: url(#categoryDrawerTopBottomNotchClip) !important;
-  box-shadow: 0 25px 60px rgba(0, 43, 91, 0.18),
-    0 0 35px rgba(99, 181, 255, 0.25),
-    0 0 70px rgba(33, 88, 158, 0.18) !important;
+  box-shadow: 0 25px 60px rgba(0, 43, 91, 0.25),
+    0 0 35px rgba(99, 181, 255, 0.35),
+    0 0 70px rgba(33, 88, 158, 0.25) !important;
   border-radius: 0 !important;
   border: none !important;
   box-sizing: border-box;
