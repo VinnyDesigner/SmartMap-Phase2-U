@@ -1798,8 +1798,8 @@ function App() {
               style={{
                 position: 'fixed',
                 top: '76px',
-                bottom: '20px',
-                right: '24px',
+                bottom: '16px',
+                right: '16px',
                 width: selectedLocation ? '540px' : '380px',
                 maxWidth: selectedLocation ? '540px' : '380px',
                 height: 'calc(100vh - 96px)',
@@ -2372,7 +2372,7 @@ function App() {
               style={{
                 position: 'absolute',
                 bottom: '20px',
-                right: '24px',
+                right: '16px',
                 zIndex: 1000,
                 transition: 'right 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
               }}
