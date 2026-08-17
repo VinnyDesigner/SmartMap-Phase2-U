@@ -1095,6 +1095,20 @@ function App() {
                       )
                       .map(cat => {
                         const isExpanded = expandedCategory === cat.name;
+                        const isAllSubSelected = cat.subcategories.length > 0 && cat.subcategories.every(sub => selectedSubcategories[sub]);
+                        const isSomeSubSelected = cat.subcategories.some(sub => selectedSubcategories[sub]);
+
+                        const handleParentCategoryToggle = (e) => {
+                          e.stopPropagation();
+                          const targetState = !isAllSubSelected;
+                          const updated = { ...selectedSubcategories };
+                          cat.subcategories.forEach(sub => {
+                            updated[sub] = targetState;
+                          });
+                          setSelectedSubcategories(updated);
+                          showToast(targetState ? `Selected all in ${t.getCatName(cat.name)}` : `Cleared ${t.getCatName(cat.name)}`);
+                        };
+
                         return (
                           <div key={cat.id} className="categories-accordion-item" style={{ marginBottom: '4px' }}>
                             <div
@@ -1112,9 +1126,37 @@ function App() {
                                 transition: 'all 0.2s ease'
                               }}
                             >
-                              <div className="categories-header-title" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12.5px', fontWeight: 600, color: '#002B5B' }}>
+                              <div className="categories-header-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                {/* Category Parent Checkbox */}
+                                <div
+                                  onClick={handleParentCategoryToggle}
+                                  title={isAllSubSelected ? "Deselect All" : "Select All"}
+                                  style={{
+                                    width: '16px',
+                                    height: '16px',
+                                    borderRadius: '4px',
+                                    border: (isAllSubSelected || isSomeSubSelected) ? '1.5px solid #1D68F2' : '1.5px solid #94A3B8',
+                                    background: (isAllSubSelected || isSomeSubSelected) ? '#1D68F2' : '#FFFFFF',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.15s ease',
+                                    flexShrink: 0
+                                  }}
+                                >
+                                  {isAllSubSelected && (
+                                    <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                                      <path d="M1.5 4L3.83333 6.5L8.5 1.5" stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                                    </svg>
+                                  )}
+                                  {!isAllSubSelected && isSomeSubSelected && (
+                                    <div style={{ width: '8px', height: '2px', background: '#FFFFFF', borderRadius: '1px' }} />
+                                  )}
+                                </div>
+
                                 {isExpanded ? <ChevronDown size={14} color="#1D68F2" /> : <ChevronRight size={14} color="#64748B" />}
-                                <span>{t.getCatName(cat.name)}</span>
+                                <span style={{ fontSize: '12.5px', fontWeight: 600, color: '#002B5B' }}>{t.getCatName(cat.name)}</span>
                               </div>
                               <span className="categories-badge" style={{ fontSize: '11px', background: 'rgba(37, 99, 235, 0.12)', color: '#1D68F2', padding: '2px 8px', borderRadius: '10px', fontWeight: 600 }}>
                                 {cat.subcategories.length}
@@ -1123,43 +1165,67 @@ function App() {
 
                             {isExpanded && (
                               <div className="categories-subcategories-list" style={{ display: 'flex', flexDirection: 'column', gap: '4px', paddingLeft: '8px', marginTop: '6px' }}>
-                                {cat.subcategories.map(subcat => (
-                                  <div
-                                    key={subcat}
-                                    className={`categories-subcat-item ${selectedSubcategories[subcat] ? 'active' : ''}`}
-                                    style={{
-                                      display: 'flex',
-                                      alignItems: 'center',
-                                      justifyContent: 'space-between',
-                                      padding: '6px 10px',
-                                      borderRadius: '6px',
-                                      fontSize: '12px',
-                                      color: selectedSubcategories[subcat] ? '#1D68F2' : '#334155',
-                                      background: selectedSubcategories[subcat] ? 'rgba(29, 104, 242, 0.14)' : 'rgba(255, 255, 255, 0.3)',
-                                      border: '1px solid rgba(255, 255, 255, 0.4)',
-                                      fontWeight: selectedSubcategories[subcat] ? 600 : 400,
-                                      cursor: 'pointer'
-                                    }}
-                                    onClick={() => {
-                                      const nextState = !selectedSubcategories[subcat];
-                                      setSelectedSubcategories(prev => ({
-                                        ...prev,
-                                        [subcat]: nextState
-                                      }));
-                                      handleUnifiedSearch({ category: subcat });
-                                      setPanelHeight(200);
-                                      setIsAISearchBarOpen(true);
-                                      showToast(`Filtered by ${t.getSubcatName(subcat)}`);
-                                    }}
-                                  >
-                                    <div className="categories-subcat-text">
-                                      {t.getSubcatName(subcat)}
+                                {cat.subcategories.map(subcat => {
+                                  const isSubSelected = !!selectedSubcategories[subcat];
+                                  return (
+                                    <div
+                                      key={subcat}
+                                      className={`categories-subcat-item ${isSubSelected ? 'active' : ''}`}
+                                      style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'space-between',
+                                        padding: '6px 10px',
+                                        borderRadius: '6px',
+                                        fontSize: '12px',
+                                        color: isSubSelected ? '#1D68F2' : '#334155',
+                                        background: isSubSelected ? 'rgba(29, 104, 242, 0.14)' : 'rgba(255, 255, 255, 0.3)',
+                                        border: '1px solid rgba(255, 255, 255, 0.4)',
+                                        fontWeight: isSubSelected ? 600 : 400,
+                                        cursor: 'pointer'
+                                      }}
+                                      onClick={() => {
+                                        const nextState = !isSubSelected;
+                                        setSelectedSubcategories(prev => ({
+                                          ...prev,
+                                          [subcat]: nextState
+                                        }));
+                                        handleUnifiedSearch({ category: subcat });
+                                        setPanelHeight(200);
+                                        setIsAISearchBarOpen(true);
+                                        showToast(`Filtered by ${t.getSubcatName(subcat)}`);
+                                      }}
+                                    >
+                                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                        {/* Subcategory Checkbox */}
+                                        <div
+                                          className={`categories-checkbox ${isSubSelected ? 'checked' : ''}`}
+                                          style={{
+                                            width: '16px',
+                                            height: '16px',
+                                            borderRadius: '4px',
+                                            border: isSubSelected ? '1.5px solid #1D68F2' : '1.5px solid #94A3B8',
+                                            background: isSubSelected ? '#1D68F2' : '#FFFFFF',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            transition: 'all 0.15s ease',
+                                            flexShrink: 0
+                                          }}
+                                        >
+                                          {isSubSelected && (
+                                            <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                                              <path d="M1.5 4L3.83333 6.5L8.5 1.5" stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                                            </svg>
+                                          )}
+                                        </div>
+                                        <span className="categories-subcat-text">
+                                          {t.getSubcatName(subcat)}
+                                        </span>
+                                      </div>
                                     </div>
-                                    {selectedSubcategories[subcat] && (
-                                      <span className="categories-check-indicator" style={{ color: '#1D68F2', fontWeight: 'bold' }}>✓</span>
-                                    )}
-                                  </div>
-                                ))}
+                                  );
+                                })}
                               </div>
                             )}
                           </div>
