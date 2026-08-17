@@ -1515,8 +1515,8 @@ function App() {
               transition: 'left 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
             }}
           >
-            {/* VERTICAL ARM OF THE "L" (1. DRAW, 2. BASEMAP, 3. LEGENDS, & STYLED ZOOM IN/OUT CAPSULE PILL) */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', alignItems: 'center' }}>
+            {/* VERTICAL ARM OF THE "L" (1. DRAW, 2. BASEMAP, 3. LEGENDS) */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
               <button
                 className={`map-glass-icon-btn ${activeLeftPopover === 'draw' ? 'active' : ''}`}
                 title="Measurement & Draw"
@@ -1538,79 +1538,10 @@ function App() {
               >
                 <List size={18} />
               </button>
-
-              {/* VERTICAL CAPSULE ZOOM PILL (+ ON TOP, - ON BOTTOM MATCHING REFERENCE IMAGE) */}
-              <div
-                className="zoom-pill-container"
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: '36px',
-                  height: '76px',
-                  borderRadius: '20px',
-                  background: 'rgba(245, 247, 250, 0.92)',
-                  backdropFilter: 'blur(16px)',
-                  WebkitBackdropFilter: 'blur(16px)',
-                  border: '1.5px solid rgba(255, 255, 255, 0.85)',
-                  boxShadow: '0 4px 14px rgba(0, 43, 91, 0.12), 0 1px 3px rgba(0, 0, 0, 0.08)',
-                  overflow: 'hidden',
-                  marginTop: '2px'
-                }}
-              >
-                <button
-                  title="Zoom In"
-                  onClick={() => {
-                    if (mapInstanceRef.current) mapInstanceRef.current.zoomIn();
-                    showToast("Zoomed In");
-                  }}
-                  style={{
-                    flex: 1,
-                    width: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    background: 'transparent',
-                    border: 'none',
-                    cursor: 'pointer',
-                    color: '#475569',
-                    transition: 'all 0.2s ease'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#002B5B'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = '#475569'}
-                >
-                  <Plus size={18} strokeWidth={2.5} />
-                </button>
-                <div style={{ width: '18px', height: '1px', background: 'rgba(0, 0, 0, 0.06)' }} />
-                <button
-                  title="Zoom Out"
-                  onClick={() => {
-                    if (mapInstanceRef.current) mapInstanceRef.current.zoomOut();
-                    showToast("Zoomed Out");
-                  }}
-                  style={{
-                    flex: 1,
-                    width: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    background: 'transparent',
-                    border: 'none',
-                    cursor: 'pointer',
-                    color: '#475569',
-                    transition: 'all 0.2s ease'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.color = '#002B5B'}
-                  onMouseLeave={(e) => e.currentTarget.style.color = '#475569'}
-                >
-                  <Minus size={18} strokeWidth={2.5} />
-                </button>
-              </div>
             </div>
 
-            {/* HORIZONTAL BASE ARM OF THE "L" (4. COMPASS, 5. MY LOCATION, 6. HOME, 7. COORDINATES, 8. SCALE) */}
-            <div style={{ display: 'flex', flexDirection: 'row', gap: '6px', alignItems: 'center' }}>
+            {/* HORIZONTAL BASE ARM OF THE "L" (4. COMPASS, 5. MY LOCATION, 6. ZOOM IN, 7. ZOOM OUT, 8. HOME, 9. COORDINATES, 10. SCALE) */}
+            <div style={{ display: 'flex', flexDirection: 'row', gap: '6px' }}>
               <button
                 className="map-glass-icon-btn"
                 title="Compass / Orient North"
@@ -1628,6 +1559,68 @@ function App() {
               >
                 <Navigation size={18} />
               </button>
+              {/* COMBINED ZOOM IN / ZOOM OUT SEGMENTED GROUP */}
+              <div
+                className="map-zoom-segmented-group"
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  borderRadius: '10px',
+                  background: 'rgba(255, 255, 255, 0.45)',
+                  backdropFilter: 'blur(16px)',
+                  WebkitBackdropFilter: 'blur(16px)',
+                  border: '1px solid rgba(255, 255, 255, 0.65)',
+                  boxShadow: '0 2px 8px rgba(0, 43, 91, 0.08)',
+                  overflow: 'hidden'
+                }}
+              >
+                <button
+                  className="map-glass-icon-btn-segmented"
+                  title="Zoom In"
+                  onClick={() => {
+                    if (mapInstanceRef.current) mapInstanceRef.current.zoomIn();
+                    showToast("Zoomed In");
+                  }}
+                  style={{
+                    width: '36px',
+                    height: '36px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: 'transparent',
+                    border: 'none',
+                    borderRight: '1px solid rgba(0, 43, 91, 0.12)',
+                    cursor: 'pointer',
+                    color: '#002B5B',
+                    transition: 'all 0.2s ease'
+                  }}
+                >
+                  <ZoomIn size={18} />
+                </button>
+                <button
+                  className="map-glass-icon-btn-segmented"
+                  title="Zoom Out"
+                  onClick={() => {
+                    if (mapInstanceRef.current) mapInstanceRef.current.zoomOut();
+                    showToast("Zoomed Out");
+                  }}
+                  style={{
+                    width: '36px',
+                    height: '36px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: 'transparent',
+                    border: 'none',
+                    cursor: 'pointer',
+                    color: '#002B5B',
+                    transition: 'all 0.2s ease'
+                  }}
+                >
+                  <ZoomOut size={18} />
+                </button>
+              </div>
               <button
                 className="map-glass-icon-btn"
                 title="Home View"
