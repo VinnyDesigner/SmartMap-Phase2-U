@@ -3733,7 +3733,12 @@ input:checked+.slider:before {
   gap: 16px;
   position: relative;
   z-index: 1;
-  margin-top: auto;
+  margin-top: 0 !important;
+}
+
+.map-ai-panel-container .landing-search-btn-pill:not(:disabled):hover {
+  width: 74px !important;
+  padding: 0 6px !important;
 }
 
 .chat-bubble {

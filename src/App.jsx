@@ -1834,7 +1834,7 @@ function App() {
                   width: '100%',
                   margin: 0,
                   marginBottom: 0,
-                  padding: '16px 20px 16px 20px',
+                  padding: '16px 16px 16px 16px',
                   clipPath: 'url(#categoryDrawerTopBottomNotchClip)',
                   WebkitClipPath: 'url(#categoryDrawerTopBottomNotchClip)'
                 }}
@@ -1882,7 +1882,7 @@ function App() {
                           transition: 'all 0.2s ease'
                         }}
                       >
-                        <PanelRight size={18} />
+                        <Minus size={18} />
                       </button>
                     </div>
 
@@ -1891,9 +1891,12 @@ function App() {
                       opacity: 1,
                       flex: 1,
                       margin: '4px 0',
-                      padding: '4px 4px 0px 4px',
+                      padding: '4px 0px',
                       overflow: 'auto',
-                      position: 'relative'
+                      position: 'relative',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'flex-start'
                     }}>
 
                       <div className="map-ai-chat-stream">
