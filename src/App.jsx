@@ -1086,7 +1086,7 @@ function App() {
 
                 {/* CATEGORIES CARD LIST */}
                 <div className="search-history-card">
-                  <div className="search-history-list" style={{ gap: '6px' }}>
+                  <div className="search-history-list" style={{ gap: '0px' }}>
                     {CATEGORY_TREE
                       .filter(cat =>
                         !categorySearchQuery ||
@@ -1095,22 +1095,8 @@ function App() {
                       )
                       .map(cat => {
                         const isExpanded = expandedCategory === cat.name;
-                        const isAllSubSelected = cat.subcategories.length > 0 && cat.subcategories.every(sub => selectedSubcategories[sub]);
-                        const isSomeSubSelected = cat.subcategories.some(sub => selectedSubcategories[sub]);
-
-                        const handleParentCategoryToggle = (e) => {
-                          e.stopPropagation();
-                          const targetState = !isAllSubSelected;
-                          const updated = { ...selectedSubcategories };
-                          cat.subcategories.forEach(sub => {
-                            updated[sub] = targetState;
-                          });
-                          setSelectedSubcategories(updated);
-                          showToast(targetState ? `Selected all in ${t.getCatName(cat.name)}` : `Cleared ${t.getCatName(cat.name)}`);
-                        };
-
                         return (
-                          <div key={cat.id} className="categories-accordion-item" style={{ marginBottom: '4px' }}>
+                          <div key={cat.id} className="categories-accordion-item" style={{ marginBottom: '0px' }}>
                             <div
                               className={`categories-accordion-header ${isExpanded ? 'expanded' : ''}`}
                               onClick={() => setExpandedCategory(isExpanded ? null : cat.name)}
@@ -1118,7 +1104,7 @@ function App() {
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'space-between',
-                                padding: '8px 10px',
+                                padding: '4px 10px',
                                 background: isExpanded ? 'rgba(37, 99, 235, 0.08)' : 'rgba(255, 255, 255, 0.45)',
                                 border: '1px solid rgba(255, 255, 255, 0.65)',
                                 borderRadius: '8px',
@@ -1126,35 +1112,7 @@ function App() {
                                 transition: 'all 0.2s ease'
                               }}
                             >
-                              <div className="categories-header-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                {/* Category Parent Checkbox */}
-                                <div
-                                  onClick={handleParentCategoryToggle}
-                                  title={isAllSubSelected ? "Deselect All" : "Select All"}
-                                  style={{
-                                    width: '16px',
-                                    height: '16px',
-                                    borderRadius: '4px',
-                                    border: (isAllSubSelected || isSomeSubSelected) ? '1.5px solid #1D68F2' : '1.5px solid #94A3B8',
-                                    background: (isAllSubSelected || isSomeSubSelected) ? '#1D68F2' : '#FFFFFF',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    cursor: 'pointer',
-                                    transition: 'all 0.15s ease',
-                                    flexShrink: 0
-                                  }}
-                                >
-                                  {isAllSubSelected && (
-                                    <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
-                                      <path d="M1.5 4L3.83333 6.5L8.5 1.5" stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                                    </svg>
-                                  )}
-                                  {!isAllSubSelected && isSomeSubSelected && (
-                                    <div style={{ width: '8px', height: '2px', background: '#FFFFFF', borderRadius: '1px' }} />
-                                  )}
-                                </div>
-
+                              <div className="categories-header-title" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                                 {isExpanded ? <ChevronDown size={14} color="#1D68F2" /> : <ChevronRight size={14} color="#64748B" />}
                                 <span style={{ fontSize: '12.5px', fontWeight: 600, color: '#002B5B' }}>{t.getCatName(cat.name)}</span>
                               </div>
@@ -1164,7 +1122,7 @@ function App() {
                             </div>
 
                             {isExpanded && (
-                              <div className="categories-subcategories-list" style={{ display: 'flex', flexDirection: 'column', gap: '4px', paddingLeft: '8px', marginTop: '6px' }}>
+                              <div className="categories-subcategories-list" style={{ display: 'flex', flexDirection: 'column', gap: '2px', paddingLeft: '8px', marginTop: '2px', marginBottom: '2px' }}>
                                 {cat.subcategories.map(subcat => {
                                   const isSubSelected = !!selectedSubcategories[subcat];
                                   return (
@@ -1175,7 +1133,7 @@ function App() {
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'space-between',
-                                        padding: '6px 10px',
+                                        padding: '4px 10px',
                                         borderRadius: '6px',
                                         fontSize: '12px',
                                         color: isSubSelected ? '#1D68F2' : '#334155',
@@ -1197,7 +1155,7 @@ function App() {
                                       }}
                                     >
                                       <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                        {/* Subcategory Checkbox */}
+                                        {/* Child Branch Subcategory Checkbox */}
                                         <div
                                           className={`categories-checkbox ${isSubSelected ? 'checked' : ''}`}
                                           style={{
