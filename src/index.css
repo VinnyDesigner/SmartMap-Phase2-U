@@ -2941,6 +2941,74 @@ input:checked+.slider:before {
 }
 
 /* Floating Glass Map Control Buttons & Location Badge (Matching AI Spatial Search Glass Style) */
+.map-glass-circle-btn {
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.88) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+  border: 1px solid rgba(0, 43, 91, 0.14) !important;
+  color: #334155 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  box-shadow: 0 3px 10px rgba(0, 43, 91, 0.12) !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  font-family: 'Inter', sans-serif !important;
+  padding: 0 !important;
+}
+
+.map-glass-circle-btn:hover {
+  background: #FFFFFF !important;
+  border-color: #1D68F2 !important;
+  color: #1D68F2 !important;
+  box-shadow: 0 5px 14px rgba(29, 104, 242, 0.22) !important;
+  transform: scale(1.06) !important;
+}
+
+.map-glass-circle-btn.active {
+  background: #1D68F2 !important;
+  border-color: #1D68F2 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 5px 14px rgba(29, 104, 242, 0.35) !important;
+}
+
+/* Vertical Stacked Zoom Pill Card */
+.map-glass-zoom-pill {
+  width: 34px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  border-radius: 17px !important;
+  background: rgba(255, 255, 255, 0.88) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+  border: 1px solid rgba(0, 43, 91, 0.14) !important;
+  box-shadow: 0 3px 10px rgba(0, 43, 91, 0.12) !important;
+  overflow: hidden !important;
+}
+
+.map-glass-zoom-pill-btn {
+  width: 34px !important;
+  height: 30px !important;
+  background: transparent !important;
+  border: none !important;
+  color: #334155 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+  padding: 0 !important;
+}
+
+.map-glass-zoom-pill-btn:hover {
+  background: rgba(29, 104, 242, 0.12) !important;
+  color: #1D68F2 !important;
+}
+
 .map-glass-icon-btn {
   width: 36px;
   height: 36px;

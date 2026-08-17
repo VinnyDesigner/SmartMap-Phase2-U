@@ -49,12 +49,15 @@ import {
   Target,
   ChevronDown,
   ChevronUp,
+  ChevronLeft,
   Globe,
   Mountain,
   Circle,
   Square,
   Pentagon,
   MousePointer,
+  Hand,
+  Maximize2,
   Minus,
   Clock,
   Star,
@@ -142,6 +145,8 @@ function App() {
   const [activeLeftPopover, setActiveLeftPopover] = useState(null); // 'basemap' | 'legend' | 'draw' | null
   const [activeBasemap, setActiveBasemap] = useState('light');
   const [activeDrawTool, setActiveDrawTool] = useState('polygon');
+  const [is3DMode, setIs3DMode] = useState(false);
+  const [isPanActive, setIsPanActive] = useState(true);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -1500,82 +1505,153 @@ function App() {
             </button>
           </div>
 
-          {/* LEFT FLOATING VERTICAL TOOLBAR STRIP */}
+          {/* LEFT FLOATING VERTICAL TOOLBAR STRIP (MATCHING REFERENCE IMAGE 2) */}
           <div
             className="map-controls-left-strip"
             style={{
               position: 'absolute',
-              top: '124px',
-              left: isSidebarOpen ? 'calc(15% + 36px)' : '20px',
+              top: '80px',
+              left: isSidebarOpen ? 'calc(15% + 20px)' : '16px',
               zIndex: 1000,
               display: 'flex',
               flexDirection: 'column',
+              alignItems: 'center',
               gap: '6px',
               transition: 'left 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
             }}
           >
-
+            {/* 1. TOP CIRCLE COLLAPSE TOGGLE BUTTON (<) */}
             <button
-              className={`map-glass-icon-btn ${activeLeftPopover === 'basemap' ? 'active' : ''}`}
+              className="map-glass-circle-btn"
+              title={isSidebarOpen ? "Collapse Sidebar" : "Expand Sidebar"}
+              onClick={() => setIsSidebarOpen(prev => !prev)}
+            >
+              <ChevronLeft size={16} style={{ transform: isSidebarOpen ? 'rotate(0deg)' : 'rotate(180deg)', transition: 'transform 0.2s ease' }} />
+            </button>
+
+            {/* FEATURE POPOVER TRIGGERS (BASEMAP, LEGEND, DRAW) */}
+            <button
+              className={`map-glass-circle-btn ${activeLeftPopover === 'basemap' ? 'active' : ''}`}
               title="Basemap Gallery"
               onClick={() => setActiveLeftPopover(prev => prev === 'basemap' ? null : 'basemap')}
             >
-              <Grid size={18} />
+              <Grid size={16} />
             </button>
             <button
-              className={`map-glass-icon-btn ${activeLeftPopover === 'legend' ? 'active' : ''}`}
+              className={`map-glass-circle-btn ${activeLeftPopover === 'legend' ? 'active' : ''}`}
               title="Legend & Analysis"
               onClick={() => setActiveLeftPopover(prev => prev === 'legend' ? null : 'legend')}
             >
-              <List size={18} />
+              <List size={16} />
             </button>
             <button
-              className={`map-glass-icon-btn ${activeLeftPopover === 'draw' ? 'active' : ''}`}
+              className={`map-glass-circle-btn ${activeLeftPopover === 'draw' ? 'active' : ''}`}
               title="Measurement & Draw"
               onClick={() => setActiveLeftPopover(prev => prev === 'draw' ? null : 'draw')}
             >
-              <Edit size={18} />
+              <Edit size={16} />
             </button>
 
-            <div style={{ width: '100%', height: '1px', background: 'rgba(255, 255, 255, 0.25)', margin: '2px 0' }} />
+            <div style={{ width: '20px', height: '1px', background: 'rgba(0, 43, 91, 0.12)', margin: '1px 0' }} />
 
-            {/* MOVED MAP CONTROLS FROM TOP-RIGHT TO LEFT BELOW OTHER ELEMENTS */}
+            {/* 2. COMPASS ICON BUTTON */}
             <button
-              className="map-glass-icon-btn"
-              title="Zoom In"
+              className="map-glass-circle-btn"
+              title="Compass / Orient North"
+              onClick={() => showToast("Map Oriented North")}
+            >
+              <Compass size={16} />
+            </button>
+
+            {/* 3. TARGET / LOCATE MY POSITION BUTTON */}
+            <button
+              className="map-glass-circle-btn"
+              title="My Location / Center Target"
               onClick={() => {
-                if (mapInstanceRef.current) mapInstanceRef.current.zoomIn();
-                showToast("Zoomed In");
+                if (mapInstanceRef.current) mapInstanceRef.current.setView([24.4539, 54.3773], 13, { animate: true });
+                showToast("Centered on Abu Dhabi Location");
               }}
             >
-              <ZoomIn size={18} />
+              <Target size={16} />
             </button>
+
+            {/* 4. STACKED VERTICAL ZOOM CONTROL PILL (+ / -) */}
+            <div className="map-glass-zoom-pill">
+              <button
+                className="map-glass-zoom-pill-btn"
+                title="Zoom In"
+                onClick={() => {
+                  if (mapInstanceRef.current) mapInstanceRef.current.zoomIn();
+                  showToast("Zoomed In");
+                }}
+              >
+                <Plus size={16} />
+              </button>
+              <div style={{ width: '100%', height: '1px', background: 'rgba(0, 43, 91, 0.12)' }} />
+              <button
+                className="map-glass-zoom-pill-btn"
+                title="Zoom Out"
+                onClick={() => {
+                  if (mapInstanceRef.current) mapInstanceRef.current.zoomOut();
+                  showToast("Zoomed Out");
+                }}
+              >
+                <Minus size={16} />
+              </button>
+            </div>
+
+            {/* 5. 3D TOGGLE BUTTON */}
             <button
-              className="map-glass-icon-btn"
-              title="Zoom Out"
+              className={`map-glass-circle-btn ${is3DMode ? 'active' : ''}`}
+              title="Toggle 3D View"
               onClick={() => {
-                if (mapInstanceRef.current) mapInstanceRef.current.zoomOut();
-                showToast("Zoomed Out");
+                setIs3DMode(prev => !prev);
+                showToast(is3DMode ? "Switched to 2D Map View" : "Switched to 3D Map View");
               }}
+              style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '-0.3px' }}
             >
-              <ZoomOut size={18} />
+              3D
             </button>
+
+            {/* 6. HOME BUTTON */}
             <button
-              className="map-glass-icon-btn"
-              title="Home View"
+              className="map-glass-circle-btn"
+              title="Reset to Home View"
               onClick={() => {
                 if (mapInstanceRef.current) mapInstanceRef.current.flyTo([24.4539, 54.3773], 12);
                 showToast("Reset to Abu Dhabi Home View");
               }}
             >
-              <Home size={18} />
+              <Home size={16} />
             </button>
+
+            {/* 7. HAND / PAN BUTTON */}
             <button
-              className="map-glass-icon-btn"
-              title="Compass / Orient North"
-              onClick={() => showToast("Map Oriented North")}
+              className={`map-glass-circle-btn ${isPanActive ? 'active' : ''}`}
+              title="Pan Tool"
+              onClick={() => {
+                setIsPanActive(prev => !prev);
+                showToast("Pan Tool Toggled");
+              }}
             >
-              <Compass size={18} />
+              <Hand size={16} />
+            </button>
+
+            {/* 8. FULLSCREEN / EXTEND BUTTON */}
+            <button
+              className="map-glass-circle-btn"
+              title="Toggle Fullscreen"
+              onClick={() => {
+                if (!document.fullscreenElement) {
+                  document.documentElement.requestFullscreen().catch(() => {});
+                  showToast("Entered Fullscreen");
+                } else {
+                  if (document.exitFullscreen) document.exitFullscreen();
+                  showToast("Exited Fullscreen");
+                }
+              }}
+            >
+              <Maximize2 size={16} />
             </button>
           </div>
 
