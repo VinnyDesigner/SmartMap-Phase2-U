@@ -17,13 +17,13 @@ export default function LeafletMap({
   activeBasemap = 'light',
   setHoveredCoords,
   setIsHovered,
-  setMapZoom,
   addLog,
   showToast,
   mapInstanceRef,
   activeSearchResults = [],
   selectedLocation,
-  setSelectedLocation
+  setSelectedLocation,
+  setMapScale
 }) {
   const mapRef = useRef(null);
   const leafletInstance = useRef(null);
@@ -39,27 +39,23 @@ export default function LeafletMap({
     if (!mapRef.current || leafletInstance.current) return;
 
     // Define bounds for Abu Dhabi (city and immediate surroundings)
-    const southWest = L.latLng(24.1, 54.1);
-    const northEast = L.latLng(24.7, 54.8);
-    const bounds = L.latLngBounds(southWest, northEast);
+    const abuDhabiBounds = [
+      [24.10, 54.10], // Southwest corner
+      [24.65, 54.75]  // Northeast corner
+    ];
 
+    // Center initially on Abu Dhabi: Lat 24.4539, Lon 54.3773
     const map = L.map(mapRef.current, {
       center: [24.4539, 54.3773],
       zoom: 12,
+      minZoom: 10,
       zoomControl: false,
-      attributionControl: false,
-      maxBounds: bounds,
-      maxBoundsViscosity: 0.8
+      maxBounds: abuDhabiBounds,
+      maxBoundsViscosity: 1.0
     });
 
     leafletInstance.current = map;
     if (mapInstanceRef) mapInstanceRef.current = map;
-
-    if (setMapZoom) setMapZoom(map.getZoom());
-
-    map.on('zoomend', () => {
-      if (setMapZoom) setMapZoom(map.getZoom());
-    });
 
     markersGroupRef.current = L.layerGroup().addTo(map);
     boundaryGroupRef.current = L.layerGroup().addTo(map);
@@ -72,6 +68,23 @@ export default function LeafletMap({
         elevation: (Math.sin(e.latlng.lat * 80) * 15 + 42).toFixed(1)
       });
       setIsHovered(true);
+    });
+
+    map.on('zoomend', () => {
+      if (!setMapScale) return;
+      const z = map.getZoom();
+      const scaleMap = {
+        10: '1 : 200,000',
+        11: '1 : 100,000',
+        12: '1 : 50,000',
+        13: '1 : 25,000',
+        14: '1 : 10,000',
+        15: '1 : 5,000',
+        16: '1 : 2,500',
+        17: '1 : 1,000',
+        18: '1 : 500'
+      };
+      setMapScale(scaleMap[z] || `1 : ${Math.round(50000 / Math.pow(2, z - 12)).toLocaleString()}`);
     });
 
     map.on('mouseout', () => {
