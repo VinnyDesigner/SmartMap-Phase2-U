@@ -41,6 +41,7 @@ import {
   X,
   PanelLeft,
   PanelLeftClose,
+  PanelRight,
   MoreVertical,
   Grid,
   List,
