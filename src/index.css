@@ -3735,6 +3735,10 @@ input:checked+.slider:before {
   position: relative;
   z-index: 1;
   margin-top: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
 }
 
 .map-ai-panel-container .landing-search-btn-pill:not(:disabled):hover {
@@ -3746,15 +3750,26 @@ input:checked+.slider:before {
   display: flex;
   align-items: flex-end;
   gap: 10px;
-  width: 100%;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
 }
 
 .chat-bubble.user {
   justify-content: flex-end;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
 }
 
 .chat-bubble.ai {
   justify-content: flex-start;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
 }
 
 .chat-avatar {
@@ -3861,12 +3876,15 @@ input:checked+.slider:before {
 }
 
 .map-ai-panel-container .landing-search-container {
-  margin: 0 2px 6px 2px !important;
-  width: calc(100% - 4px) !important;
-  flex: 0 0 54px !important;
-  height: 54px !important;
-  min-height: 54px !important;
-  max-height: 54px !important;
+  margin: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  flex: 0 0 46px !important;
+  height: 46px !important;
+  min-height: 46px !important;
+  max-height: 46px !important;
   box-shadow: 0 20px 65px 0 rgba(0, 35, 75, 0.04),
     0 8px 30px 0 rgba(0, 50, 110, 0.025),
     0 0 50px 0 rgba(99, 181, 255, 0.05),

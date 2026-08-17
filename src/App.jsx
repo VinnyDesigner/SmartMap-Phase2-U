@@ -1840,9 +1840,9 @@ function App() {
                 }}
               >
                 {/* MAIN 2-COLUMN GRID (CHAT STREAM LEFT, DETAILED INFORMATION RIGHT) */}
-                <div className="map-ai-panel-main-grid" style={{ display: 'flex', width: '100%', height: '100%', gap: '16px', margin: 0, padding: 0 }}>
+                <div className="map-ai-panel-main-grid" style={{ display: 'flex', width: '100%', maxWidth: '100%', minWidth: 0, height: '100%', gap: '16px', margin: 0, padding: 0, boxSizing: 'border-box' }}>
                   {/* LEFT COLUMN: CHAT STREAM & INPUT BAR */}
-                  <div className="map-ai-panel-left-col" style={{ display: 'flex', flexDirection: 'column', height: '100%', flex: 1, justifyContent: 'space-between', margin: 0, padding: 0 }}>
+                  <div className="map-ai-panel-left-col" style={{ display: 'flex', flexDirection: 'column', height: '100%', flex: 1, minWidth: 0, maxWidth: '100%', justifyContent: 'space-between', margin: 0, padding: 0, boxSizing: 'border-box' }}>
                     {/* PANEL HEADER (INSIDE LEFT COLUMN ONLY) WITH MINIMIZE BUTTON MATCHING SEARCH HISTORY */}
                     <div className="map-ai-panel-header" style={{
                       opacity: 1,
@@ -1853,7 +1853,10 @@ function App() {
                       alignItems: 'center',
                       justifyContent: 'space-between',
                       width: '100%',
-                      marginBottom: '10px'
+                      maxWidth: '100%',
+                      minWidth: 0,
+                      marginBottom: '10px',
+                      boxSizing: 'border-box'
                     }}>
                       <div className="map-ai-panel-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <span>AI Spatial Search</span>
@@ -1892,14 +1895,19 @@ function App() {
                       flex: 1,
                       margin: '4px 0',
                       padding: '4px 0px',
-                      overflow: 'auto',
+                      overflowY: 'auto',
+                      overflowX: 'hidden',
                       position: 'relative',
                       display: 'flex',
                       flexDirection: 'column',
-                      justifyContent: 'flex-start'
+                      justifyContent: 'flex-start',
+                      width: '100%',
+                      maxWidth: '100%',
+                      minWidth: 0,
+                      boxSizing: 'border-box'
                     }}>
 
-                      <div className="map-ai-chat-stream">
+                      <div className="map-ai-chat-stream" style={{ width: '100%', maxWidth: '100%', minWidth: 0, boxSizing: 'border-box' }}>
                         {chatMessages
                           .filter(msg => {
                             const isRedundantSpec = msg.text && msg.text.includes('Here are the detailed spatial specifications');
