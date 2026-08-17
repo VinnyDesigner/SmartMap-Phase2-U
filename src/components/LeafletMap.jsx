@@ -14,7 +14,7 @@ export default function LeafletMap({
   clickPoints,
   setClickPoints,
   theme,
-  activeBasemap = 'streets',
+  activeBasemap = 'light',
   setHoveredCoords,
   setIsHovered,
   addLog,

@@ -140,7 +140,7 @@ function App() {
 
   // Left strip floating popovers & basemap selection
   const [activeLeftPopover, setActiveLeftPopover] = useState(null); // 'basemap' | 'legend' | 'draw' | null
-  const [activeBasemap, setActiveBasemap] = useState('streets');
+  const [activeBasemap, setActiveBasemap] = useState('light');
   const [activeDrawTool, setActiveDrawTool] = useState('polygon');
 
   useEffect(() => {
