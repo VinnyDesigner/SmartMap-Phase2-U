@@ -1562,28 +1562,26 @@ function App() {
               >
                 <PanelLeft size={18} />
               </button>
-              <button
-                className="map-glass-pill-btn map-all-categories-btn"
-                onClick={() => {
-                  setIsSidebarOpen(true);
-                  setActiveTab('categories');
-                  showToast("All Categories Opened");
-                }}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  padding: '0 14px',
-                  height: '36px',
-                  borderRadius: '10px',
-                  fontSize: '12.5px',
-                  fontWeight: '600',
-                  cursor: 'pointer'
-                }}
-              >
-                <Grid size={15} style={{ color: '#1D68F2' }} />
-                <span>{t.allCategories}</span>
-              </button>
+              <div className="geovision-ai-btn-wrapper" style={{ borderRadius: '12px', padding: '2px' }}>
+                <button
+                  className="geovision-ai-btn map-all-categories-btn"
+                  onClick={() => {
+                    setIsSidebarOpen(true);
+                    setActiveTab('categories');
+                    showToast("All Categories Opened");
+                  }}
+                  style={{
+                    height: '36px',
+                    padding: '0 16px',
+                    borderRadius: '10px',
+                    fontSize: '13px',
+                    fontWeight: '600'
+                  }}
+                >
+                  <Grid size={16} className="ai-sparkle-icon" />
+                  <span>{t.allCategories}</span>
+                </button>
+              </div>
             </div>
           )}
 
