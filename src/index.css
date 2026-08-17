@@ -5056,7 +5056,7 @@ input:checked+.slider:before {
 .categories-accordion-item {
   flex-shrink: 0 !important;
   width: 100% !important;
-  margin-bottom: 0px !important;
+  margin-bottom: 4px !important;
   box-sizing: border-box !important;
 }
 
