@@ -3463,161 +3463,88 @@ input:checked+.slider:before {
 .map-ai-panel-container {
   position: relative;
   width: 100%;
-  padding: 14px 10px 14px 10px !important;
-  box-sizing: border-box !important;
-  max-width: 100% !important;
-  overflow: hidden !important;
+  max-width: 100%;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.14) 100%);
   backdrop-filter: blur(28px) saturate(190%);
   -webkit-backdrop-filter: blur(28px) saturate(190%);
+  padding: 14px 10px 14px 10px !important;
   display: flex;
   flex-direction: column;
-}
-
-/* 12px Font & Strict Frame Containment */
-.map-ai-panel-container .map-ai-panel-title span {
-  font-size: 13px !important;
-  font-weight: 700 !important;
-}
-
-.map-ai-panel-container .chat-bubble-content {
-  max-width: 100% !important;
-  width: 100% !important;
-  box-sizing: border-box !important;
-  font-size: 12px !important;
-  line-height: 1.45 !important;
-  padding: 8px 10px !important;
-  word-break: break-word !important;
-  overflow-wrap: break-word !important;
-}
-
-.map-ai-panel-container .structured-results-card {
-  width: 100% !important;
-  max-width: 100% !important;
-  box-sizing: border-box !important;
-  margin-top: 6px !important;
-  overflow: hidden !important;
-}
-
-.map-ai-panel-container .structured-results-header {
-  padding: 6px 8px !important;
-  gap: 4px !important;
-  box-sizing: border-box !important;
-}
-
-.map-ai-panel-container .structured-results-title-group {
-  display: flex !important;
-  align-items: center !important;
-  gap: 4px !important;
-  min-width: 0 !important;
-  flex: 1 !important;
-  overflow: hidden !important;
-}
-
-.map-ai-panel-container .structured-main-title {
-  font-size: 11.5px !important;
-  font-weight: 700 !important;
-  color: #00468C !important;
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  max-width: 130px !important;
-}
-
-.map-ai-panel-container .structured-view-all-btn {
-  font-size: 11px !important;
-  padding: 2px 4px !important;
-  flex-shrink: 0 !important;
-}
-
-.map-ai-panel-container .structured-tabs-bar {
-  display: flex !important;
-  align-items: center !important;
-  gap: 8px !important;
-  padding: 6px 8px 4px 8px !important;
-  overflow-x: auto !important;
-  white-space: nowrap !important;
-  box-sizing: border-box !important;
-}
-
-.map-ai-panel-container .structured-tab-btn {
-  font-size: 11px !important;
-  padding: 3px 0 5px 0 !important;
-  white-space: nowrap !important;
-}
-
-.map-ai-panel-container .structured-items-list {
-  padding: 6px !important;
-  box-sizing: border-box !important;
-}
-
-.map-ai-panel-container .structured-item-card {
-  padding: 5px 8px !important;
-  box-sizing: border-box !important;
-  gap: 4px !important;
-}
-
-.map-ai-panel-container .structured-item-info {
-  min-width: 0 !important;
-  flex: 1 !important;
-  overflow: hidden !important;
-}
-
-.map-ai-panel-container .structured-item-title {
-  font-size: 11.5px !important;
-  font-weight: 600 !important;
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  max-width: 120px !important;
-}
-
-.map-ai-panel-container .structured-item-arabic {
-  font-size: 10px !important;
-  white-space: nowrap !important;
-  overflow: hidden !important;
-  text-overflow: ellipsis !important;
-  max-width: 120px !important;
-}
-
-.map-ai-panel-container .structured-item-actions {
-  display: flex !important;
-  align-items: center !important;
-  gap: 3px !important;
-  flex-shrink: 0 !important;
-}
-
-.map-ai-panel-container .structured-action-icon {
-  width: 20px !important;
-  height: 20px !important;
-  padding: 0 !important;
-}
-
-.map-ai-panel-container .structured-radius-chips {
-  display: flex !important;
-  flex-wrap: wrap !important;
-  gap: 4px !important;
-  max-width: 100% !important;
-  box-sizing: border-box !important;
-  margin-top: 4px !important;
-}
-
-.map-ai-panel-container .structured-radius-chip-btn {
-  font-size: 11px !important;
-  padding: 3px 8px !important;
-  border-radius: 12px !important;
-  white-space: nowrap !important;
-}
-
-.map-ai-panel-container .landing-search-container {
+  justify-content: space-between;
   margin: 0 !important;
   z-index: 1;
   clip-path: url(#panelCardRoundedNotchClip) !important;
   box-shadow: 0 25px 60px rgba(0, 43, 91, 0.25), 0 0 30px rgba(99, 181, 255, 0.15);
   border-radius: 24px 24px 0 0 !important;
   border: none;
-  box-sizing: border-box;
+  box-sizing: border-box !important;
   transition: height 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  font-size: 12px !important;
+  overflow: hidden !important;
+}
+
+.map-ai-panel-container .map-ai-panel-title {
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  color: #0F172A !important;
+}
+
+.map-ai-panel-container .map-ai-panel-body {
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 4px 0 !important;
+}
+
+.map-ai-panel-container .map-ai-chat-stream,
+.map-ai-panel-container .chat-bubble-wrapper,
+.map-ai-panel-container .chat-bubble {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow-x: hidden !important;
+}
+
+.map-ai-panel-container .chat-bubble-content {
+  font-size: 12px !important;
+  line-height: 1.45 !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  word-break: break-word !important;
+  overflow-wrap: anywhere !important;
+  padding: 8px 10px !important;
+  border-radius: 12px !important;
+}
+
+.map-ai-panel-container .landing-search-container {
+  height: 42px !important;
+  min-height: 42px !important;
+  max-height: 42px !important;
+  padding: 0 4px 0 6px !important;
+  border-radius: 12px !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 4px 16px rgba(0, 43, 91, 0.12), 0 0 1px rgba(0, 0, 0, 0.1) !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+}
+
+.map-ai-panel-container .landing-search-input {
+  font-size: 12px !important;
+}
+
+.map-ai-panel-container .landing-search-input::placeholder {
+  font-size: 12px !important;
+}
+
+.map-ai-panel-container .landing-search-btn-pill:not(:disabled):hover {
+  width: 66px !important;
+  padding: 0 5px !important;
 }
 
 .map-ai-panel-inner-glow {
