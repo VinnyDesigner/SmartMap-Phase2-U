@@ -3017,17 +3017,9 @@ input:checked+.slider:before {
   font-family: 'Inter', sans-serif;
   font-size: 13px;
   font-weight: 600;
-  cursor: pointer;
+  cursor: default !important;
   box-shadow: 0 8px 20px rgba(0, 43, 91, 0.12), inset 0 1px 2px #ffffff !important;
   transition: all 0.2s ease;
-}
-
-.map-location-badge:hover {
-  background: #ffffff !important;
-  border-color: #ffffff !important;
-  color: #2563EB !important;
-  transform: translateY(-2px) scale(1.03) !important;
-  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.25) !important;
 }
 
 /* GeoVision AI Assistant Floating Button (Matching Primary Explore Button) */
@@ -5046,13 +5038,12 @@ input:checked+.slider:before {
   border-radius: 10px !important;
   font-size: 12.5px !important;
   font-weight: 600 !important;
-  cursor: pointer !important;
+  cursor: default !important;
   white-space: nowrap !important;
 }
 
 .map-glass-icon-btn:hover,
 .map-glass-pill-btn:hover,
-.map-location-badge:hover,
 .map-glass-icon-btn.active {
   background: radial-gradient(41.72% 36.82% at 49.73% 100%, rgba(59, 130, 246, 0.55) 0%, rgba(2, 46, 91, 0.00) 100%), radial-gradient(50.19% 67.5% at 49.73% 50%, #10447C 0%, #011429 100%) !important;
   background-blend-mode: plus-lighter, normal !important;
@@ -5064,7 +5055,6 @@ input:checked+.slider:before {
 
 .map-glass-icon-btn:hover svg,
 .map-glass-pill-btn:hover svg,
-.map-location-badge:hover svg,
 .map-glass-icon-btn.active svg {
   color: #ffffff !important;
   stroke: #ffffff !important;
@@ -5077,7 +5067,6 @@ input:checked+.slider:before {
 
 .map-glass-icon-btn:hover .geovision-gradient-icon-wrapper,
 .map-glass-pill-btn:hover .geovision-gradient-icon-wrapper,
-.map-location-badge:hover .geovision-gradient-icon-wrapper,
 .map-glass-icon-btn.active .geovision-gradient-icon-wrapper,
 .landing-nav-item:hover .geovision-gradient-icon-wrapper,
 .landing-lang-btn:hover .geovision-gradient-icon-wrapper,
@@ -5098,7 +5087,6 @@ input:checked+.slider:before {
 
 .map-glass-icon-btn:hover img,
 .map-glass-pill-btn:hover img,
-.map-location-badge:hover img,
 .map-glass-icon-btn.active img {
   filter: brightness(0) invert(1) !important;
 }
