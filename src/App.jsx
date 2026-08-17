@@ -49,15 +49,12 @@ import {
   Target,
   ChevronDown,
   ChevronUp,
-  ChevronLeft,
   Globe,
   Mountain,
   Circle,
   Square,
   Pentagon,
   MousePointer,
-  Hand,
-  Maximize2,
   Minus,
   Clock,
   Star,
@@ -145,8 +142,6 @@ function App() {
   const [activeLeftPopover, setActiveLeftPopover] = useState(null); // 'basemap' | 'legend' | 'draw' | null
   const [activeBasemap, setActiveBasemap] = useState('light');
   const [activeDrawTool, setActiveDrawTool] = useState('polygon');
-  const [is3DMode, setIs3DMode] = useState(false);
-  const [isPanActive, setIsPanActive] = useState(true);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -1505,159 +1500,91 @@ function App() {
             </button>
           </div>
 
-          {/* LEFT FLOATING VERTICAL TOOLBAR STRIP (MATCHING REFERENCE IMAGE 2) */}
+          {/* LEFT FLOATING VERTICAL & HORIZONTAL TOOLBAR STRIP (L-SHAPED LAYOUT AT BOTTOM-LEFT) */}
           <div
-            className="map-controls-left-strip"
+            className="map-controls-left-strip map-controls-l-shape"
             style={{
               position: 'absolute',
-              top: '80px',
-              left: isSidebarOpen ? 'calc(15% + 20px)' : '16px',
+              bottom: '24px',
+              left: isSidebarOpen ? 'calc(15% + 36px)' : '20px',
               zIndex: 1000,
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'center',
+              alignItems: 'flex-start',
               gap: '6px',
               transition: 'left 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
             }}
           >
-            {/* 1. TOP CIRCLE COLLAPSE TOGGLE BUTTON (<) */}
-            <button
-              className="map-glass-circle-btn"
-              title={isSidebarOpen ? "Collapse Sidebar" : "Expand Sidebar"}
-              onClick={() => setIsSidebarOpen(prev => !prev)}
-            >
-              <ChevronLeft size={16} style={{ transform: isSidebarOpen ? 'rotate(0deg)' : 'rotate(180deg)', transition: 'transform 0.2s ease' }} />
-            </button>
-
-            {/* FEATURE POPOVER TRIGGERS (BASEMAP, LEGEND, DRAW) */}
-            <button
-              className={`map-glass-circle-btn ${activeLeftPopover === 'basemap' ? 'active' : ''}`}
-              title="Basemap Gallery"
-              onClick={() => setActiveLeftPopover(prev => prev === 'basemap' ? null : 'basemap')}
-            >
-              <Grid size={16} />
-            </button>
-            <button
-              className={`map-glass-circle-btn ${activeLeftPopover === 'legend' ? 'active' : ''}`}
-              title="Legend & Analysis"
-              onClick={() => setActiveLeftPopover(prev => prev === 'legend' ? null : 'legend')}
-            >
-              <List size={16} />
-            </button>
-            <button
-              className={`map-glass-circle-btn ${activeLeftPopover === 'draw' ? 'active' : ''}`}
-              title="Measurement & Draw"
-              onClick={() => setActiveLeftPopover(prev => prev === 'draw' ? null : 'draw')}
-            >
-              <Edit size={16} />
-            </button>
-
-            <div style={{ width: '20px', height: '1px', background: 'rgba(0, 43, 91, 0.12)', margin: '1px 0' }} />
-
-            {/* 2. COMPASS ICON BUTTON */}
-            <button
-              className="map-glass-circle-btn"
-              title="Compass / Orient North"
-              onClick={() => showToast("Map Oriented North")}
-            >
-              <Compass size={16} />
-            </button>
-
-            {/* 3. TARGET / LOCATE MY POSITION BUTTON */}
-            <button
-              className="map-glass-circle-btn"
-              title="My Location / Center Target"
-              onClick={() => {
-                if (mapInstanceRef.current) mapInstanceRef.current.setView([24.4539, 54.3773], 13, { animate: true });
-                showToast("Centered on Abu Dhabi Location");
-              }}
-            >
-              <Target size={16} />
-            </button>
-
-            {/* 4. STACKED VERTICAL ZOOM CONTROL PILL (+ / -) */}
-            <div className="map-glass-zoom-pill">
+            {/* VERTICAL ARM OF THE "L" */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
               <button
-                className="map-glass-zoom-pill-btn"
+                className={`map-glass-icon-btn ${activeLeftPopover === 'basemap' ? 'active' : ''}`}
+                title="Basemap Gallery"
+                onClick={() => setActiveLeftPopover(prev => prev === 'basemap' ? null : 'basemap')}
+              >
+                <Grid size={18} />
+              </button>
+              <button
+                className={`map-glass-icon-btn ${activeLeftPopover === 'legend' ? 'active' : ''}`}
+                title="Legend & Analysis"
+                onClick={() => setActiveLeftPopover(prev => prev === 'legend' ? null : 'legend')}
+              >
+                <List size={18} />
+              </button>
+              <button
+                className={`map-glass-icon-btn ${activeLeftPopover === 'draw' ? 'active' : ''}`}
+                title="Measurement & Draw"
+                onClick={() => setActiveLeftPopover(prev => prev === 'draw' ? null : 'draw')}
+              >
+                <Edit size={18} />
+              </button>
+            </div>
+
+            {/* HORIZONTAL BASE ARM OF THE "L" */}
+            <div style={{ display: 'flex', flexDirection: 'row', gap: '6px' }}>
+              <button
+                className="map-glass-icon-btn"
                 title="Zoom In"
                 onClick={() => {
                   if (mapInstanceRef.current) mapInstanceRef.current.zoomIn();
                   showToast("Zoomed In");
                 }}
               >
-                <Plus size={16} />
+                <ZoomIn size={18} />
               </button>
-              <div style={{ width: '100%', height: '1px', background: 'rgba(0, 43, 91, 0.12)' }} />
               <button
-                className="map-glass-zoom-pill-btn"
+                className="map-glass-icon-btn"
                 title="Zoom Out"
                 onClick={() => {
                   if (mapInstanceRef.current) mapInstanceRef.current.zoomOut();
                   showToast("Zoomed Out");
                 }}
               >
-                <Minus size={16} />
+                <ZoomOut size={18} />
+              </button>
+              <button
+                className="map-glass-icon-btn"
+                title="Home View"
+                onClick={() => {
+                  if (mapInstanceRef.current) mapInstanceRef.current.flyTo([24.4539, 54.3773], 12);
+                  showToast("Reset to Abu Dhabi Home View");
+                }}
+              >
+                <Home size={18} />
+              </button>
+              <button
+                className="map-glass-icon-btn"
+                title="Compass / Orient North"
+                onClick={() => showToast("Map Oriented North")}
+              >
+                <Compass size={18} />
               </button>
             </div>
-
-            {/* 5. 3D TOGGLE BUTTON */}
-            <button
-              className={`map-glass-circle-btn ${is3DMode ? 'active' : ''}`}
-              title="Toggle 3D View"
-              onClick={() => {
-                setIs3DMode(prev => !prev);
-                showToast(is3DMode ? "Switched to 2D Map View" : "Switched to 3D Map View");
-              }}
-              style={{ fontSize: '11px', fontWeight: 700, letterSpacing: '-0.3px' }}
-            >
-              3D
-            </button>
-
-            {/* 6. HOME BUTTON */}
-            <button
-              className="map-glass-circle-btn"
-              title="Reset to Home View"
-              onClick={() => {
-                if (mapInstanceRef.current) mapInstanceRef.current.flyTo([24.4539, 54.3773], 12);
-                showToast("Reset to Abu Dhabi Home View");
-              }}
-            >
-              <Home size={16} />
-            </button>
-
-            {/* 7. HAND / PAN BUTTON */}
-            <button
-              className={`map-glass-circle-btn ${isPanActive ? 'active' : ''}`}
-              title="Pan Tool"
-              onClick={() => {
-                setIsPanActive(prev => !prev);
-                showToast("Pan Tool Toggled");
-              }}
-            >
-              <Hand size={16} />
-            </button>
-
-            {/* 8. FULLSCREEN / EXTEND BUTTON */}
-            <button
-              className="map-glass-circle-btn"
-              title="Toggle Fullscreen"
-              onClick={() => {
-                if (!document.fullscreenElement) {
-                  document.documentElement.requestFullscreen().catch(() => {});
-                  showToast("Entered Fullscreen");
-                } else {
-                  if (document.exitFullscreen) document.exitFullscreen();
-                  showToast("Exited Fullscreen");
-                }
-              }}
-            >
-              <Maximize2 size={16} />
-            </button>
           </div>
 
-          {/* FLOATING BASEMAP POPOVER CARD WITH 2 COLUMNS (MATCHING REFERENCE UI) */}
+          {/* FLOATING BASEMAP POPOVER CARD WITH 2 COLUMNS */}
           {activeLeftPopover === 'basemap' && (
-            <div ref={leftPopoverRef} className="map-popover-card basemap-grid-popover" style={{ top: '124px', left: isSidebarOpen ? 'calc(15% + 82px)' : '62px' }}>
+            <div ref={leftPopoverRef} className="map-popover-card basemap-grid-popover" style={{ bottom: '70px', left: isSidebarOpen ? 'calc(15% + 82px)' : '62px' }}>
               <div className="popover-header">
                 <h3>Basemap</h3>
               </div>
@@ -1703,7 +1630,7 @@ function App() {
           )}
 
           {activeLeftPopover === 'draw' && (
-            <div ref={leftPopoverRef} className="map-popover-card" style={{ top: '204px', left: isSidebarOpen ? 'calc(15% + 82px)' : '62px' }}>
+            <div ref={leftPopoverRef} className="map-popover-card" style={{ bottom: '70px', left: isSidebarOpen ? 'calc(15% + 82px)' : '62px' }}>
               <div className="popover-grid">
                 <button
                   className={`popover-tile ${activeDrawTool === 'circle' ? 'active' : ''}`}
@@ -1776,7 +1703,7 @@ function App() {
           )}
 
           {activeLeftPopover === 'legend' && (
-            <div ref={leftPopoverRef} className="map-popover-card" style={{ top: '164px', left: isSidebarOpen ? 'calc(15% + 82px)' : '62px', width: '280px' }}>
+            <div ref={leftPopoverRef} className="map-popover-card" style={{ bottom: '70px', left: isSidebarOpen ? 'calc(15% + 82px)' : '62px', width: '280px' }}>
               <div style={{ padding: '4px 2px' }}>
                 <h4 style={{ fontSize: '13px', fontWeight: '600', color: '#1E293B', marginBottom: '8px' }}>Map Legend & Layers</h4>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
