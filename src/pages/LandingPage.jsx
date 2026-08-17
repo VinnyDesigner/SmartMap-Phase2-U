@@ -6,6 +6,7 @@ import CategoryDrawer from '../components/CategoryDrawer.jsx';
 import FoldText from '../components/FoldText.jsx';
 
 export default function LandingPage({
+  activeBasemap,
   showMap,
   setShowMap,
   isCategoryDrawerOpen,
@@ -33,8 +34,7 @@ export default function LandingPage({
   showToast,
   toastMessage,
   setIsSidebarOpen,
-  setActiveTab,
-  activeBasemap
+  setActiveTab
 }) {
   const [chipPage, setChipPage] = useState(0);
 
@@ -45,6 +45,7 @@ export default function LandingPage({
 
       {/* TOP FLOATING PORTAL HEADER */}
       <CommonHeader
+        activeBasemap={activeBasemap}
         showMap={showMap}
         setShowMap={setShowMap}
         isCategoryDrawerOpen={isCategoryDrawerOpen}
@@ -63,7 +64,6 @@ export default function LandingPage({
         showToast={showToast}
         setIsSidebarOpen={setIsSidebarOpen}
         setActiveTab={setActiveTab}
-        activeBasemap={activeBasemap}
       />
 
       {/* HERO SECTION */}

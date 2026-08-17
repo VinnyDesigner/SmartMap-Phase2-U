@@ -739,6 +739,7 @@ function App() {
   if (!showMap) {
     return (
       <LandingPage
+        activeBasemap={activeBasemap}
         showMap={showMap}
         setShowMap={setShowMap}
         isCategoryDrawerOpen={isCategoryDrawerOpen}
@@ -767,7 +768,6 @@ function App() {
         toastMessage={toastMessage}
         setIsSidebarOpen={setIsSidebarOpen}
         setActiveTab={setActiveTab}
-        activeBasemap={activeBasemap}
       />
     );
   }
@@ -777,6 +777,7 @@ function App() {
 
       {/* HEADER SECTION (SHARED WITH HOME PAGE) */}
       <CommonHeader
+        activeBasemap={activeBasemap}
         showMap={showMap}
         setShowMap={setShowMap}
         isCategoryDrawerOpen={isCategoryDrawerOpen}
@@ -795,7 +796,6 @@ function App() {
         showToast={showToast}
         setIsSidebarOpen={setIsSidebarOpen}
         setActiveTab={setActiveTab}
-        activeBasemap={activeBasemap}
       />
 
       {/* GLOBAL SVG CLIP PATH DEFINITIONS ALWAYS MOUNTED FOR VERCEL / WEBKIT COMPATIBILITY */}

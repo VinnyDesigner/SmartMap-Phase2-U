@@ -9,6 +9,7 @@ import helpIcon from '../assets/help.svg';
 import signInIcon from '../assets/sign in.svg';
 
 export default function CommonHeader({
+  activeBasemap,
   showMap,
   setShowMap,
   isCategoryDrawerOpen,
@@ -26,13 +27,12 @@ export default function CommonHeader({
   handleSearchSubmit,
   showToast,
   setIsSidebarOpen,
-  setActiveTab,
-  activeBasemap
+  setActiveTab
 }) {
   const isGreyBasemap = activeBasemap === 'light';
 
   return (
-    <header className={`landing-header ${isGreyBasemap ? 'header-basemap-grey' : ''}`}>
+    <header className={`landing-header ${isGreyBasemap ? 'basemap-grey-header' : ''}`}>
       {/* Left logo */}
       <a href="#" className="landing-logo-left" onClick={(e) => { e.preventDefault(); setShowMap(false); }}>
         <img src={leftLogo} alt="Department of Government Enablement" style={{ height: '38px', objectFit: 'contain' }} />
