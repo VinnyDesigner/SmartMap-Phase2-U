@@ -4414,6 +4414,40 @@ input:checked+.slider:before {
   box-shadow: 0 4px 4px 0 rgba(0, 30, 61, 0.06);
 }
 
+.structured-item-card.expanded-details {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  height: auto !important;
+  min-height: auto !important;
+  padding: 10px 12px !important;
+  background: rgba(240, 246, 255, 0.95) !important;
+  border: 1px solid rgba(0, 43, 91, 0.2) !important;
+  border-left: 3px solid #1D68F2 !important;
+  box-shadow: 0 4px 14px rgba(0, 43, 91, 0.1) !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+.structured-item-card.expanded-details .structured-item-title,
+.structured-item-card.expanded-details .structured-item-arabic {
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
+  word-break: break-word !important;
+}
+
+.structured-item-details-body {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  word-break: break-word !important;
+}
+
 /* 1-Line Horizontal Radius Suggestion Chips */
 .structured-radius-chips {
   display: flex !important;
