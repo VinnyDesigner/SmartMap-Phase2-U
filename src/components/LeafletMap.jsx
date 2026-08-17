@@ -17,6 +17,7 @@ export default function LeafletMap({
   activeBasemap = 'light',
   setHoveredCoords,
   setIsHovered,
+  setMapZoom,
   addLog,
   showToast,
   mapInstanceRef,
@@ -38,23 +39,27 @@ export default function LeafletMap({
     if (!mapRef.current || leafletInstance.current) return;
 
     // Define bounds for Abu Dhabi (city and immediate surroundings)
-    const abuDhabiBounds = [
-      [24.10, 54.10], // Southwest corner
-      [24.65, 54.75]  // Northeast corner
-    ];
+    const southWest = L.latLng(24.1, 54.1);
+    const northEast = L.latLng(24.7, 54.8);
+    const bounds = L.latLngBounds(southWest, northEast);
 
-    // Center initially on Abu Dhabi: Lat 24.4539, Lon 54.3773
     const map = L.map(mapRef.current, {
       center: [24.4539, 54.3773],
       zoom: 12,
-      minZoom: 10,
       zoomControl: false,
-      maxBounds: abuDhabiBounds,
-      maxBoundsViscosity: 1.0
+      attributionControl: false,
+      maxBounds: bounds,
+      maxBoundsViscosity: 0.8
     });
 
     leafletInstance.current = map;
     if (mapInstanceRef) mapInstanceRef.current = map;
+
+    if (setMapZoom) setMapZoom(map.getZoom());
+
+    map.on('zoomend', () => {
+      if (setMapZoom) setMapZoom(map.getZoom());
+    });
 
     markersGroupRef.current = L.layerGroup().addTo(map);
     boundaryGroupRef.current = L.layerGroup().addTo(map);

@@ -60,7 +60,9 @@ import {
   Star,
   Navigation,
   Phone,
-  Mail
+  Mail,
+  Copy,
+  Check
 } from 'lucide-react';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -142,6 +144,26 @@ function App() {
   const [activeLeftPopover, setActiveLeftPopover] = useState(null); // 'basemap' | 'legend' | 'draw' | null
   const [activeBasemap, setActiveBasemap] = useState('light');
   const [activeDrawTool, setActiveDrawTool] = useState('polygon');
+  const [mapZoom, setMapZoom] = useState(12);
+  const [copiedCoord, setCopiedCoord] = useState(false);
+
+  const getScaleText = (zoom) => {
+    const scaleMap = {
+      19: '1 : 250',
+      18: '1 : 500',
+      17: '1 : 1,000',
+      16: '1 : 2,500',
+      15: '1 : 5,000',
+      14: '1 : 10,000',
+      13: '1 : 25,000',
+      12: '1 : 50,000',
+      11: '1 : 100,000',
+      10: '1 : 250,000',
+      9: '1 : 500,000',
+      8: '1 : 1,000,000'
+    };
+    return scaleMap[Math.round(zoom)] || '1 : 50,000';
+  };
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -1741,12 +1763,12 @@ function App() {
               </button>
               <div
                 className="map-glass-pill-btn"
-                title="Coordinates"
+                title="Coordinates (Click icon to copy)"
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '6px',
-                  padding: '0 12px',
+                  gap: '8px',
+                  padding: '0 8px 0 12px',
                   height: '36px',
                   borderRadius: '10px',
                   fontSize: '12px',
@@ -1754,10 +1776,42 @@ function App() {
                   whiteSpace: 'nowrap'
                 }}
               >
-                <Globe size={16} style={{ color: '#1D68F2' }} />
+                <Globe size={16} style={{ color: '#1D68F2', flexShrink: 0 }} />
                 <span>
-                  {hoveredCoords ? `${hoveredCoords.lat}° N, ${hoveredCoords.lon}° E` : '24.4539° N, 54.3773° E'}
+                  {hoveredCoords && (hoveredCoords.lat !== 0 || hoveredCoords.lon !== 0)
+                    ? `${hoveredCoords.lat.toFixed(4)}° N, ${hoveredCoords.lon.toFixed(4)}° E`
+                    : '24.4539° N, 54.3773° E'}
                 </span>
+                <button
+                  type="button"
+                  title="Copy Coordinates"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const coordStr = hoveredCoords && (hoveredCoords.lat !== 0 || hoveredCoords.lon !== 0)
+                      ? `${hoveredCoords.lat.toFixed(4)}° N, ${hoveredCoords.lon.toFixed(4)}° E`
+                      : '24.4539° N, 54.3773° E';
+                    navigator.clipboard.writeText(coordStr);
+                    setCopiedCoord(true);
+                    setTimeout(() => setCopiedCoord(false), 2000);
+                    showToast("Coordinates copied to clipboard");
+                  }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: copiedCoord ? 'rgba(16, 185, 129, 0.15)' : 'rgba(29, 104, 242, 0.08)',
+                    border: 'none',
+                    borderRadius: '6px',
+                    width: '24px',
+                    height: '24px',
+                    cursor: 'pointer',
+                    color: copiedCoord ? '#10B981' : '#1D68F2',
+                    marginLeft: '2px',
+                    transition: 'all 0.2s ease'
+                  }}
+                >
+                  {copiedCoord ? <Check size={14} /> : <Copy size={14} />}
+                </button>
               </div>
               <div
                 className="map-glass-pill-btn"
@@ -1775,7 +1829,7 @@ function App() {
                 }}
               >
                 <Ruler size={16} style={{ color: '#1D68F2' }} />
-                <span>1 : 50,000</span>
+                <span>{getScaleText(mapZoom)}</span>
               </div>
             </div>
           </div>
@@ -1981,6 +2035,7 @@ function App() {
               activeBasemap={activeBasemap}
               setHoveredCoords={setHoveredCoords}
               setIsHovered={setIsHovered}
+              setMapZoom={setMapZoom}
               addLog={addLog}
               showToast={showToast}
               mapInstanceRef={mapInstanceRef}
