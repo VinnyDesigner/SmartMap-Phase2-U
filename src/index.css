@@ -4959,12 +4959,12 @@ input:checked+.slider:before {
   position: fixed !important;
   top: 76px !important;
   left: 20px !important;
-  bottom: 8% !important;
+  bottom: 24px !important;
   width: 15% !important;
   min-width: 15% !important;
   max-width: 15% !important;
-  height: calc(92vh - 76px) !important;
-  max-height: calc(92vh - 76px) !important;
+  height: calc(100vh - 100px) !important;
+  max-height: calc(100vh - 100px) !important;
   background: linear-gradient(rgba(255, 255, 255, 0.20), rgba(255, 255, 255, 0.20)), url('/assets/panel_bg.png') no-repeat center center / cover !important;
   backdrop-filter: blur(28px) saturate(190%) !important;
   -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
