@@ -801,7 +801,7 @@ function App() {
       <svg width="0" height="0" style={{ position: 'absolute', pointerEvents: 'none' }}>
         <defs>
           <clipPath id="panelCardRoundedNotchClip" clipPathUnits="objectBoundingBox">
-            <path d="M 0,1 L 0,0.0240 Q 0,0 0.040,0 L 0.36,0 Q 0.38,0 0.385,0.0030 L 0.395,0.0100 Q 0.40,0.0160 0.41,0.0160 L 0.59,0.0160 Q 0.60,0.0160 0.605,0.0100 L 0.615,0.0030 Q 0.62,0 0.64,0 L 0.96,0 Q 1,0 1,0.0240 L 1,1 Z" />
+            <path d="M 0,0.030 Q 0,0 0.04,0 L 0.28,0 Q 0.30,0 0.305,0.003 L 0.33,0.013 Q 0.34,0.015 0.35,0.015 L 0.65,0.015 Q 0.66,0.015 0.67,0.013 L 0.695,0.003 Q 0.70,0 0.72,0 L 0.96,0 Q 1,0 1,0.030 L 1,0.970 Q 1,1 0.96,1 L 0.72,1 Q 0.70,1 0.695,0.997 L 0.67,0.987 Q 0.66,0.985 0.65,0.985 L 0.35,0.985 Q 0.34,0.985 0.33,0.987 L 0.305,0.997 Q 0.30,1 0.28,1 L 0.04,1 Q 0,1 0,0.970 Z" />
           </clipPath>
           <clipPath id="categoryDrawerTopBottomNotchClip" clipPathUnits="objectBoundingBox">
             <path d="M 0,0.030 Q 0,0 0.04,0 L 0.28,0 Q 0.30,0 0.305,0.003 L 0.33,0.013 Q 0.34,0.015 0.35,0.015 L 0.65,0.015 Q 0.66,0.015 0.67,0.013 L 0.695,0.003 Q 0.70,0 0.72,0 L 0.96,0 Q 1,0 1,0.030 L 1,0.970 Q 1,1 0.96,1 L 0.72,1 Q 0.70,1 0.695,0.997 L 0.67,0.987 Q 0.66,0.985 0.65,0.985 L 0.35,0.985 Q 0.34,0.985 0.33,0.987 L 0.305,0.997 Q 0.30,1 0.28,1 L 0.04,1 Q 0,1 0,0.970 Z" />
@@ -1808,38 +1808,19 @@ function App() {
                 transition: 'width 0.3s cubic-bezier(0.16, 1, 0.3, 1), max-width 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
               }}
             >
-              {/* SVG CLIP PATH AND STROKE OVERLAY PRESERVING EXACT NOTCH DEPTH AND CORNER RADIUS */}
-              {(() => {
-                const notchClipD = `M 0,1 L 0,0.0240 Q 0,0 0.040,0 L 0.36,0 Q 0.38,0 0.385,0.0030 L 0.395,0.0100 Q 0.40,0.0160 0.41,0.0160 L 0.59,0.0160 Q 0.60,0.0160 0.605,0.0100 L 0.615,0.0030 Q 0.62,0 0.64,0 L 0.96,0 Q 1,0 1,0.0240 L 1,1 Z`;
-                const notchStrokeD = `M 0,1 L 0,0.0240 Q 0,0 0.040,0 L 0.36,0 Q 0.38,0 0.385,0.0030 L 0.395,0.0100 Q 0.40,0.0160 0.41,0.0160 L 0.59,0.0160 Q 0.60,0.0160 0.605,0.0100 L 0.615,0.0030 Q 0.62,0 0.64,0 L 0.96,0 Q 1,0 1,0.0240 L 1,1`;
+              {/* DEDICATED PULSATING WHITE INNER GLOW OVERLAY MATCHING SEARCH HISTORY PANEL */}
+              <div className="category-drawer-inner-glow" />
 
-                return (
-                  <>
-                    {/* SVG CLIP PATH DEFINITION FOR MATCHING STROKE & FILL FRAME */}
-                    <svg width="0" height="0" style={{ position: 'absolute', pointerEvents: 'none' }}>
-                      <defs>
-                        <clipPath id="panelCardRoundedNotchClip" clipPathUnits="objectBoundingBox">
-                          <path d={notchClipD} />
-                        </clipPath>
-                      </defs>
-                    </svg>
-
-                    {/* DEDICATED PULSATING WHITE INNER GLOW OVERLAY (TOP, LEFT, RIGHT) */}
-                    <div className="map-ai-panel-inner-glow" />
-
-                    {/* PANEL OUTER STROKE SVG OVERLAY MATCHING FILL FRAME */}
-                    <div className="map-ai-panel-border-container">
-                      <svg viewBox="0 0 1 1" preserveAspectRatio="none">
-                        <path
-                          d={notchStrokeD}
-                          className="map-ai-panel-border-stroke"
-                          vectorEffect="non-scaling-stroke"
-                        />
-                      </svg>
-                    </div>
-                  </>
-                );
-              })()}
+              {/* STATIC WHITE SVG BORDER STROKE OVERLAY MATCHING SEARCH HISTORY PANEL */}
+              <div className="category-drawer-border-container">
+                <svg viewBox="0 0 1 1" preserveAspectRatio="none">
+                  <path
+                    d="M 0,0.030 Q 0,0 0.04,0 L 0.28,0 Q 0.30,0 0.305,0.003 L 0.33,0.013 Q 0.34,0.015 0.35,0.015 L 0.65,0.015 Q 0.66,0.015 0.67,0.013 L 0.695,0.003 Q 0.70,0 0.72,0 L 0.96,0 Q 1,0 1,0.030 L 1,0.970 Q 1,1 0.96,1 L 0.72,1 Q 0.70,1 0.695,0.997 L 0.67,0.987 Q 0.66,0.985 0.65,0.985 L 0.35,0.985 Q 0.34,0.985 0.33,0.987 L 0.305,0.997 Q 0.30,1 0.28,1 L 0.04,1 Q 0,1 0,0.970 Z"
+                    className="map-ai-panel-border-stroke"
+                    vectorEffect="non-scaling-stroke"
+                  />
+                </svg>
+              </div>
 
               {/* LEFT SIDE COLLAPSE HANDLE BUTTON */}
               <div
@@ -1884,10 +1865,9 @@ function App() {
                   width: '100%',
                   margin: 0,
                   marginBottom: 0,
-                  padding: '14px 20px 16px 20px',
-                  borderRadius: '16px',
-                  clipPath: 'url(#panelCardRoundedNotchClip)',
-                  WebkitClipPath: 'url(#panelCardRoundedNotchClip)'
+                  padding: '16px 20px 16px 20px',
+                  clipPath: 'url(#categoryDrawerTopBottomNotchClip)',
+                  WebkitClipPath: 'url(#categoryDrawerTopBottomNotchClip)'
                 }}
               >
                 {/* Tech SVG Border Overlay Removed for clean borderless interior */}
