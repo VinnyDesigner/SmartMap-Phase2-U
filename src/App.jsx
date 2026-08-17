@@ -1799,9 +1799,9 @@ function App() {
                 position: 'absolute',
                 bottom: '0px',
                 marginBottom: '0px',
-                right: isCategoryDrawerOpen ? 'calc(15% + 24px)' : '24px',
-                width: selectedLocation ? 'calc(100vw - 36vw)' : '680px',
-                maxWidth: selectedLocation ? 'calc(100vw - 36vw)' : '680px',
+                right: isCategoryDrawerOpen ? 'calc(15% + 20px)' : '20px',
+                width: selectedLocation ? '540px' : '380px',
+                maxWidth: selectedLocation ? '540px' : '380px',
                 zIndex: 1000,
                 transition: 'width 0.3s cubic-bezier(0.16, 1, 0.3, 1), max-width 0.3s cubic-bezier(0.16, 1, 0.3, 1), right 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
               }}
