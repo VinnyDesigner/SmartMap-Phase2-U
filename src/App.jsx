@@ -801,7 +801,7 @@ function App() {
       <svg width="0" height="0" style={{ position: 'absolute', pointerEvents: 'none' }}>
         <defs>
           <clipPath id="panelCardRoundedNotchClip" clipPathUnits="objectBoundingBox">
-            <path d="M 0,1 L 0,0.0400 Q 0,0 0.031,0 L 0.29,0 Q 0.30,0 0.305,0.0100 L 0.31875,0.0450 Q 0.322,0.0500 0.328,0.0500 L 0.672,0.0500 Q 0.678,0.0500 0.68125,0.0450 L 0.695,0.0100 Q 0.70,0 0.71,0 L 0.969,0 Q 1,0 1,0.0400 L 1,1 Z" />
+            <path d="M 0,1 L 0,0.0240 Q 0,0 0.040,0 L 0.36,0 Q 0.38,0 0.385,0.0030 L 0.395,0.0100 Q 0.40,0.0160 0.41,0.0160 L 0.59,0.0160 Q 0.60,0.0160 0.605,0.0100 L 0.615,0.0030 Q 0.62,0 0.64,0 L 0.96,0 Q 1,0 1,0.0240 L 1,1 Z" />
           </clipPath>
           <clipPath id="categoryDrawerTopBottomNotchClip" clipPathUnits="objectBoundingBox">
             <path d="M 0,0.030 Q 0,0 0.04,0 L 0.28,0 Q 0.30,0 0.305,0.003 L 0.33,0.013 Q 0.34,0.015 0.35,0.015 L 0.65,0.015 Q 0.66,0.015 0.67,0.013 L 0.695,0.003 Q 0.70,0 0.72,0 L 0.96,0 Q 1,0 1,0.030 L 1,0.970 Q 1,1 0.96,1 L 0.72,1 Q 0.70,1 0.695,0.997 L 0.67,0.987 Q 0.66,0.985 0.65,0.985 L 0.35,0.985 Q 0.34,0.985 0.33,0.987 L 0.305,0.997 Q 0.30,1 0.28,1 L 0.04,1 Q 0,1 0,0.970 Z" />
@@ -1810,12 +1810,8 @@ function App() {
             >
               {/* SVG CLIP PATH AND STROKE OVERLAY PRESERVING EXACT NOTCH DEPTH AND CORNER RADIUS */}
               {(() => {
-                const yCorner = 0.0240;
-                const yNotch = 0.0160;
-                const yNotchSlope = 0.0100;
-                const yNotchEntry = 0.0030;
-                const notchClipD = `M 0,1 L 0,${yCorner} Q 0,0 0.040,0 L 0.36,0 Q 0.38,0 0.385,${yNotchEntry} L 0.395,${yNotchSlope} Q 0.40,${yNotch} 0.41,${yNotch} L 0.59,${yNotch} Q 0.60,${yNotch} 0.605,${yNotchSlope} L 0.615,${yNotchEntry} Q 0.62,0 0.64,0 L 0.96,0 Q 1,0 1,${yCorner} L 1,1 Z`;
-                const notchStrokeD = `M 0,1 L 0,${yCorner} Q 0,0 0.040,0 L 0.36,0 Q 0.38,0 0.385,${yNotchEntry} L 0.395,${yNotchSlope} Q 0.40,${yNotch} 0.41,${yNotch} L 0.59,${yNotch} Q 0.60,${yNotch} 0.605,${yNotchSlope} L 0.615,${yNotchEntry} Q 0.62,0 0.64,0 L 0.96,0 Q 1,0 1,${yCorner} L 1,1`;
+                const notchClipD = `M 0,1 L 0,0.0240 Q 0,0 0.040,0 L 0.36,0 Q 0.38,0 0.385,0.0030 L 0.395,0.0100 Q 0.40,0.0160 0.41,0.0160 L 0.59,0.0160 Q 0.60,0.0160 0.605,0.0100 L 0.615,0.0030 Q 0.62,0 0.64,0 L 0.96,0 Q 1,0 1,0.0240 L 1,1 Z`;
+                const notchStrokeD = `M 0,1 L 0,0.0240 Q 0,0 0.040,0 L 0.36,0 Q 0.38,0 0.385,0.0030 L 0.395,0.0100 Q 0.40,0.0160 0.41,0.0160 L 0.59,0.0160 Q 0.60,0.0160 0.605,0.0100 L 0.615,0.0030 Q 0.62,0 0.64,0 L 0.96,0 Q 1,0 1,0.0240 L 1,1`;
 
                 return (
                   <>
