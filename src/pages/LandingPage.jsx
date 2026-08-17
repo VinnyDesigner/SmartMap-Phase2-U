@@ -79,48 +79,6 @@ export default function LandingPage({
 
         {/* ── HIGH FIDELITY GLASSMORPHIC SEARCH CARD ── */}
         <div className="landing-search-card-wrapper">
-          {/* Animated Left Traces */}
-          <svg className="search-card-traces search-traces-left" viewBox="0 0 330 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g>
-              <path d="M100 100 H200 V210 H326" className="trace-bg" />
-              <path d="M100 100 H200 V210 H326" className="trace-flow blue-deep" />
-              
-              <path d="M80 180 H180 V230 H326" className="trace-bg" />
-              <path d="M80 180 H180 V230 H326" className="trace-flow blue-cyan" />
-              
-              <path d="M60 260 H150 V250 H326" className="trace-bg" />
-              <path d="M60 260 H150 V250 H326" className="trace-flow blue-sky" />
-              
-              <path d="M100 350 H200 V270 H326" className="trace-bg" />
-              <path d="M100 350 H200 V270 H326" className="trace-flow blue-electric" />
-            </g>
-            <circle cx={100} cy={100} r={4} fill="#1d4d8c" />
-            <circle cx={80} cy={180} r={4} fill="#00f2fe" />
-            <circle cx={60} cy={260} r={4} fill="#38bdf8" />
-            <circle cx={100} cy={350} r={4} fill="#60a5fa" />
-          </svg>
-
-          {/* Animated Right Traces */}
-          <svg className="search-card-traces search-traces-right" viewBox="470 0 330 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g>
-              <path d="M700 90 H560 V210 H474" className="trace-bg" />
-              <path d="M700 90 H560 V210 H474" className="trace-flow blue-deep" />
-              
-              <path d="M740 160 H580 V230 H474" className="trace-bg" />
-              <path d="M740 160 H580 V230 H474" className="trace-flow blue-electric" />
-              
-              <path d="M720 250 H590 V250 H474" className="trace-bg" />
-              <path d="M720 250 H590 V250 H474" className="trace-flow blue-royal" />
-              
-              <path d="M680 340 H570 V270 H474" className="trace-bg" />
-              <path d="M680 340 H570 V270 H474" className="trace-flow blue-cyan" />
-            </g>
-            <circle cx={700} cy={90} r={4} fill="#1d4d8c" />
-            <circle cx={740} cy={160} r={4} fill="#60a5fa" />
-            <circle cx={720} cy={250} r={4} fill="#2563eb" />
-            <circle cx={680} cy={340} r={4} fill="#00f2fe" />
-          </svg>
-
           <div className="landing-search-card">
           {/* Tech SVG Border Overlay */}
           <div className="tech-card-border-container">
