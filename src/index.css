@@ -3830,8 +3830,8 @@ input:checked+.slider:before {
 }
 
 .chat-bubble.ai .chat-bubble-content {
-  width: 85% !important;
-  max-width: 85% !important;
+  width: 95% !important;
+  max-width: 95% !important;
   background: rgba(255, 255, 255, 0.65);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
