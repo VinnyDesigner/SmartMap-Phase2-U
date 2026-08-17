@@ -1749,66 +1749,109 @@ function App() {
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '6px',
-                  padding: '0 8px 0 12px',
+                  gap: '8px',
+                  padding: '0 14px',
                   height: '36px',
-                  borderRadius: '10px',
-                  fontSize: '12px',
-                  fontWeight: '600',
+                  borderRadius: '9999px',
+                  background: 'rgba(255, 255, 255, 0.96)',
+                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.12)',
+                  border: '1px solid rgba(0, 0, 0, 0.08)',
+                  fontSize: '13px',
+                  fontWeight: '500',
+                  color: '#1E293B',
                   whiteSpace: 'nowrap'
                 }}
               >
-                <Globe size={16} style={{ color: '#1D68F2', flexShrink: 0 }} />
                 <span>
                   {hoveredCoords && (hoveredCoords.lat !== 0 || hoveredCoords.lon !== 0)
-                    ? `${Number(hoveredCoords.lat).toFixed(4)}° N, ${Number(hoveredCoords.lon).toFixed(4)}° E`
-                    : '24.4539° N, 54.3773° E'}
+                    ? `${Number(hoveredCoords.lat).toFixed(6)} ${Number(hoveredCoords.lon).toFixed(6)} Degree`
+                    : '24.453900 54.377300 Degree'}
                 </span>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    const textToCopy = hoveredCoords && (hoveredCoords.lat !== 0 || hoveredCoords.lon !== 0)
-                      ? `${Number(hoveredCoords.lat).toFixed(4)}° N, ${Number(hoveredCoords.lon).toFixed(4)}° E`
-                      : '24.4539° N, 54.3773° E';
-                    navigator.clipboard.writeText(textToCopy);
-                    setIsCopiedCoords(true);
-                    setTimeout(() => setIsCopiedCoords(false), 2000);
-                  }}
-                  title="Copy Coordinates"
-                  style={{
-                    background: 'rgba(29, 104, 242, 0.08)',
-                    border: '1px solid rgba(29, 104, 242, 0.18)',
-                    borderRadius: '6px',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    padding: '4px',
-                    marginLeft: '2px',
-                    color: isCopiedCoords ? '#10B981' : '#1D68F2',
-                    transition: 'all 0.2s ease'
-                  }}
-                >
-                  {isCopiedCoords ? <Check size={13} /> : <Copy size={13} />}
-                </button>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const textToCopy = hoveredCoords && (hoveredCoords.lat !== 0 || hoveredCoords.lon !== 0)
+                        ? `${Number(hoveredCoords.lat).toFixed(6)} ${Number(hoveredCoords.lon).toFixed(6)} Degree`
+                        : '24.453900 54.377300 Degree';
+                      navigator.clipboard.writeText(textToCopy);
+                      setIsCopiedCoords(true);
+                      if (showToast) showToast("Coordinates copied to clipboard");
+                      setTimeout(() => setIsCopiedCoords(false), 2000);
+                    }}
+                    title="Copy Coordinates"
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      padding: '2px',
+                      color: isCopiedCoords ? '#10B981' : '#475569',
+                      transition: 'color 0.2s ease'
+                    }}
+                  >
+                    {isCopiedCoords ? <Check size={15} /> : <Copy size={15} />}
+                  </button>
+                  <ChevronDown size={15} style={{ color: '#475569', cursor: 'pointer' }} />
+                </div>
               </div>
+
+              {/* GRAPHIC GIS SCALE BAR PILL */}
               <div
                 className="map-glass-pill-btn"
-                title="Scale"
+                title="Scale Bar"
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '6px',
-                  padding: '0 12px',
+                  justifyContent: 'center',
+                  padding: '0 16px',
                   height: '36px',
-                  borderRadius: '10px',
-                  fontSize: '12px',
-                  fontWeight: '600',
-                  whiteSpace: 'nowrap'
+                  borderRadius: '9999px',
+                  background: 'rgba(255, 255, 255, 0.96)',
+                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.12)',
+                  border: '1px solid rgba(0, 0, 0, 0.08)'
                 }}
               >
-                <Ruler size={16} style={{ color: '#1D68F2', flexShrink: 0 }} />
-                <span>{mapScale}</span>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                  {/* Stepped Scale Bar Graphic SVG */}
+                  <svg width="130" height="11" viewBox="0 0 130 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    {/* Background track */}
+                    <rect x="0" y="3.5" width="130" height="4" fill="#CBD5E1" rx="1" />
+                    
+                    {/* Stepped alternating black segments matching reference */}
+                    <rect x="0" y="1.5" width="20" height="4" fill="#0F172A" rx="0.5" />
+                    <rect x="20" y="5.5" width="20" height="4" fill="#0F172A" rx="0.5" />
+                    <rect x="40" y="1.5" width="30" height="4" fill="#0F172A" rx="0.5" />
+                    <rect x="70" y="5.5" width="30" height="4" fill="#0F172A" rx="0.5" />
+                    <rect x="100" y="1.5" width="30" height="4" fill="#0F172A" rx="0.5" />
+
+                    {/* End Ticks */}
+                    <line x1="0.5" y1="0.5" x2="0.5" y2="10.5" stroke="#0F172A" strokeWidth="1.2" />
+                    <line x1="129.5" y1="0.5" x2="129.5" y2="10.5" stroke="#0F172A" strokeWidth="1.2" />
+                  </svg>
+                  
+                  {/* Scale Labels */}
+                  <div style={{
+                    display: 'flex',
+                    justify: 'space-between',
+                    width: '130px',
+                    fontSize: '8.5px',
+                    fontWeight: '600',
+                    color: '#1E293B',
+                    marginTop: '2px',
+                    lineHeight: 1,
+                    fontFamily: 'Inter, system-ui, sans-serif'
+                  }}>
+                    <span>0</span>
+                    <span>25</span>
+                    <span>50</span>
+                    <span>100</span>
+                    <span>150</span>
+                    <span>200M</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
