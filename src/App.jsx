@@ -1810,16 +1810,16 @@ function App() {
             >
               {/* SVG CLIP PATH AND STROKE OVERLAY PRESERVING EXACT NOTCH DEPTH AND CORNER RADIUS */}
               {(() => {
-                const yCorner = 0.0160;
-                const yNotch = 0.0120;
-                const yNotchSlope = 0.0080;
-                const yNotchEntry = 0.0020;
-                const notchClipD = `M 0,1 L 0,${yCorner} Q 0,0 0.035,0 L 0.38,0 Q 0.395,0 0.398,${yNotchEntry} L 0.408,${yNotchSlope} Q 0.412,${yNotch} 0.42,${yNotch} L 0.58,${yNotch} Q 0.588,${yNotch} 0.592,${yNotchSlope} L 0.602,${yNotchEntry} Q 0.605,0 0.62,0 L 0.965,0 Q 1,0 1,${yCorner} L 1,1 Z`;
-                const notchStrokeD = `M 0,1 L 0,${yCorner} Q 0,0 0.035,0 L 0.38,0 Q 0.395,0 0.398,${yNotchEntry} L 0.408,${yNotchSlope} Q 0.412,${yNotch} 0.42,${yNotch} L 0.58,${yNotch} Q 0.588,${yNotch} 0.592,${yNotchSlope} L 0.602,${yNotchEntry} Q 0.605,0 0.62,0 L 0.965,0 Q 1,0 1,${yCorner} L 1,1`;
+                const yCorner = 0.0240;
+                const yNotch = 0.0160;
+                const yNotchSlope = 0.0100;
+                const yNotchEntry = 0.0030;
+                const notchClipD = `M 0,1 L 0,${yCorner} Q 0,0 0.040,0 L 0.36,0 Q 0.38,0 0.385,${yNotchEntry} L 0.395,${yNotchSlope} Q 0.40,${yNotch} 0.41,${yNotch} L 0.59,${yNotch} Q 0.60,${yNotch} 0.605,${yNotchSlope} L 0.615,${yNotchEntry} Q 0.62,0 0.64,0 L 0.96,0 Q 1,0 1,${yCorner} L 1,1 Z`;
+                const notchStrokeD = `M 0,1 L 0,${yCorner} Q 0,0 0.040,0 L 0.36,0 Q 0.38,0 0.385,${yNotchEntry} L 0.395,${yNotchSlope} Q 0.40,${yNotch} 0.41,${yNotch} L 0.59,${yNotch} Q 0.60,${yNotch} 0.605,${yNotchSlope} L 0.615,${yNotchEntry} Q 0.62,0 0.64,0 L 0.96,0 Q 1,0 1,${yCorner} L 1,1`;
 
                 return (
                   <>
-                    {/* SVG CLIP PATH DEFINITION FOR 16PX CORNER RADIUS CARD */}
+                    {/* SVG CLIP PATH DEFINITION FOR MATCHING STROKE & FILL FRAME */}
                     <svg width="0" height="0" style={{ position: 'absolute', pointerEvents: 'none' }}>
                       <defs>
                         <clipPath id="panelCardRoundedNotchClip" clipPathUnits="objectBoundingBox">
@@ -1831,7 +1831,7 @@ function App() {
                     {/* DEDICATED PULSATING WHITE INNER GLOW OVERLAY (TOP, LEFT, RIGHT) */}
                     <div className="map-ai-panel-inner-glow" />
 
-                    {/* PANEL OUTER STROKE SVG OVERLAY INCLUDING 16PX CORNERS & SHALLOW NOTCH */}
+                    {/* PANEL OUTER STROKE SVG OVERLAY MATCHING FILL FRAME */}
                     <div className="map-ai-panel-border-container">
                       <svg viewBox="0 0 1 1" preserveAspectRatio="none">
                         <path
@@ -1883,13 +1883,15 @@ function App() {
                 style={{
                   height: '100%',
                   maxHeight: '100%',
-                  overflow: 'visible',
+                  overflow: 'hidden',
                   userSelect: 'auto',
                   width: '100%',
                   margin: 0,
                   marginBottom: 0,
                   padding: '14px 20px 16px 20px',
-                  borderRadius: '16px'
+                  borderRadius: '16px',
+                  clipPath: 'url(#panelCardRoundedNotchClip)',
+                  WebkitClipPath: 'url(#panelCardRoundedNotchClip)'
                 }}
               >
                 {/* Tech SVG Border Overlay Removed for clean borderless interior */}
