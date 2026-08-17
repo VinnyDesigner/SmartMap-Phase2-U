@@ -1830,7 +1830,6 @@ function App() {
                   width: '100%',
                   margin: 0,
                   marginBottom: 0,
-                  padding: '16px 16px 16px 16px',
                   clipPath: 'url(#categoryDrawerTopBottomNotchClip)',
                   WebkitClipPath: 'url(#categoryDrawerTopBottomNotchClip)'
                 }}

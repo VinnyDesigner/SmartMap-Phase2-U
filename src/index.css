@@ -3465,7 +3465,7 @@ input:checked+.slider:before {
 .map-ai-panel-container {
   position: relative;
   width: 100%;
-  padding: 16px 16px 16px 16px !important;
+  padding: clamp(14px, 1.2vw, 24px) clamp(10px, 1vw, 22px) clamp(14px, 1.2vw, 22px) clamp(10px, 1vw, 22px) !important;
   max-width: 100%;
   box-sizing: border-box !important;
   background: linear-gradient(rgba(255, 255, 255, 0.20), rgba(255, 255, 255, 0.20)), url('/assets/panel_bg.png') no-repeat center center / cover !important;
@@ -3476,11 +3476,12 @@ input:checked+.slider:before {
   justify-content: space-between;
   margin: 0 !important;
   z-index: 1;
-  clip-path: url(#panelCardRoundedNotchClip) !important;
+  clip-path: url(#categoryDrawerTopBottomNotchClip) !important;
+  -webkit-clip-path: url(#categoryDrawerTopBottomNotchClip) !important;
   box-shadow: 0 25px 60px rgba(0, 43, 91, 0.25),
     0 0 35px rgba(99, 181, 255, 0.35),
     0 0 70px rgba(33, 88, 158, 0.25) !important;
-  border-radius: 24px 24px 0 0 !important;
+  border-radius: 0 !important;
   border: none !important;
   box-sizing: border-box;
   transition: height 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -4988,11 +4989,11 @@ input:checked+.slider:before {
 }
 
 .search-history-title {
-  font-size: clamp(12px, 1.05vw, 18px);
-  font-weight: 800;
-  color: #0F172A;
-  margin: 0;
-  letter-spacing: -0.2px;
+  font-size: 14px !important;
+  font-weight: 800 !important;
+  color: #0F172A !important;
+  margin: 0 !important;
+  letter-spacing: -0.2px !important;
 }
 
 .search-history-toggle-btn {
