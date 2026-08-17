@@ -1465,7 +1465,7 @@ function App() {
         {/* MAP VIEWPORT SECTION (MATCHING REFERENCE UI) */}
         <section className="map-viewport-container">
 
-          {/* TOP-LEFT FLOATING CONTROLS: PANEL TOGGLE & ABU DHABI BADGE */}
+          {/* TOP-LEFT FLOATING CONTROLS: PANEL TOGGLE & ALL CATEGORIES BUTTON */}
           <div
             className="map-controls-top-left"
             style={{
@@ -1482,12 +1482,52 @@ function App() {
             {!isSidebarOpen && (
               <button
                 className="map-glass-icon-btn"
-                onClick={() => setIsSidebarOpen(true)}
+                onClick={() => {
+                  setIsSidebarOpen(true);
+                  setActiveTab('history');
+                }}
                 title="Toggle Side Panel"
               >
                 <PanelLeft size={18} />
               </button>
             )}
+            <button
+              className="map-glass-pill-btn map-all-categories-btn"
+              onClick={() => {
+                setIsCategoryDrawerOpen(true);
+                showToast("Categories Drawer Opened");
+              }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '0 14px',
+                height: '36px',
+                borderRadius: '10px',
+                fontSize: '12.5px',
+                fontWeight: '600',
+                cursor: 'pointer'
+              }}
+            >
+              <Grid size={15} style={{ color: '#1D68F2' }} />
+              <span>{t.allCategories}</span>
+            </button>
+          </div>
+
+          {/* TOP-RIGHT FLOATING CONTROLS: ABU DHABI LOCATION BADGE */}
+          <div
+            className="map-controls-top-right"
+            style={{
+              position: 'absolute',
+              top: '76px',
+              right: (isAISearchBarOpen || isAiClosing) ? '382px' : '20px',
+              zIndex: 1000,
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              transition: 'right 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
+            }}
+          >
             <button
               className="map-location-badge"
               onClick={() => {

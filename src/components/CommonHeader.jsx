@@ -50,18 +50,6 @@ export default function CommonHeader({
 
       {/* Right Controls */}
       <div className="landing-controls-right">
-        {showMap && (
-          <button 
-            className="landing-btn-categories"
-            onClick={() => {
-              setIsCategoryDrawerOpen(true);
-              showToast("Categories Drawer Opened");
-            }}
-          >
-            {t.allCategories}
-          </button>
-        )}
-        
         <button className="landing-lang-btn" onClick={() => setLang(lang === 'en' ? 'ar' : 'en')}>
           {lang === 'en' ? (
             <img src={lagIcon} alt="Arabic" style={{ width: '18px', height: '18px', filter: theme === 'dark' ? 'invert(1)' : 'none' }} />
