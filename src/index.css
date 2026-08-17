@@ -5065,13 +5065,13 @@ input:checked+.slider:before {
   stroke: #ffffff !important;
 }
 
-/* Color-match source SVG icons to GeoVision Design CTA Blue (#1D68F2) */
+/* Color-match source SVG icons to GeoVision CTA gradient color (#10447C / #022E5B) */
 .map-glass-icon-btn img,
 .map-glass-pill-btn img,
 .map-location-badge img,
 .landing-nav-item img,
 .landing-icon-control img {
-  filter: invert(34%) sepia(82%) saturate(2852%) hue-rotate(211deg) brightness(98%) contrast(96%) !important;
+  filter: invert(18%) sepia(88%) saturate(2150%) hue-rotate(202deg) brightness(92%) contrast(98%) !important;
   transition: filter 0.25s ease, transform 0.2s ease !important;
 }
 
