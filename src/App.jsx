@@ -1834,8 +1834,11 @@ function App() {
                   WebkitClipPath: 'url(#categoryDrawerTopBottomNotchClip)'
                 }}
               >
+                {/* INDEPENDENT REDUCED OPACITY BACKGROUND IMAGE OVERLAY */}
+                <div className="map-ai-panel-bg-img" />
+
                 {/* MAIN 2-COLUMN GRID (CHAT STREAM LEFT, DETAILED INFORMATION RIGHT) */}
-                <div className="map-ai-panel-main-grid" style={{ display: 'flex', width: '100%', maxWidth: '100%', minWidth: 0, height: '100%', gap: '16px', margin: 0, padding: 0, boxSizing: 'border-box' }}>
+                <div className="map-ai-panel-main-grid" style={{ position: 'relative', zIndex: 1, display: 'flex', width: '100%', maxWidth: '100%', minWidth: 0, height: '100%', gap: '16px', margin: 0, padding: 0, boxSizing: 'border-box' }}>
                   {/* LEFT COLUMN: CHAT STREAM & INPUT BAR */}
                   <div className="map-ai-panel-left-col" style={{ display: 'flex', flexDirection: 'column', height: '100%', flex: 1, minWidth: 0, maxWidth: '100%', justifyContent: 'space-between', margin: 0, padding: 0, boxSizing: 'border-box' }}>
                     {/* PANEL HEADER (INSIDE LEFT COLUMN ONLY) WITH MINIMIZE BUTTON MATCHING SEARCH HISTORY */}

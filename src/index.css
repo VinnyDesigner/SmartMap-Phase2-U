@@ -3468,7 +3468,7 @@ input:checked+.slider:before {
   padding: clamp(14px, 1.2vw, 24px) clamp(10px, 1vw, 22px) clamp(14px, 1.2vw, 22px) clamp(10px, 1vw, 22px) !important;
   max-width: 100%;
   box-sizing: border-box !important;
-  background: linear-gradient(rgba(255, 255, 255, 0.20), rgba(255, 255, 255, 0.20)), url(/assets/panel_bg.png) no-repeat center center / cover !important;
+  background: rgba(255, 255, 255, 0.20) !important;
   backdrop-filter: blur(28px) saturate(190%) !important;
   -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
   display: flex;
@@ -3485,6 +3485,15 @@ input:checked+.slider:before {
   border: none !important;
   box-sizing: border-box;
   transition: height 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.map-ai-panel-bg-img {
+  position: absolute;
+  inset: 0;
+  background: url('/assets/panel_bg.png') no-repeat center center / cover !important;
+  opacity: 0.35 !important;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .map-ai-panel-inner-glow {
