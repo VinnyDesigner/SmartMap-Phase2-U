@@ -2055,12 +2055,6 @@ function App() {
                                     </div>
                                   )}
                                 </div>
-
-                                {msg.sender === 'user' && (
-                                  <div className="chat-avatar user-avatar">
-                                    <User size={14} className="chat-avatar-icon" />
-                                  </div>
-                                )}
                               </div>
 
                               {/* Radius Chips Below AI Bubble */}
@@ -2093,6 +2087,7 @@ function App() {
                         height: '46px',
                         minHeight: '46px',
                         maxHeight: '46px',
+                        borderRadius: '12px',
                         position: 'relative',
                         padding: '0 6px 0 8px',
                         boxSizing: 'border-box'
