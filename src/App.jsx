@@ -383,7 +383,7 @@ function App() {
       if (
         leftPopoverRef.current &&
         !leftPopoverRef.current.contains(event.target) &&
-        !event.target.closest('.map-controls-top-right')
+        !event.target.closest('.map-controls-left-strip')
       ) {
         setActiveLeftPopover(null);
       }
@@ -1467,7 +1467,7 @@ function App() {
         {/* MAP VIEWPORT SECTION (MATCHING REFERENCE UI) */}
         <section className="map-viewport-container">
 
-          {/* TOP-LEFT FLOATING CONTROLS: ABU DHABI BADGE */}
+          {/* TOP-LEFT FLOATING CONTROLS: PANEL TOGGLE & ABU DHABI BADGE */}
           <div
             className="map-controls-top-left"
             style={{
@@ -1481,6 +1481,15 @@ function App() {
               transition: 'left 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
             }}
           >
+            {!isSidebarOpen && (
+              <button
+                className="map-glass-icon-btn"
+                onClick={() => setIsSidebarOpen(true)}
+                title="Toggle Side Panel"
+              >
+                <PanelLeft size={18} />
+              </button>
+            )}
             <button
               className="map-location-badge"
               onClick={() => {
@@ -1493,9 +1502,88 @@ function App() {
             </button>
           </div>
 
-          {/* FLOATING BASEMAP POPOVER CARD */}
+          {/* LEFT FLOATING VERTICAL TOOLBAR STRIP */}
+          <div
+            className="map-controls-left-strip"
+            style={{
+              position: 'absolute',
+              top: '124px',
+              left: isSidebarOpen ? 'calc(15% + 36px)' : '20px',
+              zIndex: 1000,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '6px',
+              transition: 'left 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
+            }}
+          >
+
+            <button
+              className={`map-glass-icon-btn ${activeLeftPopover === 'basemap' ? 'active' : ''}`}
+              title="Basemap Gallery"
+              onClick={() => setActiveLeftPopover(prev => prev === 'basemap' ? null : 'basemap')}
+            >
+              <Grid size={18} />
+            </button>
+            <button
+              className={`map-glass-icon-btn ${activeLeftPopover === 'legend' ? 'active' : ''}`}
+              title="Legend & Analysis"
+              onClick={() => setActiveLeftPopover(prev => prev === 'legend' ? null : 'legend')}
+            >
+              <List size={18} />
+            </button>
+            <button
+              className={`map-glass-icon-btn ${activeLeftPopover === 'draw' ? 'active' : ''}`}
+              title="Measurement & Draw"
+              onClick={() => setActiveLeftPopover(prev => prev === 'draw' ? null : 'draw')}
+            >
+              <Edit size={18} />
+            </button>
+
+            <div style={{ width: '100%', height: '1px', background: 'rgba(255, 255, 255, 0.25)', margin: '2px 0' }} />
+
+            {/* MOVED MAP CONTROLS FROM TOP-RIGHT TO LEFT BELOW OTHER ELEMENTS */}
+            <button
+              className="map-glass-icon-btn"
+              title="Zoom In"
+              onClick={() => {
+                if (mapInstanceRef.current) mapInstanceRef.current.zoomIn();
+                showToast("Zoomed In");
+              }}
+            >
+              <ZoomIn size={18} />
+            </button>
+            <button
+              className="map-glass-icon-btn"
+              title="Zoom Out"
+              onClick={() => {
+                if (mapInstanceRef.current) mapInstanceRef.current.zoomOut();
+                showToast("Zoomed Out");
+              }}
+            >
+              <ZoomOut size={18} />
+            </button>
+            <button
+              className="map-glass-icon-btn"
+              title="Home View"
+              onClick={() => {
+                if (mapInstanceRef.current) mapInstanceRef.current.flyTo([24.4539, 54.3773], 12);
+                showToast("Reset to Abu Dhabi Home View");
+              }}
+            >
+              <Home size={18} />
+            </button>
+            <button
+              className="map-glass-icon-btn"
+              title="Compass / Orient North"
+              onClick={() => showToast("Map Oriented North")}
+            >
+              <Compass size={18} />
+            </button>
+          </div>
+
+          {/* FLOATING BASEMAP POPOVER CARD WITH 2 COLUMNS (MATCHING REFERENCE UI) */}
           {activeLeftPopover === 'basemap' && (
-            <div ref={leftPopoverRef} className="map-popover-card basemap-grid-popover" style={{ top: '300px', right: isCategoryDrawerOpen ? 'calc(15% + 68px)' : '64px', left: 'auto' }}>
+            <div ref={leftPopoverRef} className="map-popover-card basemap-grid-popover" style={{ top: '124px', left: isSidebarOpen ? 'calc(15% + 82px)' : '62px' }}>
               <div className="popover-header">
                 <h3>Basemap</h3>
               </div>
@@ -1541,7 +1629,7 @@ function App() {
           )}
 
           {activeLeftPopover === 'draw' && (
-            <div ref={leftPopoverRef} className="map-popover-card" style={{ top: '380px', right: isCategoryDrawerOpen ? 'calc(15% + 68px)' : '64px', left: 'auto' }}>
+            <div ref={leftPopoverRef} className="map-popover-card" style={{ top: '204px', left: isSidebarOpen ? 'calc(15% + 82px)' : '62px' }}>
               <div className="popover-grid">
                 <button
                   className={`popover-tile ${activeDrawTool === 'circle' ? 'active' : ''}`}
@@ -1614,7 +1702,7 @@ function App() {
           )}
 
           {activeLeftPopover === 'legend' && (
-            <div ref={leftPopoverRef} className="map-popover-card" style={{ top: '340px', right: isCategoryDrawerOpen ? 'calc(15% + 68px)' : '64px', left: 'auto', width: '280px' }}>
+            <div ref={leftPopoverRef} className="map-popover-card" style={{ top: '164px', left: isSidebarOpen ? 'calc(15% + 82px)' : '62px', width: '280px' }}>
               <div style={{ padding: '4px 2px' }}>
                 <h4 style={{ fontSize: '13px', fontWeight: '600', color: '#1E293B', marginBottom: '8px' }}>Map Legend & Layers</h4>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
@@ -1635,92 +1723,7 @@ function App() {
             </div>
           )}
 
-          {/* TOP-RIGHT FLOATING VERTICAL CONTROL TOOLBAR STACK */}
-          <div
-            className="map-controls-top-right"
-            style={{
-              position: 'absolute',
-              top: '76px',
-              right: isCategoryDrawerOpen ? 'calc(15% + 36px)' : '20px',
-              zIndex: 1000,
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '6px',
-              transition: 'right 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
-            }}
-          >
-            {!isSidebarOpen && (
-              <button
-                className="map-glass-icon-btn"
-                onClick={() => setIsSidebarOpen(true)}
-                title="Toggle Side Panel"
-              >
-                <PanelLeft size={18} />
-              </button>
-            )}
-            <button
-              className="map-glass-icon-btn"
-              title="Zoom In"
-              onClick={() => {
-                if (mapInstanceRef.current) mapInstanceRef.current.zoomIn();
-                showToast("Zoomed In");
-              }}
-            >
-              <ZoomIn size={18} />
-            </button>
-            <button
-              className="map-glass-icon-btn"
-              title="Zoom Out"
-              onClick={() => {
-                if (mapInstanceRef.current) mapInstanceRef.current.zoomOut();
-                showToast("Zoomed Out");
-              }}
-            >
-              <ZoomOut size={18} />
-            </button>
-            <button
-              className="map-glass-icon-btn"
-              title="Home View"
-              onClick={() => {
-                if (mapInstanceRef.current) mapInstanceRef.current.flyTo([24.4539, 54.3773], 12);
-                showToast("Reset to Abu Dhabi Home View");
-              }}
-            >
-              <Home size={18} />
-            </button>
-            <button
-              className="map-glass-icon-btn"
-              title="Compass / Orient North"
-              onClick={() => showToast("Map Oriented North")}
-            >
-              <Compass size={18} />
-            </button>
 
-            <div style={{ height: '1px', background: 'rgba(255, 255, 255, 0.4)', margin: '2px 0' }} />
-
-            {/* MAP ANALYSIS & TOOLBAR ICONS MOVED FROM LEFT TO RIGHT BELOW NAVIGATION */}
-            <button
-              className={`map-glass-icon-btn ${activeLeftPopover === 'basemap' ? 'active' : ''}`}
-              title="Basemap Gallery"
-              onClick={() => setActiveLeftPopover(prev => prev === 'basemap' ? null : 'basemap')}
-            >
-              <Grid size={18} />
-            </button>
-            <button
-              className={`map-glass-icon-btn ${activeLeftPopover === 'legend' ? 'active' : ''}`}
-              title="Legend & Analysis"
-              onClick={() => setActiveLeftPopover(prev => prev === 'legend' ? null : 'legend')}
-            >
-              <List size={18} />
-            </button>
-            <button
-              className={`map-glass-icon-btn ${activeLeftPopover === 'draw' ? 'active' : ''}`}
-              title="Measurement & Draw"
-              onClick={() => setActiveLeftPopover(prev => prev === 'draw' ? null : 'draw')}
-            >
-              <Edit size={18} />
-            </button>
-          </div>
 
           {/* FLOATING VOLUMETRIC CALCULATION HUD CARD (WHILE MEASURING) */}
           {volumeToolActive && (
@@ -1788,7 +1791,7 @@ function App() {
             />
           </div>
 
-          {/* FLOATING GEOVISION AI SPATIAL SEARCH PANEL */}
+          {/* FLOATING GEOVISION AI SPATIAL SEARCH PANEL (RIGHT ALIGNED) */}
           {(isAISearchBarOpen || isAiClosing) ? (
             <div
               className={`landing-search-card-wrapper map-ai-panel-wrapper ${isAiClosing ? 'mac-closing' : ''} ${selectedLocation ? 'expanded-info' : ''} ${!isSidebarOpen ? 'sidebar-collapsed' : ''}`}
@@ -1797,12 +1800,10 @@ function App() {
                 bottom: '0px',
                 marginBottom: '0px',
                 right: isCategoryDrawerOpen ? 'calc(15% + 24px)' : '24px',
-                left: 'auto',
-                transform: 'none',
-                width: selectedLocation ? 'calc(100vw - 36vw)' : '580px',
-                maxWidth: selectedLocation ? 'calc(100vw - 36vw)' : '720px',
+                width: selectedLocation ? 'calc(100vw - 36vw)' : '680px',
+                maxWidth: selectedLocation ? 'calc(100vw - 36vw)' : '680px',
                 zIndex: 1000,
-                transition: 'right 0.3s cubic-bezier(0.16, 1, 0.3, 1), width 0.3s cubic-bezier(0.16, 1, 0.3, 1), max-width 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
+                transition: 'width 0.3s cubic-bezier(0.16, 1, 0.3, 1), max-width 0.3s cubic-bezier(0.16, 1, 0.3, 1), right 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
               }}
             >
               {/* SVG CLIP PATH AND STROKE OVERLAY PRESERVING EXACT NOTCH DEPTH AND CORNER RADIUS */}
