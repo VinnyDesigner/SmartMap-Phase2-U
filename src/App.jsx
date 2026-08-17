@@ -1810,16 +1810,16 @@ function App() {
             >
               {/* SVG CLIP PATH AND STROKE OVERLAY PRESERVING EXACT NOTCH DEPTH AND CORNER RADIUS */}
               {(() => {
-                const yCorner = 0.0400;
-                const yNotch = 0.0500;
-                const yNotchSlope = 0.0450;
-                const yNotchEntry = 0.0100;
-                const notchClipD = `M 0,1 L 0,${yCorner} Q 0,0 0.031,0 L 0.29,0 Q 0.30,0 0.305,${yNotchEntry} L 0.31875,${yNotchSlope} Q 0.322,${yNotch} 0.328,${yNotch} L 0.672,${yNotch} Q 0.678,${yNotch} 0.68125,${yNotchSlope} L 0.695,${yNotchEntry} Q 0.70,0 0.71,0 L 0.969,0 Q 1,0 1,${yCorner} L 1,1 Z`;
-                const notchStrokeD = `M 0,1 L 0,${yCorner} Q 0,0 0.031,0 L 0.29,0 Q 0.30,0 0.305,${yNotchEntry} L 0.31875,${yNotchSlope} Q 0.322,${yNotch} 0.328,${yNotch} L 0.672,${yNotch} Q 0.678,${yNotch} 0.68125,${yNotchSlope} L 0.695,${yNotchEntry} Q 0.70,0 0.71,0 L 0.969,0 Q 1,0 1,${yCorner} L 1,1`;
+                const yCorner = 0.0160;
+                const yNotch = 0.0120;
+                const yNotchSlope = 0.0080;
+                const yNotchEntry = 0.0020;
+                const notchClipD = `M 0,1 L 0,${yCorner} Q 0,0 0.035,0 L 0.38,0 Q 0.395,0 0.398,${yNotchEntry} L 0.408,${yNotchSlope} Q 0.412,${yNotch} 0.42,${yNotch} L 0.58,${yNotch} Q 0.588,${yNotch} 0.592,${yNotchSlope} L 0.602,${yNotchEntry} Q 0.605,0 0.62,0 L 0.965,0 Q 1,0 1,${yCorner} L 1,1 Z`;
+                const notchStrokeD = `M 0,1 L 0,${yCorner} Q 0,0 0.035,0 L 0.38,0 Q 0.395,0 0.398,${yNotchEntry} L 0.408,${yNotchSlope} Q 0.412,${yNotch} 0.42,${yNotch} L 0.58,${yNotch} Q 0.588,${yNotch} 0.592,${yNotchSlope} L 0.602,${yNotchEntry} Q 0.605,0 0.62,0 L 0.965,0 Q 1,0 1,${yCorner} L 1,1`;
 
                 return (
                   <>
-                    {/* SVG CLIP PATH DEFINITION FOR 24PX CORNER RADIUS NOTCHED CARD */}
+                    {/* SVG CLIP PATH DEFINITION FOR 16PX CORNER RADIUS CARD */}
                     <svg width="0" height="0" style={{ position: 'absolute', pointerEvents: 'none' }}>
                       <defs>
                         <clipPath id="panelCardRoundedNotchClip" clipPathUnits="objectBoundingBox">
@@ -1831,7 +1831,7 @@ function App() {
                     {/* DEDICATED PULSATING WHITE INNER GLOW OVERLAY (TOP, LEFT, RIGHT) */}
                     <div className="map-ai-panel-inner-glow" />
 
-                    {/* PANEL OUTER STROKE SVG OVERLAY INCLUDING 24PX CORNERS & MIDDLE NOTCH DIP */}
+                    {/* PANEL OUTER STROKE SVG OVERLAY INCLUDING 16PX CORNERS & SHALLOW NOTCH */}
                     <div className="map-ai-panel-border-container">
                       <svg viewBox="0 0 1 1" preserveAspectRatio="none">
                         <path
@@ -1845,17 +1845,37 @@ function App() {
                 );
               })()}
 
-              {/* TOP CENTER COLLAPSE HANDLE */}
+              {/* LEFT SIDE COLLAPSE HANDLE BUTTON */}
               <div
-                className="map-ai-panel-collapse-handle"
+                className="map-ai-panel-left-collapse-handle"
                 onClick={(e) => {
                   e.stopPropagation();
                   handleCloseAiPanel();
                 }}
-                title="Click to close AI panel"
+                title="Collapse AI panel"
+                style={{
+                  position: 'absolute',
+                  left: '-28px',
+                  top: '20px',
+                  width: '28px',
+                  height: '42px',
+                  background: 'rgba(255, 255, 255, 0.45)',
+                  backdropFilter: 'blur(20px) saturate(180%)',
+                  WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+                  border: '1px solid rgba(255, 255, 255, 0.6)',
+                  borderRight: 'none',
+                  borderRadius: '10px 0 0 10px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  boxShadow: '-4px 4px 15px rgba(0, 43, 91, 0.15)',
+                  zIndex: 1002,
+                  color: '#002B5B',
+                  transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
+                }}
               >
-                <div className="drag-pill-indicator"></div>
-                <ChevronDown size={16} />
+                <ChevronRight size={18} />
               </div>
 
               <div
@@ -1869,7 +1889,7 @@ function App() {
                   margin: 0,
                   marginBottom: 0,
                   padding: '14px 20px 16px 20px',
-                  borderRadius: '24px'
+                  borderRadius: '16px'
                 }}
               >
                 {/* Tech SVG Border Overlay Removed for clean borderless interior */}
