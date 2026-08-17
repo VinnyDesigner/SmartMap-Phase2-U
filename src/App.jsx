@@ -324,6 +324,7 @@ function App() {
   };
   const [isAIPanelExpanded, setIsAIPanelExpanded] = useState(false);
   const [aiSearchQuery, setAiSearchQuery] = useState('');
+  const [showPlusMenu, setShowPlusMenu] = useState(false);
   const [chatMessages, setChatMessages] = useState([
     {
       sender: 'ai',
@@ -1797,13 +1798,13 @@ function App() {
               className={`landing-search-card-wrapper map-ai-panel-wrapper ${isAiClosing ? 'mac-closing' : ''} ${selectedLocation ? 'expanded-info' : ''} ${!isSidebarOpen ? 'sidebar-collapsed' : ''}`}
               style={{
                 position: 'fixed',
-                top: '76px',
-                bottom: '16px',
+                top: '80px',
+                bottom: '48px',
                 right: '16px',
                 width: selectedLocation ? '540px' : '380px',
                 maxWidth: selectedLocation ? '540px' : '380px',
-                height: 'calc(100vh - 96px)',
-                maxHeight: 'calc(100vh - 96px)',
+                height: 'calc(100vh - 130px)',
+                maxHeight: 'calc(100vh - 130px)',
                 zIndex: 1001,
                 transition: 'width 0.3s cubic-bezier(0.16, 1, 0.3, 1), max-width 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
               }}
@@ -1822,39 +1823,6 @@ function App() {
                 </svg>
               </div>
 
-              {/* LEFT SIDE COLLAPSE HANDLE BUTTON */}
-              <div
-                className="map-ai-panel-left-collapse-handle"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleCloseAiPanel();
-                }}
-                title="Collapse AI panel"
-                style={{
-                  position: 'absolute',
-                  left: '-28px',
-                  top: '20px',
-                  width: '28px',
-                  height: '42px',
-                  background: 'rgba(255, 255, 255, 0.45)',
-                  backdropFilter: 'blur(20px) saturate(180%)',
-                  WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-                  border: '1px solid rgba(255, 255, 255, 0.6)',
-                  borderRight: 'none',
-                  borderRadius: '10px 0 0 10px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  cursor: 'pointer',
-                  boxShadow: '-4px 4px 15px rgba(0, 43, 91, 0.15)',
-                  zIndex: 1002,
-                  color: '#002B5B',
-                  transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
-                }}
-              >
-                <ChevronRight size={18} />
-              </div>
-
               <div
                 className="map-ai-panel-container landing-search-card"
                 style={{
@@ -1870,13 +1838,11 @@ function App() {
                   WebkitClipPath: 'url(#categoryDrawerTopBottomNotchClip)'
                 }}
               >
-                {/* Tech SVG Border Overlay Removed for clean borderless interior */}
-
                 {/* MAIN 2-COLUMN GRID (CHAT STREAM LEFT, DETAILED INFORMATION RIGHT) */}
                 <div className="map-ai-panel-main-grid" style={{ display: 'flex', width: '100%', height: '100%', gap: '16px', margin: 0, padding: 0 }}>
                   {/* LEFT COLUMN: CHAT STREAM & INPUT BAR */}
                   <div className="map-ai-panel-left-col" style={{ display: 'flex', flexDirection: 'column', height: '100%', flex: 1, justifyContent: 'space-between', margin: 0, padding: 0 }}>
-                    {/* PANEL HEADER (INSIDE LEFT COLUMN ONLY) */}
+                    {/* PANEL HEADER (INSIDE LEFT COLUMN ONLY) WITH MINIMIZE BUTTON MATCHING SEARCH HISTORY */}
                     <div className="map-ai-panel-header" style={{
                       opacity: 1,
                       maxHeight: '60px',
@@ -1888,57 +1854,35 @@ function App() {
                       width: '100%',
                       marginBottom: '10px'
                     }}>
-                      <div className="map-ai-panel-title">
+                      <div className="map-ai-panel-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <span>AI Spatial Search</span>
                       </div>
-                      <div className="map-ai-dock" onMouseLeave={() => setHoveredDockIndex(null)}>
-                        <button
-                          className="map-ai-dock-item"
-                          title="Search History"
-                          onMouseEnter={() => setHoveredDockIndex(0)}
-                          onClick={() => {
-                            setIsSidebarOpen(true);
-                            setActiveTab('history');
-                            showToast("Search History Opened");
-                          }}
-                        >
-                          <Clock size={16} />
-                          <span className="dock-label">History</span>
-                        </button>
 
-                        <button
-                          className="map-ai-dock-item"
-                          title="Quick Start"
-                          onMouseEnter={() => setHoveredDockIndex(1)}
-                          onClick={() => handleUnifiedSearch({ query: 'schools & hospitals' })}
-                        >
-                          <Search size={16} />
-                          <span className="dock-label">Quick Start</span>
-                        </button>
-
-                        <div className="map-ai-dock-divider"></div>
-
-                        <button
-                          className="map-ai-dock-item"
-                          title="Start New Chat"
-                          onMouseEnter={() => setHoveredDockIndex(2)}
-                          onClick={() => {
-                            setAiSearchQuery('');
-                            setSelectedLocation(null);
-                            setActiveSearchResults([]);
-                            setChatMessages([
-                              {
-                                sender: 'ai',
-                                text: 'Hello! I am your GeoVision AI Spatial Assistant. How can I help you explore locations, services, or geospatial data across Abu Dhabi today?'
-                              }
-                            ]);
-                            showToast("Started New Chat Session");
-                          }}
-                        >
-                          <MessageSquare size={16} />
-                          <span className="dock-label">New Chat</span>
-                        </button>
-                      </div>
+                      {/* MINIMIZE / COLLAPSE BUTTON MATCHING SEARCH HISTORY PANEL */}
+                      <button
+                        className="search-history-toggle-btn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleCloseAiPanel();
+                        }}
+                        title="Minimize AI Panel"
+                        style={{
+                          background: 'rgba(255, 255, 255, 0.4)',
+                          border: '1px solid rgba(255, 255, 255, 0.6)',
+                          borderRadius: '8px',
+                          width: '32px',
+                          height: '32px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          cursor: 'pointer',
+                          color: '#002B5B',
+                          boxShadow: '0 2px 6px rgba(0, 43, 91, 0.08)',
+                          transition: 'all 0.2s ease'
+                        }}
+                      >
+                        <PanelRight size={18} />
+                      </button>
                     </div>
 
                     {/* MIDDLE CHAT / CONVERSATION STREAM AREA */}
@@ -2132,18 +2076,170 @@ function App() {
                       </div>
                     </div>
 
-                    {/* BOTTOM SEARCH INPUT BAR (HOMEPAGE SEARCH BAR UI) */}
+                    {/* BOTTOM SEARCH INPUT BAR WITH PLUS (+) ACTION MENU */}
                     <form
                       className="landing-search-container"
-                      style={{ margin: '0 2px 4px 2px', width: 'calc(100% - 4px)', maxWidth: '100%', flex: '0 0 54px', height: '54px', minHeight: '54px', maxHeight: '54px' }}
+                      style={{ margin: '0 2px 4px 2px', width: 'calc(100% - 4px)', maxWidth: '100%', flex: '0 0 54px', height: '54px', minHeight: '54px', maxHeight: '54px', position: 'relative' }}
                       onSubmit={(e) => {
                         e.preventDefault();
                         if (aiSearchQuery.trim()) {
                           handleUnifiedSearch({ query: aiSearchQuery });
                           setAiSearchQuery('');
+                          setShowPlusMenu(false);
                         }
                       }}
                     >
+                      {/* PLUS (+) ACTION BUTTON & POPUP MENU */}
+                      <div style={{ position: 'relative', display: 'flex', alignItems: 'center', margin: '0 4px 0 8px' }}>
+                        <button
+                          type="button"
+                          className="landing-search-plus-btn"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setShowPlusMenu(prev => !prev);
+                          }}
+                          title="Actions Menu (History, Quick Start, New Chat)"
+                          style={{
+                            width: '30px',
+                            height: '30px',
+                            borderRadius: '50%',
+                            background: showPlusMenu ? '#002B5B' : 'rgba(0, 43, 91, 0.08)',
+                            color: showPlusMenu ? '#FFFFFF' : '#002B5B',
+                            border: '1px solid rgba(0, 43, 91, 0.18)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                            flexShrink: 0
+                          }}
+                        >
+                          <Plus size={16} style={{ transform: showPlusMenu ? 'rotate(45deg)' : 'rotate(0deg)', transition: 'transform 0.2s ease' }} />
+                        </button>
+
+                        {/* POPUP MENU WHEN PLUS IS CLICKED */}
+                        {showPlusMenu && (
+                          <div
+                            className="landing-search-plus-menu"
+                            style={{
+                              position: 'absolute',
+                              bottom: '48px',
+                              left: '0',
+                              background: 'rgba(255, 255, 255, 0.96)',
+                              backdropFilter: 'blur(24px) saturate(190%)',
+                              WebkitBackdropFilter: 'blur(24px) saturate(190%)',
+                              border: '1px solid rgba(255, 255, 255, 0.8)',
+                              borderRadius: '14px',
+                              padding: '6px',
+                              boxShadow: '0 14px 35px rgba(0, 43, 91, 0.22), 0 0 1px rgba(0, 0, 0, 0.1)',
+                              display: 'flex',
+                              flexDirection: 'column',
+                              gap: '4px',
+                              zIndex: 1050,
+                              minWidth: '175px'
+                            }}
+                          >
+                            <button
+                              type="button"
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '10px',
+                                padding: '8px 12px',
+                                borderRadius: '8px',
+                                background: 'transparent',
+                                border: 'none',
+                                color: '#002B5B',
+                                fontSize: '13px',
+                                fontWeight: 500,
+                                cursor: 'pointer',
+                                width: '100%',
+                                textAlign: 'left',
+                                transition: 'background 0.15s ease'
+                              }}
+                              onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(0, 43, 91, 0.06)'}
+                              onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                              onClick={() => {
+                                setIsSidebarOpen(true);
+                                setActiveTab('history');
+                                setShowPlusMenu(false);
+                                showToast("Search History Opened");
+                              }}
+                            >
+                              <Clock size={16} color="#1d68f2" />
+                              <span>Search History</span>
+                            </button>
+
+                            <button
+                              type="button"
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '10px',
+                                padding: '8px 12px',
+                                borderRadius: '8px',
+                                background: 'transparent',
+                                border: 'none',
+                                color: '#002B5B',
+                                fontSize: '13px',
+                                fontWeight: 500,
+                                cursor: 'pointer',
+                                width: '100%',
+                                textAlign: 'left',
+                                transition: 'background 0.15s ease'
+                              }}
+                              onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(0, 43, 91, 0.06)'}
+                              onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                              onClick={() => {
+                                handleUnifiedSearch({ query: 'hospitals & schools near me' });
+                                setShowPlusMenu(false);
+                              }}
+                            >
+                              <Search size={16} color="#1d68f2" />
+                              <span>Quick Start</span>
+                            </button>
+
+                            <button
+                              type="button"
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '10px',
+                                padding: '8px 12px',
+                                borderRadius: '8px',
+                                background: 'transparent',
+                                border: 'none',
+                                color: '#002B5B',
+                                fontSize: '13px',
+                                fontWeight: 500,
+                                cursor: 'pointer',
+                                width: '100%',
+                                textAlign: 'left',
+                                transition: 'background 0.15s ease'
+                              }}
+                              onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(0, 43, 91, 0.06)'}
+                              onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+                              onClick={() => {
+                                setAiSearchQuery('');
+                                setSelectedLocation(null);
+                                setActiveSearchResults([]);
+                                setChatMessages([
+                                  {
+                                    sender: 'ai',
+                                    text: 'Hello! I am your GeoVision AI Spatial Assistant. How can I help you explore locations, services, or geospatial data across Abu Dhabi today?'
+                                  }
+                                ]);
+                                setShowPlusMenu(false);
+                                showToast("Started New Chat Session");
+                              }}
+                            >
+                              <MessageSquare size={16} color="#1d68f2" />
+                              <span>New Chat</span>
+                            </button>
+                          </div>
+                        )}
+                      </div>
+
                       <div className="search-star-loader-wrapper">
                         <div className="search-star-loader"></div>
                         <FourPointStar className="landing-search-sparkle" size={16} />
