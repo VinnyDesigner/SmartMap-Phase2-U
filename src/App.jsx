@@ -305,6 +305,7 @@ function App() {
   // AI Assistant Search state ('button' | 'panel')
   const [aiState, setAiState] = useState('panel');
   const [isAiClosing, setIsAiClosing] = useState(false);
+  const [isAiMinimized, setIsAiMinimized] = useState(false);
   const isAISearchBarOpen = aiState === 'panel';
 
   const handleCloseAiPanel = () => {
@@ -1994,14 +1995,14 @@ function App() {
               style={{
                 position: 'fixed',
                 top: '80px',
-                bottom: '48px',
+                bottom: isAiMinimized ? 'auto' : '48px',
                 right: '16px',
                 width: '350px',
                 maxWidth: '350px',
-                height: 'calc(100vh - 130px)',
-                maxHeight: 'calc(100vh - 130px)',
+                height: isAiMinimized ? '60px' : 'calc(100vh - 130px)',
+                maxHeight: isAiMinimized ? '60px' : 'calc(100vh - 130px)',
                 zIndex: 1001,
-                transition: 'width 0.3s cubic-bezier(0.16, 1, 0.3, 1), max-width 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
+                transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
               }}
             >
               {/* DEDICATED PULSATING WHITE INNER GLOW OVERLAY MATCHING SEARCH HISTORY PANEL */}
@@ -2039,7 +2040,7 @@ function App() {
                 <div className="map-ai-panel-main-grid" style={{ position: 'relative', zIndex: 1, display: 'flex', width: '100%', maxWidth: '100%', minWidth: 0, height: '100%', gap: '16px', margin: 0, padding: 0, boxSizing: 'border-box' }}>
                   {/* LEFT COLUMN: CHAT STREAM & INPUT BAR */}
                   <div className="map-ai-panel-left-col" style={{ display: 'flex', flexDirection: 'column', height: '100%', flex: 1, minWidth: 0, maxWidth: '100%', justifyContent: 'space-between', margin: 0, padding: 0, boxSizing: 'border-box' }}>
-                    {/* PANEL HEADER (INSIDE LEFT COLUMN ONLY) WITH MINIMIZE BUTTON MATCHING SEARCH HISTORY */}
+                    {/* PANEL HEADER (INSIDE LEFT COLUMN ONLY) WITH MINIMIZE & CLOSE BUTTONS SIDE BY SIDE */}
                     <div className="map-ai-panel-header" style={{
                       opacity: 1,
                       maxHeight: '60px',
@@ -2051,41 +2052,73 @@ function App() {
                       width: '100%',
                       maxWidth: '100%',
                       minWidth: 0,
-                      marginBottom: '10px',
+                      marginBottom: isAiMinimized ? '0' : '10px',
                       boxSizing: 'border-box'
                     }}>
                       <div className="map-ai-panel-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <h2 className="search-history-title">AI Spatial Search</h2>
                       </div>
 
-                      {/* MINIMIZE / COLLAPSE BUTTON MATCHING SEARCH HISTORY PANEL */}
-                      <button
-                        className="search-history-toggle-btn"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleCloseAiPanel();
-                        }}
-                        title="Minimize AI Panel"
-                        style={{
-                          background: 'rgba(255, 255, 255, 0.4)',
-                          border: '1px solid rgba(255, 255, 255, 0.6)',
-                          borderRadius: '8px',
-                          width: '32px',
-                          height: '32px',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          cursor: 'pointer',
-                          color: '#002B5B',
-                          boxShadow: '0 2px 6px rgba(0, 43, 91, 0.08)',
-                          transition: 'all 0.2s ease'
-                        }}
-                      >
-                        <Minus size={18} />
-                      </button>
+                      {/* MINIMIZE AND CLOSE ACTION BUTTONS SIDE BY SIDE */}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        {/* MINIMIZE BUTTON */}
+                        <button
+                          className="search-history-toggle-btn"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setIsAiMinimized(prev => !prev);
+                          }}
+                          title={isAiMinimized ? "Expand AI Panel" : "Minimize AI Panel"}
+                          style={{
+                            background: 'rgba(255, 255, 255, 0.4)',
+                            border: '1px solid rgba(255, 255, 255, 0.6)',
+                            borderRadius: '8px',
+                            width: '32px',
+                            height: '32px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            color: '#002B5B',
+                            boxShadow: '0 2px 6px rgba(0, 43, 91, 0.08)',
+                            transition: 'all 0.2s ease'
+                          }}
+                        >
+                          <Minus size={18} />
+                        </button>
+
+                        {/* CLOSE BUTTON */}
+                        <button
+                          className="search-history-toggle-btn"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setIsAiMinimized(false);
+                            handleCloseAiPanel();
+                          }}
+                          title="Close AI Panel"
+                          style={{
+                            background: 'rgba(255, 255, 255, 0.4)',
+                            border: '1px solid rgba(255, 255, 255, 0.6)',
+                            borderRadius: '8px',
+                            width: '32px',
+                            height: '32px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            cursor: 'pointer',
+                            color: '#002B5B',
+                            boxShadow: '0 2px 6px rgba(0, 43, 91, 0.08)',
+                            transition: 'all 0.2s ease'
+                          }}
+                        >
+                          <X size={18} />
+                        </button>
+                      </div>
                     </div>
 
-                    {/* MIDDLE CHAT / CONVERSATION STREAM AREA */}
+                    {!isAiMinimized && (
+                      <>
+                        {/* MIDDLE CHAT / CONVERSATION STREAM AREA */}
                     <div ref={chatMessagesContainerRef} className="map-ai-panel-body" style={{
                       opacity: 1,
                       flex: 1,
@@ -2533,7 +2566,9 @@ function App() {
                         </button>
                       </div>
                     </form>
-                  </div>
+                  </>
+                )}
+              </div>
 
 
                 </div>
