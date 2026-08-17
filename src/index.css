@@ -4269,7 +4269,7 @@ input:checked+.slider:before {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  max-height: 160px;
+  max-height: 300px;
   overflow-y: auto;
   overflow-x: hidden !important;
   padding: 8px 0 !important;
@@ -4288,6 +4288,7 @@ input:checked+.slider:before {
 
 .structured-item-card {
   display: flex !important;
+  flex-direction: row !important;
   align-items: center !important;
   justify-content: space-between !important;
   border-radius: 8px;
@@ -4295,26 +4296,33 @@ input:checked+.slider:before {
   border-left: 2px solid #B7D1FF;
   background: rgba(233, 237, 243, 0.50);
   box-shadow: 0 4px 4px 0 rgba(0, 30, 61, 0.06);
-  padding: 6px 8px !important;
+  padding: 10px 12px !important;
+  min-height: 52px !important;
+  height: auto !important;
   transition: all 0.2s ease;
   cursor: default;
   width: 100% !important;
   max-width: 100% !important;
   box-sizing: border-box !important;
   overflow: hidden !important;
-  gap: 4px !important;
+  gap: 6px !important;
 }
 
 .structured-item-info {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  gap: 3px !important;
   flex: 1 1 auto !important;
   min-width: 0 !important;
   overflow: hidden !important;
 }
 
 .structured-item-title {
-  font-size: 12px !important;
+  font-size: 13px !important;
   font-weight: 600 !important;
   color: #0F172A !important;
+  line-height: 1.35 !important;
   white-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
@@ -4322,8 +4330,9 @@ input:checked+.slider:before {
 }
 
 .structured-item-arabic {
-  font-size: 10.5px !important;
+  font-size: 11.5px !important;
   color: #64748B !important;
+  line-height: 1.35 !important;
   white-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
