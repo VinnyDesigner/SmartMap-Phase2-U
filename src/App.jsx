@@ -506,17 +506,8 @@ function App() {
       { label: lang === 'ar' ? `قريب · 7 كم` : `Nearby · 7 km`, query: `${radiusCategory} within 7km` }
     ];
 
-    const cleanTagLabel = tagLabel.split(/\s+within\s+/i)[0].trim();
-    const distanceMatch = tagLabel.match(/within\s+(\d+)\s*k?m/i);
-    const distanceSuffix = distanceMatch ? `${distanceMatch[1]} km` : '2 km';
-
-    let formattedTag = cleanTagLabel;
-    if (!formattedTag.toLowerCase().endsWith('s') && !formattedTag.toLowerCase().endsWith('me')) {
-      formattedTag += 's';
-    }
-
     const structuredResultsPayload = {
-      title: `Best Match (${count} ${formattedTag} within ${distanceSuffix})`,
+      title: lang === 'ar' ? 'أفضل التطابقات' : 'Best Match',
       category: cleanCategory || 'Education',
       tabs: subcatTabs,
       activeTabId: defaultTab,
@@ -1947,11 +1938,7 @@ function App() {
                                         style={{ cursor: 'pointer' }}
                                       >
                                         <div className="structured-results-title-group">
-                                          {msg.structuredResults.category === 'Healthcare' ? <Heart size={15} className="structured-cat-icon" /> :
-                                            msg.structuredResults.category === 'Park' ? <Trees size={15} className="structured-cat-icon" /> :
-                                              msg.structuredResults.category === 'Transportation' ? <Car size={15} className="structured-cat-icon" /> :
-                                                msg.structuredResults.category === 'Government' ? <Building size={15} className="structured-cat-icon" /> :
-                                                  <GraduationCap size={15} className="structured-cat-icon" />}
+                                          <Sparkles size={15} className="structured-cat-icon" />
                                           <span className="structured-main-title">{msg.structuredResults.title}</span>
                                         </div>
 
@@ -2001,9 +1988,6 @@ function App() {
                                                 <div
                                                   key={item.id}
                                                   className={`structured-item-card ${selectedLocation && selectedLocation.id === item.id ? 'active-selected' : ''}`}
-                                                  onClick={() => {
-                                                    setSelectedLocation({ ...item, locateTrigger: Date.now() });
-                                                  }}
                                                 >
                                                   <div className="structured-item-info">
                                                     <div className="structured-item-title">{item.title}</div>
