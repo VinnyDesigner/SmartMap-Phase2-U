@@ -88,7 +88,8 @@ import drawSvg from './assets/Icons 1/Icons/Draw.svg';
 import basemapSvg from './assets/Icons 1/Icons/Basemap.svg';
 import legendSvg from './assets/Icons 1/Icons/legend.svg';
 import locationSvg from './assets/Icons 1/Icons/location.svg';
-import categorySvg from './assets/Icons 1/Icons/category.svg';
+import minusSvg from './assets/Icons 1/Icons/minus.svg';
+import closeSvg from './assets/Icons 1/Icons/close.svg';
 import collectionsSvg from './assets/Icons 1/Icons/My Collections.svg';
 import helpIcon from './assets/help.svg';
 import signInIcon from './assets/sign in.svg';
@@ -2170,12 +2171,11 @@ function App() {
                             alignItems: 'center',
                             justifyContent: 'center',
                             cursor: 'pointer',
-                            color: '#002B5B',
                             boxShadow: '0 2px 6px rgba(0, 43, 91, 0.08)',
                             transition: 'all 0.2s ease'
                           }}
                         >
-                          <Minus size={18} />
+                          <GeoVisionGradientIcon src={minusSvg} size={14} alt="Minimize" />
                         </button>
 
                         {/* CLOSE BUTTON */}
@@ -2197,12 +2197,11 @@ function App() {
                             alignItems: 'center',
                             justifyContent: 'center',
                             cursor: 'pointer',
-                            color: '#002B5B',
                             boxShadow: '0 2px 6px rgba(0, 43, 91, 0.08)',
                             transition: 'all 0.2s ease'
                           }}
                         >
-                          <X size={18} />
+                          <GeoVisionGradientIcon src={closeSvg} size={14} alt="Close" />
                         </button>
                       </div>
                     </div>
