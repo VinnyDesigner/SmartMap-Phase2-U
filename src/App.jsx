@@ -1505,7 +1505,7 @@ function App() {
             className="map-controls-left-strip map-controls-l-shape"
             style={{
               position: 'absolute',
-              bottom: '24px',
+              bottom: '56px',
               left: isSidebarOpen ? 'calc(15% + 36px)' : '20px',
               zIndex: 1000,
               display: 'flex',
@@ -1518,21 +1518,21 @@ function App() {
             {/* VERTICAL ARM OF THE "L" */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
               <button
-                className={`map-glass-icon-btn ${activeLeftPopover === 'basemap' ? 'active' : ''}`}
+                className={`map-glass-icon-btn icon-btn-basemap ${activeLeftPopover === 'basemap' ? 'active' : ''}`}
                 title="Basemap Gallery"
                 onClick={() => setActiveLeftPopover(prev => prev === 'basemap' ? null : 'basemap')}
               >
                 <Grid size={18} />
               </button>
               <button
-                className={`map-glass-icon-btn ${activeLeftPopover === 'legend' ? 'active' : ''}`}
+                className={`map-glass-icon-btn icon-btn-legend ${activeLeftPopover === 'legend' ? 'active' : ''}`}
                 title="Legend & Analysis"
                 onClick={() => setActiveLeftPopover(prev => prev === 'legend' ? null : 'legend')}
               >
                 <List size={18} />
               </button>
               <button
-                className={`map-glass-icon-btn ${activeLeftPopover === 'draw' ? 'active' : ''}`}
+                className={`map-glass-icon-btn icon-btn-draw ${activeLeftPopover === 'draw' ? 'active' : ''}`}
                 title="Measurement & Draw"
                 onClick={() => setActiveLeftPopover(prev => prev === 'draw' ? null : 'draw')}
               >
@@ -1543,7 +1543,7 @@ function App() {
             {/* HORIZONTAL BASE ARM OF THE "L" */}
             <div style={{ display: 'flex', flexDirection: 'row', gap: '6px' }}>
               <button
-                className="map-glass-icon-btn"
+                className="map-glass-icon-btn icon-btn-zoomin"
                 title="Zoom In"
                 onClick={() => {
                   if (mapInstanceRef.current) mapInstanceRef.current.zoomIn();
@@ -1553,7 +1553,7 @@ function App() {
                 <ZoomIn size={18} />
               </button>
               <button
-                className="map-glass-icon-btn"
+                className="map-glass-icon-btn icon-btn-zoomout"
                 title="Zoom Out"
                 onClick={() => {
                   if (mapInstanceRef.current) mapInstanceRef.current.zoomOut();
@@ -1563,7 +1563,7 @@ function App() {
                 <ZoomOut size={18} />
               </button>
               <button
-                className="map-glass-icon-btn"
+                className="map-glass-icon-btn icon-btn-home"
                 title="Home View"
                 onClick={() => {
                   if (mapInstanceRef.current) mapInstanceRef.current.flyTo([24.4539, 54.3773], 12);
@@ -1573,7 +1573,7 @@ function App() {
                 <Home size={18} />
               </button>
               <button
-                className="map-glass-icon-btn"
+                className="map-glass-icon-btn icon-btn-compass"
                 title="Compass / Orient North"
                 onClick={() => showToast("Map Oriented North")}
               >
@@ -1584,7 +1584,7 @@ function App() {
 
           {/* FLOATING BASEMAP POPOVER CARD WITH 2 COLUMNS */}
           {activeLeftPopover === 'basemap' && (
-            <div ref={leftPopoverRef} className="map-popover-card basemap-grid-popover" style={{ bottom: '70px', left: isSidebarOpen ? 'calc(15% + 82px)' : '62px' }}>
+            <div ref={leftPopoverRef} className="map-popover-card basemap-grid-popover" style={{ bottom: '102px', left: isSidebarOpen ? 'calc(15% + 82px)' : '62px' }}>
               <div className="popover-header">
                 <h3>Basemap</h3>
               </div>
@@ -1630,7 +1630,7 @@ function App() {
           )}
 
           {activeLeftPopover === 'draw' && (
-            <div ref={leftPopoverRef} className="map-popover-card" style={{ bottom: '70px', left: isSidebarOpen ? 'calc(15% + 82px)' : '62px' }}>
+            <div ref={leftPopoverRef} className="map-popover-card" style={{ bottom: '102px', left: isSidebarOpen ? 'calc(15% + 82px)' : '62px' }}>
               <div className="popover-grid">
                 <button
                   className={`popover-tile ${activeDrawTool === 'circle' ? 'active' : ''}`}
@@ -1703,7 +1703,7 @@ function App() {
           )}
 
           {activeLeftPopover === 'legend' && (
-            <div ref={leftPopoverRef} className="map-popover-card" style={{ bottom: '70px', left: isSidebarOpen ? 'calc(15% + 82px)' : '62px', width: '280px' }}>
+            <div ref={leftPopoverRef} className="map-popover-card" style={{ bottom: '102px', left: isSidebarOpen ? 'calc(15% + 82px)' : '62px', width: '280px' }}>
               <div style={{ padding: '4px 2px' }}>
                 <h4 style={{ fontSize: '13px', fontWeight: '600', color: '#1E293B', marginBottom: '8px' }}>Map Legend & Layers</h4>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
