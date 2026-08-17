@@ -1589,43 +1589,55 @@ function App() {
               >
                 <Home size={18} />
               </button>
-              <button
-                className="map-glass-icon-btn"
-                title="Scale"
-                onClick={() => showToast("Map Scale: 1 : 50,000 (1km)")}
-              >
-                <Ruler size={18} />
-              </button>
-              
-              {/* LIVE COORDINATES PILL INLINE IN THE ICON ROW AFTER SCALE */}
               <div
-                className="map-coords-pill map-glass-icon-btn"
+                className="map-glass-pill-btn"
+                title="Coordinates"
                 style={{
-                  height: '36px',
-                  padding: '0 12px',
-                  borderRadius: '10px',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '6px',
-                  background: 'rgba(255, 255, 255, 0.75)',
+                  padding: '0 12px',
+                  height: '36px',
+                  borderRadius: '10px',
+                  background: 'rgba(255, 255, 255, 0.45)',
                   backdropFilter: 'blur(16px)',
                   WebkitBackdropFilter: 'blur(16px)',
-                  border: '1px solid rgba(255, 255, 255, 0.8)',
-                  boxShadow: '0 4px 12px rgba(0, 43, 91, 0.08)',
+                  border: '1px solid rgba(255, 255, 255, 0.65)',
+                  color: '#002B5B',
                   fontSize: '12px',
-                  fontWeight: '500',
-                  color: '#0F172A',
-                  cursor: 'pointer'
+                  fontWeight: '600',
+                  whiteSpace: 'nowrap',
+                  boxShadow: '0 2px 8px rgba(0, 43, 91, 0.08)'
                 }}
-                onClick={() => showToast(`Coordinates: ${isHovered && hoveredCoords.lat ? `${hoveredCoords.lat.toFixed(6)}° N, ${hoveredCoords.lon.toFixed(6)}° E` : '24.453900° N, 54.377300° E'}`)}
               >
-                <Globe size={15} style={{ color: '#215A9E' }} />
+                <Globe size={16} style={{ color: '#1D68F2' }} />
                 <span>
-                  {isHovered && hoveredCoords.lat
-                    ? `${hoveredCoords.lat.toFixed(6)} N  ${hoveredCoords.lon.toFixed(6)} E`
-                    : '24.453900 N  54.377300 E'}
+                  {hoveredCoords ? `${hoveredCoords.lat}° N, ${hoveredCoords.lon}° E` : '24.4539° N, 54.3773° E'}
                 </span>
-                <ChevronDown size={14} style={{ color: '#64748B' }} />
+              </div>
+              <div
+                className="map-glass-pill-btn"
+                title="Scale"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  padding: '0 12px',
+                  height: '36px',
+                  borderRadius: '10px',
+                  background: 'rgba(255, 255, 255, 0.45)',
+                  backdropFilter: 'blur(16px)',
+                  WebkitBackdropFilter: 'blur(16px)',
+                  border: '1px solid rgba(255, 255, 255, 0.65)',
+                  color: '#002B5B',
+                  fontSize: '12px',
+                  fontWeight: '600',
+                  whiteSpace: 'nowrap',
+                  boxShadow: '0 2px 8px rgba(0, 43, 91, 0.08)'
+                }}
+              >
+                <Ruler size={16} style={{ color: '#1D68F2' }} />
+                <span>1 : 50,000</span>
               </div>
             </div>
           </div>
@@ -2479,7 +2491,28 @@ function App() {
             </div>
           )}
 
-
+          {/* BOTTOM-LEFT FLOATING COORDINATES PILL & SCALE BAR */}
+          <div
+            className="map-bottom-controls-left"
+            style={{
+              position: 'absolute',
+              left: '16px',
+              bottom: '16px',
+              zIndex: 1001,
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px'
+            }}
+          >
+            <div className="map-coords-pill" style={{ position: 'relative', bottom: 'auto', left: 'auto' }}>
+              <span>
+                {isHovered && hoveredCoords.lat
+                  ? `${hoveredCoords.lat.toFixed(6)} N  ${hoveredCoords.lon.toFixed(6)} E`
+                  : '24.453900 N  54.377300 E'}
+              </span>
+              <ChevronDown size={14} style={{ color: 'var(--text-muted)' }} />
+            </div>
+          </div>
 
         </section>
       </main>
