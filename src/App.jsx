@@ -1802,8 +1802,8 @@ function App() {
                 top: '80px',
                 bottom: '48px',
                 right: '16px',
-                width: selectedLocation ? '540px' : '310px',
-                maxWidth: selectedLocation ? '540px' : '310px',
+                width: selectedLocation ? '540px' : '360px',
+                maxWidth: selectedLocation ? '540px' : '360px',
                 height: 'calc(100vh - 130px)',
                 maxHeight: 'calc(100vh - 130px)',
                 zIndex: 1001,
@@ -1834,7 +1834,7 @@ function App() {
                   width: '100%',
                   margin: 0,
                   marginBottom: 0,
-                  padding: '14px 10px 14px 10px',
+                  padding: '16px 16px 16px 16px',
                   clipPath: 'url(#categoryDrawerTopBottomNotchClip)',
                   WebkitClipPath: 'url(#categoryDrawerTopBottomNotchClip)'
                 }}
@@ -2047,6 +2047,12 @@ function App() {
                                     </div>
                                   )}
                                 </div>
+
+                                {msg.sender === 'user' && (
+                                  <div className="chat-avatar user-avatar">
+                                    <User size={14} className="chat-avatar-icon" />
+                                  </div>
+                                )}
                               </div>
 
                               {/* Radius Chips Below AI Bubble */}
@@ -2075,12 +2081,12 @@ function App() {
                         margin: '0',
                         width: '100%',
                         maxWidth: '100%',
-                        flex: '0 0 42px',
-                        height: '42px',
-                        minHeight: '42px',
-                        maxHeight: '42px',
+                        flex: '0 0 46px',
+                        height: '46px',
+                        minHeight: '46px',
+                        maxHeight: '46px',
                         position: 'relative',
-                        padding: '0 4px 0 6px',
+                        padding: '0 6px 0 8px',
                         boxSizing: 'border-box'
                       }}
                       onSubmit={(e) => {
@@ -2103,8 +2109,8 @@ function App() {
                           }}
                           title="Actions Menu (History, Quick Start, New Chat)"
                           style={{
-                            width: '26px',
-                            height: '26px',
+                            width: '28px',
+                            height: '28px',
                             borderRadius: '50%',
                             background: showPlusMenu ? '#002B5B' : 'rgba(0, 43, 91, 0.08)',
                             color: showPlusMenu ? '#FFFFFF' : '#002B5B',
@@ -2117,7 +2123,7 @@ function App() {
                             flexShrink: 0
                           }}
                         >
-                          <Plus size={14} style={{ transform: showPlusMenu ? 'rotate(45deg)' : 'rotate(0deg)', transition: 'transform 0.2s ease' }} />
+                          <Plus size={15} style={{ transform: showPlusMenu ? 'rotate(45deg)' : 'rotate(0deg)', transition: 'transform 0.2s ease' }} />
                         </button>
 
                         {/* POPUP MENU WHEN PLUS IS CLICKED */}
@@ -2153,7 +2159,7 @@ function App() {
                                 background: 'transparent',
                                 border: 'none',
                                 color: '#002B5B',
-                                fontSize: '12px',
+                                fontSize: '13px',
                                 fontWeight: 500,
                                 cursor: 'pointer',
                                 width: '100%',
@@ -2169,7 +2175,7 @@ function App() {
                                 showToast("Search History Opened");
                               }}
                             >
-                              <Clock size={15} color="#1d68f2" />
+                              <Clock size={16} color="#1d68f2" />
                               <span>Search History</span>
                             </button>
 
@@ -2184,7 +2190,7 @@ function App() {
                                 background: 'transparent',
                                 border: 'none',
                                 color: '#002B5B',
-                                fontSize: '12px',
+                                fontSize: '13px',
                                 fontWeight: 500,
                                 cursor: 'pointer',
                                 width: '100%',
@@ -2198,7 +2204,7 @@ function App() {
                                 setShowPlusMenu(false);
                               }}
                             >
-                              <Search size={15} color="#1d68f2" />
+                              <Search size={16} color="#1d68f2" />
                               <span>Quick Start</span>
                             </button>
 
@@ -2213,7 +2219,7 @@ function App() {
                                 background: 'transparent',
                                 border: 'none',
                                 color: '#002B5B',
-                                fontSize: '12px',
+                                fontSize: '13px',
                                 fontWeight: 500,
                                 cursor: 'pointer',
                                 width: '100%',
@@ -2236,14 +2242,14 @@ function App() {
                                 showToast("Started New Chat Session");
                               }}
                             >
-                              <MessageSquare size={15} color="#1d68f2" />
+                              <MessageSquare size={16} color="#1d68f2" />
                               <span>New Chat</span>
                             </button>
                           </div>
                         )}
                       </div>
 
-                      <div className="landing-search-separator" style={{ margin: '0 8px 0 4px', height: '18px' }} />
+                      <div className="landing-search-separator" style={{ margin: '0 10px 0 6px', height: '20px' }} />
                       <input
                         type="text"
                         className="landing-search-input"
@@ -2251,7 +2257,7 @@ function App() {
                         value={aiSearchQuery}
                         onChange={(e) => setAiSearchQuery(e.target.value)}
                         onFocus={() => { if (panelHeight <= 100) setPanelHeight(200); }}
-                        style={{ fontSize: '12px' }}
+                        style={{ fontSize: '14px' }}
                         autoFocus
                       />
                       <div className="landing-search-btn-wrapper">
