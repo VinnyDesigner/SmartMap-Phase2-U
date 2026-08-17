@@ -1086,7 +1086,7 @@ function App() {
 
                 {/* CATEGORIES CARD LIST */}
                 <div className="search-history-card">
-                  <div className="search-history-list" style={{ gap: '4px' }}>
+                  <div className="search-history-list" style={{ gap: '2px' }}>
                     {CATEGORY_TREE
                       .filter(cat =>
                         !categorySearchQuery ||
@@ -1096,7 +1096,7 @@ function App() {
                       .map(cat => {
                         const isExpanded = expandedCategory === cat.name;
                         return (
-                          <div key={cat.id} className="categories-accordion-item" style={{ marginBottom: '4px' }}>
+                          <div key={cat.id} className="categories-accordion-item" style={{ marginBottom: '2px' }}>
                             <div
                               className={`categories-accordion-header ${isExpanded ? 'expanded' : ''}`}
                               onClick={() => setExpandedCategory(isExpanded ? null : cat.name)}
