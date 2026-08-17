@@ -88,6 +88,7 @@ import drawSvg from './assets/Icons 1/Icons/Draw.svg';
 import basemapSvg from './assets/Icons 1/Icons/Basemap.svg';
 import legendSvg from './assets/Icons 1/Icons/legend.svg';
 import locationSvg from './assets/Icons 1/Icons/location.svg';
+import categorySvg from './assets/Icons 1/Icons/category.svg';
 import minusSvg from './assets/Icons 1/Icons/minus.svg';
 import closeSvg from './assets/Icons 1/Icons/close.svg';
 import collectionsSvg from './assets/Icons 1/Icons/My Collections.svg';
