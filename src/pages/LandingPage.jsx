@@ -33,7 +33,8 @@ export default function LandingPage({
   showToast,
   toastMessage,
   setIsSidebarOpen,
-  setActiveTab
+  setActiveTab,
+  activeBasemap
 }) {
   const [chipPage, setChipPage] = useState(0);
 
@@ -62,6 +63,7 @@ export default function LandingPage({
         showToast={showToast}
         setIsSidebarOpen={setIsSidebarOpen}
         setActiveTab={setActiveTab}
+        activeBasemap={activeBasemap}
       />
 
       {/* HERO SECTION */}

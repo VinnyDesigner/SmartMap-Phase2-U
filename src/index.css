@@ -1057,6 +1057,35 @@ input:checked+.slider:before {
   transition: all 0.3s ease;
 }
 
+/* GREY BASEMAP EXCLUSIVE HEADER GRADIENT: WHITE CORNERS, 30% BLUISH DARKER CENTER */
+.landing-header.header-basemap-grey::before {
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.92) 0%,
+    rgba(255, 255, 255, 0.85) 18%,
+    rgba(0, 43, 91, 0.30) 38%,
+    rgba(0, 43, 91, 0.38) 50%,
+    rgba(0, 43, 91, 0.30) 62%,
+    rgba(255, 255, 255, 0.85) 82%,
+    rgba(255, 255, 255, 0.92) 100%
+  ) !important;
+  backdrop-filter: blur(28px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
+}
+
+[data-theme="dark"] .landing-header.header-basemap-grey::before {
+  background: linear-gradient(
+    to right,
+    rgba(15, 23, 42, 0.92) 0%,
+    rgba(15, 23, 42, 0.82) 18%,
+    rgba(29, 104, 242, 0.32) 38%,
+    rgba(29, 104, 242, 0.38) 50%,
+    rgba(29, 104, 242, 0.32) 62%,
+    rgba(15, 23, 42, 0.82) 82%,
+    rgba(15, 23, 42, 0.92) 100%
+  ) !important;
+}
+
 /* Custom Header Bottom Shape and Glow */
 .header-bottom-border-container {
   position: absolute;

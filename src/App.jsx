@@ -767,6 +767,7 @@ function App() {
         toastMessage={toastMessage}
         setIsSidebarOpen={setIsSidebarOpen}
         setActiveTab={setActiveTab}
+        activeBasemap={activeBasemap}
       />
     );
   }
@@ -794,6 +795,7 @@ function App() {
         showToast={showToast}
         setIsSidebarOpen={setIsSidebarOpen}
         setActiveTab={setActiveTab}
+        activeBasemap={activeBasemap}
       />
 
       {/* GLOBAL SVG CLIP PATH DEFINITIONS ALWAYS MOUNTED FOR VERCEL / WEBKIT COMPATIBILITY */}

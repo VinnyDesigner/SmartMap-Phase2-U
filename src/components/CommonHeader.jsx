@@ -26,10 +26,13 @@ export default function CommonHeader({
   handleSearchSubmit,
   showToast,
   setIsSidebarOpen,
-  setActiveTab
+  setActiveTab,
+  activeBasemap
 }) {
+  const isGreyBasemap = activeBasemap === 'light';
+
   return (
-    <header className="landing-header">
+    <header className={`landing-header ${isGreyBasemap ? 'header-basemap-grey' : ''}`}>
       {/* Left logo */}
       <a href="#" className="landing-logo-left" onClick={(e) => { e.preventDefault(); setShowMap(false); }}>
         <img src={leftLogo} alt="Department of Government Enablement" style={{ height: '38px', objectFit: 'contain' }} />
