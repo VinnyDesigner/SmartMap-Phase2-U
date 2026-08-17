@@ -1915,7 +1915,7 @@ function App() {
                             return true;
                           })
                           .map((msg, idx) => (
-                            <div key={idx} className="chat-bubble-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '6px', width: '100%' }}>
+                            <div key={idx} className="chat-bubble-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '3px', width: '100%' }}>
                               <div className={`chat-bubble ${msg.sender}`}>
                                 <div className="chat-bubble-content" style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                                   {msg.isSearching ? (
