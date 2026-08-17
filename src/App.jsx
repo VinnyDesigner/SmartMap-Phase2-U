@@ -2079,8 +2079,27 @@ function App() {
 
                     {/* BOTTOM SEARCH INPUT BAR WITH PLUS (+) ACTION MENU */}
                     <form
-                      className="landing-search-container"
-                      style={{ margin: '0 2px 4px 2px', width: 'calc(100% - 4px)', maxWidth: '100%', flex: '0 0 54px', height: '54px', minHeight: '54px', maxHeight: '54px', position: 'relative' }}
+                      className="map-ai-panel-search-box"
+                      style={{
+                        margin: '0',
+                        width: '100%',
+                        maxWidth: '100%',
+                        flex: '0 0 auto',
+                        boxSizing: 'border-box',
+                        display: 'flex',
+                        alignItems: 'center',
+                        background: 'rgba(255, 255, 255, 0.85)',
+                        backdropFilter: 'blur(16px)',
+                        WebkitBackdropFilter: 'blur(16px)',
+                        border: '1.5px solid rgba(255, 255, 255, 0.95)',
+                        borderRadius: '24px',
+                        padding: '4px 6px 4px 6px',
+                        gap: '6px',
+                        boxShadow: '0 4px 16px rgba(2, 46, 91, 0.12), inset 0 0 12px rgba(255, 255, 255, 0.8)',
+                        height: '46px',
+                        minHeight: '46px',
+                        position: 'relative'
+                      }}
                       onSubmit={(e) => {
                         e.preventDefault();
                         if (aiSearchQuery.trim()) {
@@ -2091,7 +2110,7 @@ function App() {
                       }}
                     >
                       {/* PLUS (+) ACTION BUTTON & POPUP MENU */}
-                      <div style={{ position: 'relative', display: 'flex', alignItems: 'center', margin: '0 4px 0 8px' }}>
+                      <div style={{ position: 'relative', display: 'flex', alignItems: 'center', margin: '0 2px' }}>
                         <button
                           type="button"
                           className="landing-search-plus-btn"
@@ -2101,8 +2120,8 @@ function App() {
                           }}
                           title="Actions Menu (History, Quick Start, New Chat)"
                           style={{
-                            width: '30px',
-                            height: '30px',
+                            width: '32px',
+                            height: '32px',
                             borderRadius: '50%',
                             background: showPlusMenu ? '#002B5B' : 'rgba(0, 43, 91, 0.08)',
                             color: showPlusMenu ? '#FFFFFF' : '#002B5B',
@@ -2241,26 +2260,51 @@ function App() {
                         )}
                       </div>
 
-                      <div className="search-star-loader-wrapper">
-                        <div className="search-star-loader"></div>
-                        <FourPointStar className="landing-search-sparkle" size={16} />
-                      </div>
-                      <div className="landing-search-separator" />
                       <input
                         type="text"
-                        className="landing-search-input"
+                        style={{
+                          flex: 1,
+                          minWidth: 0,
+                          background: 'transparent',
+                          border: 'none',
+                          outline: 'none',
+                          fontSize: '14px',
+                          fontFamily: "'Inter', sans-serif",
+                          color: '#002B5B',
+                          padding: '0 6px'
+                        }}
                         placeholder={t.searchPlaceholder || 'Ask Smart Map Anything About Places, Services, Or Locations...'}
                         value={aiSearchQuery}
                         onChange={(e) => setAiSearchQuery(e.target.value)}
                         onFocus={() => { if (panelHeight <= 100) setPanelHeight(200); }}
                         autoFocus
                       />
-                      <div className="landing-search-btn-wrapper">
-                        <button type="submit" className="landing-search-btn-pill" disabled={!aiSearchQuery.trim()}>
-                          <span className="search-btn-text">{t.searchBtn || 'Search'}</span>
-                          <Send size={15} className="search-btn-icon" style={{ transform: lang === 'ar' ? 'scaleX(-1)' : 'none' }} />
-                        </button>
-                      </div>
+
+                      <button
+                        type="submit"
+                        disabled={!aiSearchQuery.trim()}
+                        style={{
+                          height: '34px',
+                          padding: '0 14px',
+                          borderRadius: '17px',
+                          background: aiSearchQuery.trim() ? 'linear-gradient(135deg, #002B5B 0%, #1D68F2 100%)' : 'rgba(0, 43, 91, 0.08)',
+                          color: aiSearchQuery.trim() ? '#FFFFFF' : 'rgba(0, 43, 91, 0.4)',
+                          border: 'none',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '6px',
+                          cursor: aiSearchQuery.trim() ? 'pointer' : 'default',
+                          transition: 'all 0.2s ease',
+                          flexShrink: 0,
+                          fontSize: '13px',
+                          fontWeight: 600,
+                          boxShadow: aiSearchQuery.trim() ? '0 2px 8px rgba(29, 104, 242, 0.3)' : 'none'
+                        }}
+                      >
+                        <span>{t.searchBtn || 'Search'}</span>
+                        <Send size={14} style={{ transform: lang === 'ar' ? 'scaleX(-1)' : 'none' }} />
+                      </button>
                     </form>
                   </div>
 
