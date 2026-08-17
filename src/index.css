@@ -4173,12 +4173,13 @@ input:checked+.slider:before {
 
 /* Structured AI Chat Result Card Styling (Reference Screenshot Match) */
 .structured-results-card {
-  margin-top: 8px;
-  background: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  border-radius: 14px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-  overflow: hidden;
+  margin-top: 6px;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  overflow: visible;
+  padding: 0 !important;
   font-family: 'Inter', sans-serif;
 }
 
@@ -4186,8 +4187,9 @@ input:checked+.slider:before {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 14px;
-  background: #FFFFFF;
+  padding: 4px 0 !important;
+  background: transparent !important;
+  cursor: pointer;
 }
 
 .structured-results-title-group {
@@ -4199,17 +4201,18 @@ input:checked+.slider:before {
 .structured-expand-btn {
   background: transparent;
   border: none;
-  color: #64748B;
+  color: #00468C;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2px;
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .structured-expand-btn:hover {
-  color: #1E293B;
+  color: #1D68F2;
+  transform: scale(1.1);
 }
 
 .structured-cat-icon {
@@ -4223,33 +4226,21 @@ input:checked+.slider:before {
 }
 
 .structured-view-all-btn {
-  background: transparent;
-  border: none;
-  font-size: 12px;
-  font-weight: 600;
-  color: #00468C;
-  cursor: pointer;
-  padding: 2px 4px;
-  text-decoration: underline;
-  transition: opacity 0.2s ease;
-}
-
-.structured-view-all-btn:hover {
-  text-decoration: underline;
-  opacity: 0.85;
+  display: none !important;
 }
 
 .structured-results-body {
-  border-top: 1px solid #F1F5F9;
-  background: #FFFFFF;
+  border-top: none !important;
+  background: transparent !important;
+  padding-top: 4px;
 }
 
 .structured-tabs-bar {
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 8px 14px 4px 14px;
-  border-bottom: 1px solid #F1F5F9;
+  padding: 6px 0 !important;
+  border-bottom: 1px solid rgba(0, 43, 91, 0.1);
 }
 
 .structured-tab-btn {

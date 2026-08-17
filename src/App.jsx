@@ -510,8 +510,13 @@ function App() {
     const distanceMatch = tagLabel.match(/within\s+(\d+)\s*k?m/i);
     const distanceSuffix = distanceMatch ? `${distanceMatch[1]} km` : '2 km';
 
+    let formattedTag = cleanTagLabel;
+    if (!formattedTag.toLowerCase().endsWith('s') && !formattedTag.toLowerCase().endsWith('me')) {
+      formattedTag += 's';
+    }
+
     const structuredResultsPayload = {
-      title: `Best Match (${count} ${cleanTagLabel}${cleanTagLabel.toLowerCase().endsWith('s') ? '' : 's'} within ${distanceSuffix})`,
+      title: `Best Match (${count} ${formattedTag} within ${distanceSuffix})`,
       category: cleanCategory || 'Education',
       tabs: subcatTabs,
       activeTabId: defaultTab,
@@ -1934,16 +1939,14 @@ function App() {
                                   {msg.structuredResults && (
                                     <div className="structured-results-card">
                                       {/* Header Accordion */}
-                                      <div className="structured-results-header">
+                                      <div
+                                        className="structured-results-header"
+                                        onClick={() => {
+                                          setChatMessages(prev => prev.map((m, i) => i === idx ? { ...m, isExpanded: !m.isExpanded } : m));
+                                        }}
+                                        style={{ cursor: 'pointer' }}
+                                      >
                                         <div className="structured-results-title-group">
-                                          <button
-                                            className="structured-expand-btn"
-                                            onClick={() => {
-                                              setChatMessages(prev => prev.map((m, i) => i === idx ? { ...m, isExpanded: !m.isExpanded } : m));
-                                            }}
-                                          >
-                                            {msg.isExpanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
-                                          </button>
                                           {msg.structuredResults.category === 'Healthcare' ? <Heart size={15} className="structured-cat-icon" /> :
                                             msg.structuredResults.category === 'Park' ? <Trees size={15} className="structured-cat-icon" /> :
                                               msg.structuredResults.category === 'Transportation' ? <Car size={15} className="structured-cat-icon" /> :
@@ -1953,12 +1956,14 @@ function App() {
                                         </div>
 
                                         <button
-                                          className="structured-view-all-btn"
-                                          onClick={() => {
+                                          className="structured-expand-btn"
+                                          onClick={(e) => {
+                                            e.stopPropagation();
                                             setChatMessages(prev => prev.map((m, i) => i === idx ? { ...m, isExpanded: !m.isExpanded } : m));
                                           }}
+                                          title={msg.isExpanded ? "Collapse Results" : "Expand Results"}
                                         >
-                                          View all
+                                          {msg.isExpanded ? <ChevronDown size={15} /> : <ChevronRight size={15} />}
                                         </button>
                                       </div>
 
