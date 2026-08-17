@@ -1994,8 +1994,8 @@ function App() {
                                                       display: 'flex',
                                                       flexDirection: 'column',
                                                       gap: item.showDetails ? '8px' : '2px',
-                                                      padding: '10px 12px',
-                                                      minHeight: item.showDetails ? 'auto' : '52px',
+                                                      padding: '4px 8px',
+                                                      minHeight: item.showDetails ? 'auto' : '44px',
                                                       transition: 'all 0.2s ease'
                                                     }}
                                                   >
