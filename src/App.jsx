@@ -2492,28 +2492,6 @@ function App() {
           )}
 
           {/* BOTTOM-LEFT FLOATING COORDINATES PILL & SCALE BAR */}
-          <div
-            className="map-bottom-controls-left"
-            style={{
-              position: 'absolute',
-              left: '16px',
-              bottom: '16px',
-              zIndex: 1001,
-              display: 'flex',
-              alignItems: 'center',
-              gap: '12px'
-            }}
-          >
-            <div className="map-coords-pill" style={{ position: 'relative', bottom: 'auto', left: 'auto' }}>
-              <span>
-                {isHovered && hoveredCoords.lat
-                  ? `${hoveredCoords.lat.toFixed(6)} N  ${hoveredCoords.lon.toFixed(6)} E`
-                  : '24.453900 N  54.377300 E'}
-              </span>
-              <ChevronDown size={14} style={{ color: 'var(--text-muted)' }} />
-            </div>
-          </div>
-
         </section>
       </main>
 
