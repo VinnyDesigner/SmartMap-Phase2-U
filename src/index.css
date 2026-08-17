@@ -3839,6 +3839,38 @@ input:checked+.slider:before {
   border: 1.5px solid rgba(255, 255, 255, 0.85);
   border-bottom-left-radius: 4px;
   box-shadow: 0 8px 24px rgba(0, 43, 91, 0.08), 0 2px 6px rgba(255, 255, 255, 0.4) inset;
+  margin-top: 2px !important;
+}
+
+.structured-radius-chips {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 6px !important;
+  margin-top: 4px !important;
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+  width: 95% !important;
+}
+
+.structured-radius-chip-btn {
+  background: rgba(255, 255, 255, 0.75) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(0, 43, 91, 0.15) !important;
+  border-radius: 14px !important;
+  padding: 4px 10px !important;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  color: #002B5B !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.structured-radius-chip-btn:hover {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: #1D68F2 !important;
+  color: #1D68F2 !important;
 }
 
 .typing-indicator {

@@ -1985,111 +1985,131 @@ function App() {
                                             {msg.structuredResults.items
                                               .filter(item => !msg.structuredResults.activeTabId || item.subcategory === msg.structuredResults.activeTabId)
                                               .map(item => (
-                                                <div key={item.id} className="structured-item-wrapper" style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
-                                                  <div className={`structured-item-card ${selectedLocation && selectedLocation.id === item.id ? 'active-selected' : ''}`}>
-                                                    <div className="structured-item-info">
-                                                      <div className="structured-item-title">{item.title}</div>
-                                                      {item.arabicTitle && <div className="structured-item-arabic">{item.arabicTitle}</div>}
-                                                    </div>
-
-                                                    <div className="structured-item-actions">
-                                                      <button
-                                                        className={`structured-action-icon ${item.isFavorite ? 'fav' : ''}`}
-                                                        title="Favorite"
-                                                        onClick={(e) => {
-                                                          e.stopPropagation();
-                                                          setChatMessages(prev => prev.map((m, i) => {
-                                                            if (i === idx) {
-                                                              const newItems = m.structuredResults.items.map(it => it.id === item.id ? { ...it, isFavorite: !it.isFavorite } : it);
-                                                              return { ...m, structuredResults: { ...m.structuredResults, items: newItems } };
-                                                            }
-                                                            return m;
-                                                          }));
-                                                          showToast(item.isFavorite ? "Removed from Favorites" : "Saved to Favorites");
-                                                        }}
-                                                      >
-                                                        <Heart size={14} fill={item.isFavorite ? "#EF4444" : "none"} color={item.isFavorite ? "#EF4444" : "#64748B"} />
-                                                      </button>
-
-                                                      <button
-                                                        className={`structured-action-icon ${item.showDetails ? 'active' : ''}`}
-                                                        title="View Info"
-                                                        onClick={(e) => {
-                                                          e.stopPropagation();
-                                                          setChatMessages(prev => prev.map((m, i) => {
-                                                            if (i === idx) {
-                                                              const newItems = m.structuredResults.items.map(it => it.id === item.id ? { ...it, showDetails: !it.showDetails } : it);
-                                                              return { ...m, structuredResults: { ...m.structuredResults, items: newItems } };
-                                                            }
-                                                            return m;
-                                                          }));
-                                                        }}
-                                                      >
-                                                        <Info size={14} color={item.showDetails ? "#1D68F2" : "#64748B"} />
-                                                      </button>
-
-                                                      <button
-                                                        className="structured-action-icon"
-                                                        title="Locate on Map"
-                                                        onClick={(e) => {
-                                                          e.stopPropagation();
-                                                          setSelectedLocation({ ...item, locateTrigger: Date.now() });
-                                                          showToast(`Located ${item.title} on Map`);
-                                                        }}
-                                                      >
-                                                        <Search size={14} color="#64748B" />
-                                                      </button>
-                                                    </div>
-                                                  </div>
-
-                                                  {/* Inline Accordion Details Card */}
-                                                  {item.showDetails && (
-                                                    <div className="structured-item-inline-details" style={{
-                                                      background: 'rgba(255, 255, 255, 0.95)',
-                                                      backdropFilter: 'blur(12px)',
-                                                      borderRadius: '8px',
-                                                      border: '1px solid rgba(0, 43, 91, 0.18)',
-                                                      padding: '10px 12px',
-                                                      margin: '4px 0 8px 0',
-                                                      fontSize: '12px',
-                                                      color: '#1E293B',
+                                                <div key={item.id} className="structured-item-wrapper" style={{ width: '100%', marginBottom: '4px' }}>
+                                                  <div
+                                                    className={`structured-item-card ${item.showDetails ? 'expanded-details' : ''} ${selectedLocation && selectedLocation.id === item.id ? 'active-selected' : ''}`}
+                                                    style={{
                                                       display: 'flex',
                                                       flexDirection: 'column',
-                                                      gap: '6px',
-                                                      boxShadow: '0 4px 12px rgba(0, 43, 91, 0.08)'
-                                                    }}>
-                                                      <div style={{ fontWeight: 700, color: '#002B5B', fontSize: '12.5px' }}>{item.title}</div>
-                                                      {item.arabicTitle && <div style={{ color: '#475569', fontSize: '11.5px' }}>{item.arabicTitle}</div>}
-                                                      {item.address && <div style={{ color: '#334155', display: 'flex', alignItems: 'center', gap: '6px' }}>📍 {item.address}</div>}
-                                                      {item.subcategory && <div style={{ color: '#0284C7', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 600 }}>🏷️ {item.subcategory}</div>}
-                                                      {item.description && <div style={{ color: '#475569', lineHeight: '1.4' }}>{item.description}</div>}
-                                                      <div style={{ display: 'flex', gap: '8px', marginTop: '4px' }}>
+                                                      gap: item.showDetails ? '8px' : '2px',
+                                                      padding: '10px 12px',
+                                                      minHeight: item.showDetails ? 'auto' : '52px',
+                                                      transition: 'all 0.2s ease'
+                                                    }}
+                                                  >
+                                                    {/* Card Main Row */}
+                                                    <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', width: '100%', gap: '8px' }}>
+                                                      <div className="structured-item-info" style={{ flex: 1 }}>
+                                                        <div className="structured-item-title" style={{ fontWeight: 600, fontSize: '13px', color: '#002B5B' }}>{item.title}</div>
+                                                        {item.arabicTitle && <div className="structured-item-arabic" style={{ fontSize: '11.5px', color: '#475569' }}>{item.arabicTitle}</div>}
+                                                      </div>
+
+                                                      <div className="structured-item-actions" style={{ display: 'flex', alignItems: 'center', gap: '4px', flexShrink: 0 }}>
                                                         <button
-                                                          style={{
-                                                            padding: '4px 10px',
-                                                            borderRadius: '6px',
-                                                            background: '#002B5B',
-                                                            color: '#FFF',
-                                                            border: 'none',
-                                                            fontSize: '11px',
-                                                            fontWeight: 600,
-                                                            cursor: 'pointer',
-                                                            display: 'flex',
-                                                            alignItems: 'center',
-                                                            gap: '4px'
+                                                          className={`structured-action-icon ${item.isFavorite ? 'fav' : ''}`}
+                                                          title="Favorite"
+                                                          onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            setChatMessages(prev => prev.map((m, i) => {
+                                                              if (i === idx) {
+                                                                const newItems = m.structuredResults.items.map(it => it.id === item.id ? { ...it, isFavorite: !it.isFavorite } : it);
+                                                                return { ...m, structuredResults: { ...m.structuredResults, items: newItems } };
+                                                              }
+                                                              return m;
+                                                            }));
+                                                            showToast(item.isFavorite ? "Removed from Favorites" : "Saved to Favorites");
                                                           }}
+                                                        >
+                                                          <Heart size={14} fill={item.isFavorite ? "#EF4444" : "none"} color={item.isFavorite ? "#EF4444" : "#64748B"} />
+                                                        </button>
+
+                                                        <button
+                                                          className={`structured-action-icon ${item.showDetails ? 'active' : ''}`}
+                                                          title="View Info"
+                                                          onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            setChatMessages(prev => prev.map((m, i) => {
+                                                              if (i === idx) {
+                                                                const newItems = m.structuredResults.items.map(it => it.id === item.id ? { ...it, showDetails: !it.showDetails } : it);
+                                                                return { ...m, structuredResults: { ...m.structuredResults, items: newItems } };
+                                                              }
+                                                              return m;
+                                                            }));
+                                                          }}
+                                                        >
+                                                          <Info size={14} color={item.showDetails ? "#1D68F2" : "#64748B"} />
+                                                        </button>
+
+                                                        <button
+                                                          className="structured-action-icon"
+                                                          title="Locate on Map"
                                                           onClick={(e) => {
                                                             e.stopPropagation();
                                                             setSelectedLocation({ ...item, locateTrigger: Date.now() });
                                                             showToast(`Located ${item.title} on Map`);
                                                           }}
                                                         >
-                                                          <Search size={12} />
-                                                          Locate on Map
+                                                          <Search size={14} color="#64748B" />
                                                         </button>
                                                       </div>
                                                     </div>
-                                                  )}
+
+                                                    {/* In-Card Details Expanded Section */}
+                                                    {item.showDetails && (
+                                                      <div className="structured-item-details-body" style={{
+                                                        display: 'flex',
+                                                        flexDirection: 'column',
+                                                        gap: '6px',
+                                                        marginTop: '4px',
+                                                        paddingTop: '8px',
+                                                        borderTop: '1px solid rgba(0, 43, 91, 0.12)',
+                                                        fontSize: '11.5px',
+                                                        color: '#1E293B'
+                                                      }}>
+                                                        {item.address && (
+                                                          <div style={{ color: '#334155', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                                            <MapPin size={13} color="#2563EB" />
+                                                            <span>{item.address}</span>
+                                                          </div>
+                                                        )}
+                                                        {item.subcategory && (
+                                                          <div style={{ color: '#0284C7', display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 600 }}>
+                                                            <span>🏷️ {item.subcategory}</span>
+                                                          </div>
+                                                        )}
+                                                        {item.description && (
+                                                          <div style={{ color: '#475569', lineHeight: '1.4', background: 'rgba(241, 245, 249, 0.65)', padding: '6px 8px', borderRadius: '6px' }}>
+                                                            {item.description}
+                                                          </div>
+                                                        )}
+                                                        <div style={{ display: 'flex', gap: '8px', marginTop: '2px' }}>
+                                                          <button
+                                                            style={{
+                                                              padding: '4px 10px',
+                                                              borderRadius: '6px',
+                                                              background: '#002B5B',
+                                                              color: '#FFF',
+                                                              border: 'none',
+                                                              fontSize: '11px',
+                                                              fontWeight: 600,
+                                                              cursor: 'pointer',
+                                                              display: 'flex',
+                                                              alignItems: 'center',
+                                                              gap: '4px'
+                                                            }}
+                                                            onClick={(e) => {
+                                                              e.stopPropagation();
+                                                              setSelectedLocation({ ...item, locateTrigger: Date.now() });
+                                                              showToast(`Located ${item.title} on Map`);
+                                                            }}
+                                                          >
+                                                            <Search size={12} />
+                                                            Locate on Map
+                                                          </button>
+                                                        </div>
+                                                      </div>
+                                                    )}
+                                                  </div>
                                                 </div>
                                               ))}
                                           </div>
