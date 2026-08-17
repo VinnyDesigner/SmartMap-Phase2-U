@@ -1104,7 +1104,7 @@ function App() {
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'space-between',
-                                padding: '4px 10px',
+                                padding: '4px 12px',
                                 background: isExpanded ? 'rgba(37, 99, 235, 0.08)' : 'rgba(255, 255, 255, 0.45)',
                                 border: '1px solid rgba(255, 255, 255, 0.65)',
                                 borderRadius: '8px',
