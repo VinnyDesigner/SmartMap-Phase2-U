@@ -845,9 +845,9 @@ function App() {
                   <button
                     className="search-history-toggle-btn"
                     onClick={() => setIsSidebarOpen(false)}
-                    title="Close Panel"
+                    title="Toggle Side Panel"
                   >
-                    <X size={18} />
+                    <PanelLeft size={18} />
                   </button>
                 </div>
 
@@ -1043,13 +1043,13 @@ function App() {
               </div>
             )}
 
-            {/* TAB: CATEGORIES */}
+            {/* TAB: CATEGORIES (MATCHING SEARCH HISTORY PANEL GLASS STYLE & NOTCHED SHAPE) */}
             {activeTab === 'categories' && (
-              <div className="categories-left-panel">
+              <div className="categories-left-panel search-history-left-panel">
                 {/* DEDICATED PULSATING WHITE INNER GLOW OVERLAY */}
                 <div className="category-drawer-inner-glow" />
 
-                {/* Static White SVG Border Stroke Overlay matching Search History Panel */}
+                {/* Static White SVG Border Stroke Overlay */}
                 <div className="category-drawer-border-container">
                   <svg viewBox="0 0 1 1" preserveAspectRatio="none">
                     <path
@@ -1061,32 +1061,32 @@ function App() {
                 </div>
 
                 {/* SECTION TITLE & SIDEBAR TOGGLE ICON */}
-                <div className="categories-title-row">
-                  <h2 className="categories-title">{t.categories || 'Categories'}</h2>
+                <div className="search-history-title-row">
+                  <h2 className="search-history-title">{t.allCategories || 'All Categories'}</h2>
                   <button
-                    className="categories-toggle-btn"
+                    className="search-history-toggle-btn"
                     onClick={() => setIsSidebarOpen(false)}
-                    title="Close Panel"
+                    title="Toggle Side Panel"
                   >
-                    <X size={18} />
+                    <PanelLeft size={18} />
                   </button>
                 </div>
 
                 {/* SEARCH FILTER INPUT BAR */}
-                <div className="categories-filter-box">
+                <div className="search-history-filter-box">
                   <input
                     type="text"
-                    className="categories-filter-input"
+                    className="search-history-filter-input"
                     placeholder="Search categories..."
                     value={categorySearchQuery}
                     onChange={(e) => setCategorySearchQuery(e.target.value)}
                   />
-                  <Search size={16} className="categories-filter-icon" />
+                  <Search size={16} className="search-history-filter-icon" />
                 </div>
 
                 {/* CATEGORIES CARD LIST */}
-                <div className="categories-card">
-                  <div className="categories-accordion-list">
+                <div className="search-history-card">
+                  <div className="search-history-list" style={{ gap: '6px' }}>
                     {CATEGORY_TREE
                       .filter(cat =>
                         !categorySearchQuery ||
@@ -1096,24 +1096,50 @@ function App() {
                       .map(cat => {
                         const isExpanded = expandedCategory === cat.name;
                         return (
-                          <div key={cat.id} className="categories-accordion-item">
+                          <div key={cat.id} className="categories-accordion-item" style={{ marginBottom: '4px' }}>
                             <div
                               className={`categories-accordion-header ${isExpanded ? 'expanded' : ''}`}
                               onClick={() => setExpandedCategory(isExpanded ? null : cat.name)}
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                padding: '8px 10px',
+                                background: isExpanded ? 'rgba(37, 99, 235, 0.08)' : 'rgba(255, 255, 255, 0.45)',
+                                border: '1px solid rgba(255, 255, 255, 0.65)',
+                                borderRadius: '8px',
+                                cursor: 'pointer',
+                                transition: 'all 0.2s ease'
+                              }}
                             >
-                              <div className="categories-header-title">
-                                {isExpanded ? <ChevronDown size={14} color="#64748B" /> : <ChevronRight size={14} color="#64748B" />}
+                              <div className="categories-header-title" style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '12.5px', fontWeight: 600, color: '#002B5B' }}>
+                                {isExpanded ? <ChevronDown size={14} color="#1D68F2" /> : <ChevronRight size={14} color="#64748B" />}
                                 <span>{t.getCatName(cat.name)}</span>
                               </div>
-                              <span className="categories-badge">{cat.subcategories.length}</span>
+                              <span className="categories-badge" style={{ fontSize: '11px', background: 'rgba(37, 99, 235, 0.12)', color: '#1D68F2', padding: '2px 8px', borderRadius: '10px', fontWeight: 600 }}>
+                                {cat.subcategories.length}
+                              </span>
                             </div>
 
                             {isExpanded && (
-                              <div className="categories-subcategories-list">
+                              <div className="categories-subcategories-list" style={{ display: 'flex', flexDirection: 'column', gap: '4px', paddingLeft: '8px', marginTop: '6px' }}>
                                 {cat.subcategories.map(subcat => (
                                   <div
                                     key={subcat}
                                     className={`categories-subcat-item ${selectedSubcategories[subcat] ? 'active' : ''}`}
+                                    style={{
+                                      display: 'flex',
+                                      alignItems: 'center',
+                                      justifyContent: 'space-between',
+                                      padding: '6px 10px',
+                                      borderRadius: '6px',
+                                      fontSize: '12px',
+                                      color: selectedSubcategories[subcat] ? '#1D68F2' : '#334155',
+                                      background: selectedSubcategories[subcat] ? 'rgba(29, 104, 242, 0.14)' : 'rgba(255, 255, 255, 0.3)',
+                                      border: '1px solid rgba(255, 255, 255, 0.4)',
+                                      fontWeight: selectedSubcategories[subcat] ? 600 : 400,
+                                      cursor: 'pointer'
+                                    }}
                                     onClick={() => {
                                       const nextState = !selectedSubcategories[subcat];
                                       setSelectedSubcategories(prev => ({
@@ -1130,7 +1156,7 @@ function App() {
                                       {t.getSubcatName(subcat)}
                                     </div>
                                     {selectedSubcategories[subcat] && (
-                                      <span className="categories-check-indicator">✓</span>
+                                      <span className="categories-check-indicator" style={{ color: '#1D68F2', fontWeight: 'bold' }}>✓</span>
                                     )}
                                   </div>
                                 ))}
@@ -1480,20 +1506,20 @@ function App() {
         <section className="map-viewport-container">
 
           {/* TOP-LEFT FLOATING CONTROLS: PANEL TOGGLE & ALL CATEGORIES BUTTON */}
-          {!isSidebarOpen && (
-            <div
-              className="map-controls-top-left"
-              style={{
-                position: 'absolute',
-                top: '76px',
-                left: '20px',
-                zIndex: 1000,
-                display: 'flex',
-                alignItems: 'center',
-                gap: '10px',
-                transition: 'left 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
-              }}
-            >
+          <div
+            className="map-controls-top-left"
+            style={{
+              position: 'absolute',
+              top: '76px',
+              left: isSidebarOpen ? 'calc(15% + 36px)' : '20px',
+              zIndex: 1000,
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+              transition: 'left 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
+            }}
+          >
+            {!isSidebarOpen && (
               <button
                 className="map-glass-icon-btn"
                 onClick={() => {
@@ -1504,30 +1530,34 @@ function App() {
               >
                 <PanelLeft size={18} />
               </button>
-              <button
-                className="map-glass-pill-btn map-all-categories-btn"
-                onClick={() => {
+            )}
+            <button
+              className={`map-glass-pill-btn map-all-categories-btn ${isSidebarOpen && activeTab === 'categories' ? 'active' : ''}`}
+              onClick={() => {
+                if (isSidebarOpen && activeTab === 'categories') {
+                  setIsSidebarOpen(false);
+                } else {
                   setIsSidebarOpen(true);
                   setActiveTab('categories');
-                  showToast("Categories Panel Opened");
-                }}
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px',
-                  padding: '0 14px',
-                  height: '36px',
-                  borderRadius: '10px',
-                  fontSize: '12.5px',
-                  fontWeight: '600',
-                  cursor: 'pointer'
-                }}
-              >
-                <Grid size={15} style={{ color: '#1D68F2' }} />
-                <span>{t.allCategories}</span>
-              </button>
-            </div>
-          )}
+                  showToast("All Categories Opened");
+                }
+              }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '0 14px',
+                height: '36px',
+                borderRadius: '10px',
+                fontSize: '12.5px',
+                fontWeight: '600',
+                cursor: 'pointer'
+              }}
+            >
+              <Grid size={15} style={{ color: (isSidebarOpen && activeTab === 'categories') ? '#ffffff' : '#1D68F2' }} />
+              <span>{t.allCategories}</span>
+            </button>
+          </div>
 
           {/* TOP-RIGHT FLOATING CONTROLS: ABU DHABI LOCATION BADGE */}
           <div
