@@ -2257,7 +2257,7 @@ function App() {
                         value={aiSearchQuery}
                         onChange={(e) => setAiSearchQuery(e.target.value)}
                         onFocus={() => { if (panelHeight <= 100) setPanelHeight(200); }}
-                        style={{ fontSize: '14px' }}
+                        style={{ fontSize: '12px', minWidth: 0, flex: '1 1 0%', width: 0 }}
                         autoFocus
                       />
                       <div className="landing-search-btn-wrapper">
