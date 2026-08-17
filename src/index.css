@@ -1827,6 +1827,19 @@ input:checked+.slider:before {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
 }
 
+.search-star-loader {
+  display: none !important;
+  animation: none !important;
+}
+
+.landing-search-sparkle {
+  color: #21589e;
+  z-index: 1;
+  flex-shrink: 0;
+  animation: none !important;
+  opacity: 0.95;
+}
+
 .landing-search-input {
   flex: 1;
   border: none;
@@ -1834,7 +1847,7 @@ input:checked+.slider:before {
   outline: none;
   color: #1E293B;
   font-family: 'Inter', sans-serif;
-  font-size: 15px;
+  font-size: 14px !important;
   font-weight: 500;
   line-height: 140%;
   padding: 0;
@@ -1842,7 +1855,7 @@ input:checked+.slider:before {
 
 .landing-search-input::placeholder {
   color: #5A718F;
-  font-size: 14.5px;
+  font-size: 14px !important;
   font-weight: 400;
 }
 
