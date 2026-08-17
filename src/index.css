@@ -2363,7 +2363,8 @@ input:checked+.slider:before {
 }
 
 .landing-categories-drawer::before,
-.search-history-left-panel::before {
+.search-history-left-panel::before,
+.map-ai-panel-wrapper::before {
   content: '';
   position: absolute;
   inset: -24px;
@@ -2381,7 +2382,8 @@ input:checked+.slider:before {
 }
 
 .landing-categories-drawer::after,
-.search-history-left-panel::after {
+.search-history-left-panel::after,
+.map-ai-panel-wrapper::after {
   content: '' !important;
   display: block !important;
   position: absolute;
@@ -3466,18 +3468,20 @@ input:checked+.slider:before {
   padding: 16px 16px 16px 16px !important;
   max-width: 100%;
   box-sizing: border-box !important;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.14) 100%);
-  backdrop-filter: blur(28px) saturate(190%);
-  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  background: linear-gradient(rgba(255, 255, 255, 0.20), rgba(255, 255, 255, 0.20)), url('/assets/panel_bg.png') no-repeat center center / cover !important;
+  backdrop-filter: blur(28px) saturate(190%) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   margin: 0 !important;
   z-index: 1;
   clip-path: url(#panelCardRoundedNotchClip) !important;
-  box-shadow: 0 25px 60px rgba(0, 43, 91, 0.25), 0 0 30px rgba(99, 181, 255, 0.15);
+  box-shadow: 0 25px 60px rgba(0, 43, 91, 0.25),
+    0 0 35px rgba(99, 181, 255, 0.35),
+    0 0 70px rgba(33, 88, 158, 0.25) !important;
   border-radius: 24px 24px 0 0 !important;
-  border: none;
+  border: none !important;
   box-sizing: border-box;
   transition: height 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }

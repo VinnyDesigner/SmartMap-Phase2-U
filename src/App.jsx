@@ -1855,7 +1855,7 @@ function App() {
                       boxSizing: 'border-box'
                     }}>
                       <div className="map-ai-panel-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <span>AI Spatial Search</span>
+                        <h2 className="search-history-title">AI Spatial Search</h2>
                       </div>
 
                       {/* MINIMIZE / COLLAPSE BUTTON MATCHING SEARCH HISTORY PANEL */}
