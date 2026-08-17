@@ -2145,7 +2145,7 @@ function App() {
                     <form
                       className="landing-search-container"
                       style={{
-                        margin: '0',
+                        margin: '0 0 4px 0',
                         width: '100%',
                         maxWidth: '100%',
                         flex: '0 0 46px',

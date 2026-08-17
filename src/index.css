@@ -3465,7 +3465,7 @@ input:checked+.slider:before {
 .map-ai-panel-container {
   position: relative;
   width: 100%;
-  padding: 10px clamp(10px, 1vw, 22px) 10px clamp(10px, 1vw, 22px) !important;
+  padding: 14px clamp(10px, 1vw, 22px) 20px clamp(10px, 1vw, 22px) !important;
   max-width: 100%;
   box-sizing: border-box !important;
   background: rgba(255, 255, 255, 0.20) !important;
