@@ -58,52 +58,6 @@ export default function PixelGrid() {
 
       let allDone = true;
 
-      const getSourceRect = (x, y, w, h) => {
-        const imgAspect = img.width / img.height;
-        const canvasAspect = canvas.width / canvas.height;
-        let renderW, renderH, offsetX, offsetY;
-
-        if (canvasAspect > imgAspect) {
-          renderW = canvas.width;
-          renderH = canvas.width / imgAspect;
-          offsetX = 0;
-          offsetY = (renderH - canvas.height) / 2;
-        } else {
-          renderH = canvas.height;
-          renderW = canvas.height * imgAspect;
-          offsetX = (renderW - canvas.width) / 2;
-          offsetY = 0;
-        }
-
-        const scale = img.width / renderW;
-        return {
-          sx: (x + offsetX) * scale,
-          sy: (y + offsetY) * scale,
-          sw: w * scale,
-          sh: h * scale
-        };
-      };
-
-      const drawCoverImage = () => {
-        const imgAspect = img.width / img.height;
-        const canvasAspect = canvas.width / canvas.height;
-        let renderW, renderH, renderX, renderY;
-
-        if (canvasAspect > imgAspect) {
-          renderW = canvas.width;
-          renderH = canvas.width / imgAspect;
-          renderX = 0;
-          renderY = (canvas.height - renderH) / 2;
-        } else {
-          renderH = canvas.height;
-          renderW = canvas.height * imgAspect;
-          renderX = (canvas.width - renderW) / 2;
-          renderY = 0;
-        }
-
-        ctx.drawImage(img, renderX, renderY, renderW, renderH);
-      };
-
       tiles.forEach((tile) => {
         const x = tile.col * TILE;
         const y = tile.row * TILE;
@@ -124,10 +78,8 @@ export default function PixelGrid() {
           return;
         }
 
-        const { sx, sy, sw, sh } = getSourceRect(x, y, w, h);
-
         if (tile.done) {
-          ctx.drawImage(img, sx, sy, sw, sh, x, y, w, h);
+          ctx.drawImage(img, x, y, w, h, x, y, w, h);
           return;
         }
 
@@ -153,7 +105,7 @@ export default function PixelGrid() {
         ctx.globalAlpha = scale;
         ctx.drawImage(
           img,
-          sx, sy, sw, sh,         // source
+          x, y, w, h,             // source
           cx - dw / 2, cy - dh / 2, dw, dh  // dest
         );
         ctx.globalAlpha = 1;
@@ -177,7 +129,7 @@ export default function PixelGrid() {
       if (!allDone || !imgLoaded) {
         animFrame = requestAnimationFrame(draw);
       } else {
-        drawCoverImage();
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
       }
     };
 

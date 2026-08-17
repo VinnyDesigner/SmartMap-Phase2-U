@@ -994,8 +994,6 @@ input:checked+.slider:before {
   height: 100vh;
   background: #011E3D url('/assets/home_bg.png') no-repeat center center;
   background-size: cover;
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1534,9 +1532,15 @@ input:checked+.slider:before {
   }
 }
 
-/* Animated Trace Lines around Search Card (Disabled) */
+/* Animated Trace Lines around Search Card */
 .search-card-traces {
-  display: none !important;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 500px;
+  width: 330px;
+  pointer-events: none;
+  z-index: -1;
 }
 
 .search-traces-left {
