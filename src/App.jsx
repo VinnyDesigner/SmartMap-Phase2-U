@@ -1548,11 +1548,6 @@ function App() {
                   alignItems: 'center',
                   width: '36px',
                   borderRadius: '10px',
-                  background: 'rgba(255, 255, 255, 0.75)',
-                  backdropFilter: 'blur(16px)',
-                  WebkitBackdropFilter: 'blur(16px)',
-                  border: '1px solid rgba(255, 255, 255, 0.8)',
-                  boxShadow: '0 2px 8px rgba(0, 43, 91, 0.08)',
                   overflow: 'hidden'
                 }}
               >
@@ -1645,15 +1640,9 @@ function App() {
                   padding: '0 12px',
                   height: '36px',
                   borderRadius: '10px',
-                  background: 'rgba(255, 255, 255, 0.45)',
-                  backdropFilter: 'blur(16px)',
-                  WebkitBackdropFilter: 'blur(16px)',
-                  border: '1px solid rgba(255, 255, 255, 0.65)',
-                  color: '#002B5B',
                   fontSize: '12px',
                   fontWeight: '600',
-                  whiteSpace: 'nowrap',
-                  boxShadow: '0 2px 8px rgba(0, 43, 91, 0.08)'
+                  whiteSpace: 'nowrap'
                 }}
               >
                 <Globe size={16} style={{ color: '#1D68F2' }} />
@@ -1671,15 +1660,9 @@ function App() {
                   padding: '0 12px',
                   height: '36px',
                   borderRadius: '10px',
-                  background: 'rgba(255, 255, 255, 0.45)',
-                  backdropFilter: 'blur(16px)',
-                  WebkitBackdropFilter: 'blur(16px)',
-                  border: '1px solid rgba(255, 255, 255, 0.65)',
-                  color: '#002B5B',
                   fontSize: '12px',
                   fontWeight: '600',
-                  whiteSpace: 'nowrap',
-                  boxShadow: '0 2px 8px rgba(0, 43, 91, 0.08)'
+                  whiteSpace: 'nowrap'
                 }}
               >
                 <Ruler size={16} style={{ color: '#1D68F2' }} />
