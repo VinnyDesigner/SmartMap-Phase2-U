@@ -1800,6 +1800,25 @@ input:checked+.slider:before {
   animation: search-star-flash 2.5s ease-in-out infinite;
 }
 
+/* Custom Leaflet Map Scale Line Styling */
+.leaflet-control-scale {
+  margin-bottom: 24px !important;
+  margin-left: 24px !important;
+}
+
+.leaflet-control-scale-line {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 2px solid #1D68F2 !important;
+  border-top: none !important;
+  color: #0F172A !important;
+  font-weight: 700 !important;
+  font-size: 11px !important;
+  padding: 2px 6px !important;
+  border-radius: 0 0 4px 4px !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12) !important;
+}
+
 @keyframes search-star-flash {
 
   0%,

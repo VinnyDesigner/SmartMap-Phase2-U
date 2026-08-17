@@ -1686,7 +1686,10 @@ function App() {
                   className="map-glass-icon-btn-segmented"
                   title="Zoom In"
                   onClick={() => {
-                    if (mapInstanceRef.current) mapInstanceRef.current.zoomIn();
+                    if (mapInstanceRef.current) {
+                      mapInstanceRef.current.zoomIn();
+                      setMapZoom(mapInstanceRef.current.getZoom() + 1);
+                    }
                     showToast("Zoomed In");
                   }}
                   style={{
@@ -1710,7 +1713,10 @@ function App() {
                   className="map-glass-icon-btn-segmented"
                   title="Zoom Out"
                   onClick={() => {
-                    if (mapInstanceRef.current) mapInstanceRef.current.zoomOut();
+                    if (mapInstanceRef.current) {
+                      mapInstanceRef.current.zoomOut();
+                      setMapZoom(mapInstanceRef.current.getZoom() - 1);
+                    }
                     showToast("Zoomed Out");
                   }}
                   style={{
@@ -1733,7 +1739,7 @@ function App() {
             </div>
 
             {/* HORIZONTAL BASE ARM OF THE "L" (COMPASS, MY LOCATION, HOME, COORDINATES, SCALE) */}
-            <div style={{ display: 'flex', flexDirection: 'row', gap: '6px' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', gap: '6px', alignItems: 'center' }}>
               <button
                 className="map-glass-icon-btn"
                 title="Compass / Orient North"
@@ -1745,7 +1751,10 @@ function App() {
                 className="map-glass-icon-btn"
                 title="My Location"
                 onClick={() => {
-                  if (mapInstanceRef.current) mapInstanceRef.current.flyTo([24.4539, 54.3773], 15);
+                  if (mapInstanceRef.current) {
+                    mapInstanceRef.current.flyTo([24.4539, 54.3773], 15);
+                    setMapZoom(15);
+                  }
                   showToast("Centered to My Location (Abu Dhabi)");
                 }}
               >
@@ -1755,15 +1764,27 @@ function App() {
                 className="map-glass-icon-btn"
                 title="Home View"
                 onClick={() => {
-                  if (mapInstanceRef.current) mapInstanceRef.current.flyTo([24.4539, 54.3773], 12);
+                  if (mapInstanceRef.current) {
+                    mapInstanceRef.current.flyTo([24.4539, 54.3773], 12);
+                    setMapZoom(12);
+                  }
                   showToast("Reset to Abu Dhabi Home View");
                 }}
               >
                 <Home size={18} />
               </button>
               <div
-                className="map-glass-pill-btn"
-                title="Coordinates (Click icon to copy)"
+                className="map-glass-pill-btn map-coords-pill"
+                title="Click to copy coordinates"
+                onClick={() => {
+                  const coordStr = hoveredCoords && (hoveredCoords.lat !== 0 || hoveredCoords.lon !== 0)
+                    ? `${hoveredCoords.lat.toFixed(4)}° N, ${hoveredCoords.lon.toFixed(4)}° E`
+                    : '24.4539° N, 54.3773° E';
+                  navigator.clipboard.writeText(coordStr);
+                  setCopiedCoord(true);
+                  setTimeout(() => setCopiedCoord(false), 2000);
+                  showToast(`Copied: ${coordStr}`);
+                }}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -1773,7 +1794,9 @@ function App() {
                   borderRadius: '10px',
                   fontSize: '12px',
                   fontWeight: '600',
-                  whiteSpace: 'nowrap'
+                  whiteSpace: 'nowrap',
+                  cursor: 'pointer',
+                  userSelect: 'none'
                 }}
               >
                 <Globe size={16} style={{ color: '#1D68F2', flexShrink: 0 }} />
@@ -1782,36 +1805,24 @@ function App() {
                     ? `${hoveredCoords.lat.toFixed(4)}° N, ${hoveredCoords.lon.toFixed(4)}° E`
                     : '24.4539° N, 54.3773° E'}
                 </span>
-                <button
-                  type="button"
-                  title="Copy Coordinates"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    const coordStr = hoveredCoords && (hoveredCoords.lat !== 0 || hoveredCoords.lon !== 0)
-                      ? `${hoveredCoords.lat.toFixed(4)}° N, ${hoveredCoords.lon.toFixed(4)}° E`
-                      : '24.4539° N, 54.3773° E';
-                    navigator.clipboard.writeText(coordStr);
-                    setCopiedCoord(true);
-                    setTimeout(() => setCopiedCoord(false), 2000);
-                    showToast("Coordinates copied to clipboard");
-                  }}
+                <span
                   style={{
-                    display: 'flex',
+                    display: 'inline-flex',
                     alignItems: 'center',
-                    justifyContent: 'center',
-                    background: copiedCoord ? 'rgba(16, 185, 129, 0.15)' : 'rgba(29, 104, 242, 0.08)',
-                    border: 'none',
-                    borderRadius: '6px',
-                    width: '24px',
-                    height: '24px',
-                    cursor: 'pointer',
+                    gap: '4px',
+                    fontSize: '11px',
+                    fontWeight: '600',
                     color: copiedCoord ? '#10B981' : '#1D68F2',
+                    background: copiedCoord ? 'rgba(16, 185, 129, 0.15)' : 'rgba(29, 104, 242, 0.10)',
+                    padding: '3px 8px',
+                    borderRadius: '6px',
                     marginLeft: '2px',
                     transition: 'all 0.2s ease'
                   }}
                 >
-                  {copiedCoord ? <Check size={14} /> : <Copy size={14} />}
-                </button>
+                  {copiedCoord ? <Check size={13} /> : <Copy size={13} />}
+                  <span>{copiedCoord ? 'Copied' : 'Copy'}</span>
+                </span>
               </div>
               <div
                 className="map-glass-pill-btn"
