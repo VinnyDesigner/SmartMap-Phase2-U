@@ -5765,7 +5765,7 @@ input:checked+.slider:before {
    Smooth fade & scale transitions with zero vertical displacement
    ============================================================ */
 .map-ai-panel-wrapper {
-  transform-origin: center bottom !important;
+  transform-origin: right bottom !important;
   animation: macDockPanelOpen 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
   will-change: opacity, transform;
   bottom: 0px !important;
@@ -5773,7 +5773,7 @@ input:checked+.slider:before {
 }
 
 .map-ai-panel-wrapper.mac-closing {
-  transform-origin: center bottom !important;
+  transform-origin: right bottom !important;
   animation: macDockPanelClose 0.25s cubic-bezier(0.4, 0, 0.2, 1) forwards !important;
 }
 
@@ -5786,22 +5786,22 @@ input:checked+.slider:before {
 @keyframes macDockPanelOpen {
   0% {
     opacity: 0;
-    transform: translateX(-50%) scale(0.96);
+    transform: scale(0.96);
   }
   100% {
     opacity: 1;
-    transform: translateX(-50%) scale(1);
+    transform: scale(1);
   }
 }
 
 @keyframes macDockPanelClose {
   0% {
     opacity: 1;
-    transform: translateX(-50%) scale(1);
+    transform: scale(1);
   }
   100% {
     opacity: 0;
-    transform: translateX(-50%) scale(0.96);
+    transform: scale(0.96);
   }
 }
 
