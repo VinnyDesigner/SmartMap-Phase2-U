@@ -5203,25 +5203,40 @@ input:checked+.slider:before {
 }
 
 .search-history-toggle-btn {
-  background: rgba(255, 255, 255, 0.7);
-  border: 1.5px solid rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(12px);
-  cursor: pointer;
-  padding: clamp(4px, 0.4vw, 6px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  color: #334155;
-  box-shadow: 0 2px 6px rgba(0, 43, 91, 0.08);
-  transition: all 0.2s ease;
+  background: rgba(255, 255, 255, 0.6) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  cursor: pointer !important;
+  padding: 4px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 8px !important;
+  color: #10447C !important;
+  box-shadow: 0 2px 6px rgba(0, 43, 91, 0.08) !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.search-history-toggle-btn svg {
+  color: #10447C !important;
+  stroke: #10447C !important;
+  filter: invert(18%) sepia(88%) saturate(2150%) hue-rotate(202deg) brightness(92%) contrast(98%) !important;
+  transition: all 0.25s ease !important;
 }
 
 .search-history-toggle-btn:hover {
-  background: #FFFFFF;
-  border-color: #2563EB;
-  color: #2563EB;
-  transform: scale(1.05);
+  background: radial-gradient(41.72% 36.82% at 49.73% 100%, rgba(59, 130, 246, 0.55) 0%, rgba(2, 46, 91, 0.00) 100%), radial-gradient(50.19% 67.5% at 49.73% 50%, #10447C 0%, #011429 100%) !important;
+  background-blend-mode: plus-lighter, normal !important;
+  border-color: rgba(255, 255, 255, 0.9) !important;
+  color: #FFFFFF !important;
+  transform: scale(1.05) !important;
+}
+
+.search-history-toggle-btn:hover svg {
+  color: #FFFFFF !important;
+  stroke: #FFFFFF !important;
+  filter: brightness(0) invert(1) !important;
 }
 
 .search-history-filter-box {
