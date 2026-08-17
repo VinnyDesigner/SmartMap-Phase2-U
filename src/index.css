@@ -5765,11 +5765,9 @@ input:checked+.slider:before {
    Smooth fade & scale transitions with zero vertical displacement
    ============================================================ */
 .map-ai-panel-wrapper {
-  transform-origin: right bottom !important;
+  transform-origin: right center !important;
   animation: macDockPanelOpen 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
   will-change: opacity, transform;
-  bottom: 0px !important;
-  margin-bottom: 0px !important;
 }
 
 .map-ai-panel-wrapper.mac-closing {

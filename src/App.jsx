@@ -1796,14 +1796,16 @@ function App() {
             <div
               className={`landing-search-card-wrapper map-ai-panel-wrapper ${isAiClosing ? 'mac-closing' : ''} ${selectedLocation ? 'expanded-info' : ''} ${!isSidebarOpen ? 'sidebar-collapsed' : ''}`}
               style={{
-                position: 'absolute',
-                bottom: '0px',
-                marginBottom: '0px',
-                right: isCategoryDrawerOpen ? 'calc(15% + 20px)' : '20px',
+                position: 'fixed',
+                top: '76px',
+                bottom: '20px',
+                right: '20px',
                 width: selectedLocation ? '540px' : '380px',
                 maxWidth: selectedLocation ? '540px' : '380px',
-                zIndex: 1000,
-                transition: 'width 0.3s cubic-bezier(0.16, 1, 0.3, 1), max-width 0.3s cubic-bezier(0.16, 1, 0.3, 1), right 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
+                height: 'calc(100vh - 96px)',
+                maxHeight: 'calc(100vh - 96px)',
+                zIndex: 1001,
+                transition: 'width 0.3s cubic-bezier(0.16, 1, 0.3, 1), max-width 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
               }}
             >
               {/* SVG CLIP PATH AND STROKE OVERLAY PRESERVING EXACT NOTCH DEPTH AND CORNER RADIUS */}
@@ -1859,14 +1861,15 @@ function App() {
               <div
                 className="map-ai-panel-container landing-search-card"
                 style={{
-                  height: '60vh',
+                  height: '100%',
+                  maxHeight: '100%',
                   overflow: 'visible',
                   userSelect: 'auto',
                   width: '100%',
                   margin: 0,
                   marginBottom: 0,
-                  padding: '14px 24px 16px 24px',
-                  borderRadius: '24px 24px 0 0'
+                  padding: '14px 20px 16px 20px',
+                  borderRadius: '24px'
                 }}
               >
                 {/* Tech SVG Border Overlay Removed for clean borderless interior */}
