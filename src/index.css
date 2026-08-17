@@ -1022,7 +1022,7 @@ input:checked+.slider:before {
   justify-content: space-between;
   align-items: center;
   padding: 8px 24px;
-  z-index: 1000;
+  z-index: 2000 !important;
   height: 64px;
   box-sizing: border-box;
   background: transparent;
@@ -2672,6 +2672,7 @@ input:checked+.slider:before {
 /* Profile menu wrapper — keeps button + card in the same stacking context */
 .profile-menu-wrapper {
   position: relative;
+  z-index: 2001 !important;
 }
 
 /* Card */
@@ -2684,7 +2685,7 @@ input:checked+.slider:before {
   border-radius: 12px;
   box-shadow: 0 4px 4px 0 rgba(98, 110, 118, 0.14), 0 8px 24px 0 rgba(0, 46, 91, 0.10);
   padding: 10px 8px;
-  z-index: 700;
+  z-index: 2002 !important;
   display: flex;
   flex-direction: column;
   gap: 2px;
