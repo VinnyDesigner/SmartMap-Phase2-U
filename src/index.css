@@ -5604,10 +5604,11 @@ input:checked+.slider:before {
 .categories-accordion-list {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  max-height: 540px;
+  gap: 8px;
+  max-height: none !important;
+  flex: 1;
   overflow-y: auto;
-  padding-right: 2px;
+  padding-right: 4px;
 }
 
 .categories-accordion-list::-webkit-scrollbar {
@@ -5615,95 +5616,99 @@ input:checked+.slider:before {
 }
 
 .categories-accordion-list::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
+  background: rgba(148, 163, 184, 0.4);
   border-radius: 4px;
 }
 
 .categories-accordion-item {
-  border: 1px solid #E2E8F0;
-  border-radius: 10px;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  border-radius: 12px;
   overflow: hidden;
-  background: #F8FAFC;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 8px rgba(0, 43, 91, 0.04);
+  transition: all 0.2s ease;
 }
 
 .categories-accordion-header {
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
-  height: 32px !important;
-  min-height: 32px !important;
-  max-height: 32px !important;
-  padding: 0 12px !important;
-  font-size: 13px !important;
-  font-weight: 500 !important;
-  color: #1E293B !important;
+  height: auto !important;
+  min-height: 40px !important;
+  max-height: none !important;
+  padding: 8px 12px !important;
+  font-size: clamp(12px, 0.95vw, 13.5px) !important;
+  font-weight: 600 !important;
+  color: #0F172A !important;
   cursor: pointer;
   user-select: none;
-  transition: background 0.15s ease;
+  transition: all 0.2s ease;
   box-sizing: border-box !important;
 }
 
 .categories-accordion-header:hover {
-  background: #F1F5F9;
+  background: rgba(37, 99, 235, 0.08);
   color: #215a9e !important;
 }
 
 .categories-accordion-header.expanded {
-  background: #EFF6FF !important;
-  color: #215a9e !important;
-  font-weight: 600 !important;
+  background: linear-gradient(135deg, rgba(239, 246, 255, 0.9) 0%, rgba(219, 234, 254, 0.7) 100%) !important;
+  color: #1D68F2 !important;
+  font-weight: 700 !important;
 }
 
 .categories-header-title {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 .categories-badge {
   font-size: 11px;
   font-weight: 700;
-  background: #E2E8F0;
+  background: rgba(226, 232, 240, 0.8);
   color: #475569;
-  padding: 1px 7px;
-  border-radius: 10px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  flex-shrink: 0;
 }
 
 .categories-accordion-header.expanded .categories-badge {
-  background: #DBEAFE;
-  color: #1D4ED8;
+  background: #2563EB;
+  color: #FFFFFF;
 }
 
 .categories-subcategories-list {
   display: flex;
   flex-direction: column;
-  padding: 6px;
-  background: #FFFFFF;
-  border-top: 1px solid #E2E8F0;
-  gap: 2px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.65);
+  border-top: 1px solid rgba(226, 232, 240, 0.8);
+  gap: 4px;
 }
 
 .categories-subcat-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 10px;
-  border-radius: 6px;
-  font-size: 12px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: clamp(11.5px, 0.85vw, 12.5px);
   color: #334155;
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .categories-subcat-item:hover {
-  background: #F8FAFC;
-  color: #0F172A;
+  background: rgba(37, 99, 235, 0.08);
+  color: #1D68F2;
 }
 
 .categories-subcat-item.active {
-  background: #EFF6FF;
+  background: rgba(37, 99, 235, 0.12);
   font-weight: 600;
-  color: #2563EB;
+  color: #1D68F2;
 }
 
 .categories-check-indicator {
