@@ -1752,7 +1752,7 @@ function App() {
                   gap: '8px',
                   padding: '0 14px',
                   height: '36px',
-                  borderRadius: '9999px',
+                  borderRadius: '10px',
                   background: 'rgba(255, 255, 255, 0.96)',
                   boxShadow: '0 2px 8px rgba(0, 0, 0, 0.12)',
                   border: '1px solid rgba(0, 0, 0, 0.08)',
@@ -1808,7 +1808,7 @@ function App() {
                   justifyContent: 'center',
                   padding: '0 16px',
                   height: '36px',
-                  borderRadius: '9999px',
+                  borderRadius: '10px',
                   background: 'rgba(255, 255, 255, 0.96)',
                   boxShadow: '0 2px 8px rgba(0, 0, 0, 0.12)',
                   border: '1px solid rgba(0, 0, 0, 0.08)'
