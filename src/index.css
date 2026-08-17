@@ -5065,6 +5065,20 @@ input:checked+.slider:before {
   stroke: #ffffff !important;
 }
 
+/* True GeoVision CTA Gradient for Source SVG Icons */
+.geovision-gradient-icon-wrapper {
+  background: radial-gradient(41.72% 36.82% at 49.73% 100%, rgba(59, 130, 246, 0.95) 0%, rgba(2, 46, 91, 0.00) 100%), linear-gradient(180deg, #2563EB 0%, #10447C 50%, #011E3D 100%) !important;
+}
+
+.map-glass-icon-btn:hover .geovision-gradient-icon-wrapper,
+.map-glass-pill-btn:hover .geovision-gradient-icon-wrapper,
+.map-location-badge:hover .geovision-gradient-icon-wrapper,
+.map-glass-icon-btn.active .geovision-gradient-icon-wrapper,
+.landing-nav-item:hover .geovision-gradient-icon-wrapper,
+.landing-icon-control:hover .geovision-gradient-icon-wrapper {
+  background: #ffffff !important;
+}
+
 /* Color-match source SVG icons to GeoVision CTA gradient color (#10447C / #022E5B) */
 .map-glass-icon-btn img,
 .map-glass-pill-btn img,

@@ -79,6 +79,8 @@ import basemapLightGrayImg from './assets/basemap_light_gray.png';
 import basemapStreetsImg from './assets/basemap_streets.png';
 import basemapSatelliteImg from './assets/basemap_satellite.png';
 
+import GeoVisionGradientIcon from './components/GeoVisionGradientIcon.jsx';
+
 import compassSvg from './assets/Icons 1/Icons/compass.svg';
 import navigationSvg from './assets/Icons 1/Icons/navigation.svg';
 import homeSvg from './assets/Icons 1/Icons/home.svg';
@@ -1591,7 +1593,7 @@ function App() {
                   cursor: 'pointer'
                 }}
               >
-                <img src={categorySvg} alt="Categories" style={{ width: '15px', height: '15px', objectFit: 'contain' }} />
+                <GeoVisionGradientIcon src={categorySvg} size={15} alt="Categories" />
                 <span>{t.allCategories}</span>
               </button>
             </div>
@@ -1618,7 +1620,7 @@ function App() {
                 showToast("Centered on Abu Dhabi");
               }}
             >
-              <img src={locationSvg} alt="Location" style={{ width: '14px', height: '14px', objectFit: 'contain' }} />
+              <GeoVisionGradientIcon src={locationSvg} size={14} alt="Location" />
               <span>Abu Dhabi</span>
             </button>
           </div>
@@ -1645,21 +1647,21 @@ function App() {
                 title="Measurement & Draw"
                 onClick={() => setActiveLeftPopover(prev => prev === 'draw' ? null : 'draw')}
               >
-                <img src={drawSvg} alt="Draw" style={{ width: '18px', height: '18px', objectFit: 'contain' }} />
+                <GeoVisionGradientIcon src={drawSvg} size={18} alt="Draw" />
               </button>
               <button
                 className={`map-glass-icon-btn ${activeLeftPopover === 'basemap' ? 'active' : ''}`}
                 title="Basemap Gallery"
                 onClick={() => setActiveLeftPopover(prev => prev === 'basemap' ? null : 'basemap')}
               >
-                <img src={basemapSvg} alt="Basemap" style={{ width: '18px', height: '18px', objectFit: 'contain' }} />
+                <GeoVisionGradientIcon src={basemapSvg} size={18} alt="Basemap" />
               </button>
               <button
                 className={`map-glass-icon-btn ${activeLeftPopover === 'legend' ? 'active' : ''}`}
                 title="Legend & Analysis"
                 onClick={() => setActiveLeftPopover(prev => prev === 'legend' ? null : 'legend')}
               >
-                <img src={legendSvg} alt="Legend" style={{ width: '18px', height: '18px', objectFit: 'contain' }} />
+                <GeoVisionGradientIcon src={legendSvg} size={18} alt="Legend" />
               </button>
 
               {/* VERTICAL ZOOM IN / ZOOM OUT SEGMENTED GROUP BELOW LEGEND */}
@@ -1731,7 +1733,7 @@ function App() {
                 title="Compass / Orient North"
                 onClick={() => showToast("Map Oriented North")}
               >
-                <img src={compassSvg} alt="Compass" style={{ width: '18px', height: '18px', objectFit: 'contain' }} />
+                <GeoVisionGradientIcon src={compassSvg} size={18} alt="Compass" />
               </button>
               <button
                 className="map-glass-icon-btn"
@@ -1741,7 +1743,7 @@ function App() {
                   showToast("Centered to My Location (Abu Dhabi)");
                 }}
               >
-                <img src={navigationSvg} alt="My Location" style={{ width: '18px', height: '18px', objectFit: 'contain' }} />
+                <GeoVisionGradientIcon src={navigationSvg} size={18} alt="My Location" />
               </button>
               <button
                 className="map-glass-icon-btn"
@@ -1751,7 +1753,7 @@ function App() {
                   showToast("Reset to Abu Dhabi Home View");
                 }}
               >
-                <img src={homeSvg} alt="Home" style={{ width: '18px', height: '18px', objectFit: 'contain' }} />
+                <GeoVisionGradientIcon src={homeSvg} size={18} alt="Home" />
               </button>
               <div
                 className="map-glass-pill-btn"

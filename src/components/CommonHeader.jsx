@@ -8,6 +8,8 @@ import feedbackIcon from '../assets/share feedback.svg';
 import helpIcon from '../assets/help.svg';
 import signInIcon from '../assets/sign in.svg';
 
+import GeoVisionGradientIcon from './GeoVisionGradientIcon.jsx';
+
 import homeSvg from '../assets/Icons 1/Icons/home.svg';
 import aboutUsSvg from '../assets/Icons 1/Icons/about us.svg';
 import arabicSvg from '../assets/Icons 1/Icons/Arabic.svg';
@@ -52,10 +54,10 @@ export default function CommonHeader({
           className={`landing-nav-item ${!showMap ? 'active' : ''}`} 
           onClick={() => setShowMap(false)}
         >
-          <img src={homeSvg} alt="Home" style={{ width: '15px', height: '15px', objectFit: 'contain' }} /> {t.home}
+          <GeoVisionGradientIcon src={homeSvg} size={15} alt="Home" /> {t.home}
         </button>
         <button className="landing-nav-item" onClick={() => handleSearchSubmit('')}>
-          <img src={aboutUsSvg} alt="About Us" style={{ width: '15px', height: '15px', objectFit: 'contain' }} /> {t.aboutUs}
+          <GeoVisionGradientIcon src={aboutUsSvg} size={15} alt="About Us" /> {t.aboutUs}
         </button>
       </nav>
 
@@ -63,14 +65,14 @@ export default function CommonHeader({
       <div className="landing-controls-right">
         <button className="landing-lang-btn" onClick={() => setLang(lang === 'en' ? 'ar' : 'en')}>
           {lang === 'en' ? (
-            <img src={arabicSvg} alt="Arabic" style={{ width: '18px', height: '18px', filter: theme === 'dark' ? 'invert(1)' : 'none' }} />
+            <GeoVisionGradientIcon src={arabicSvg} size={18} alt="Arabic" />
           ) : (
             <span style={{ color: '#022E5B', fontWeight: 600 }}>En</span>
           )}
         </button>
         
         <button className="landing-icon-control" onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} title="Toggle Theme">
-          <img src={theme === 'dark' ? lightThemeSvg : darkThemeSvg} alt="Theme" style={{ width: '18px', height: '18px', objectFit: 'contain' }} />
+          <GeoVisionGradientIcon src={theme === 'dark' ? lightThemeSvg : darkThemeSvg} size={18} alt="Theme" />
         </button>
         
         <div className="profile-menu-wrapper" ref={profileMenuRef}>
@@ -79,7 +81,7 @@ export default function CommonHeader({
             onClick={() => setIsProfileOpen(prev => !prev)}
             title="Profile"
           >
-            <img src={profileSvg} alt="Profile" style={{ width: '18px', height: '18px', objectFit: 'contain' }} />
+            <GeoVisionGradientIcon src={profileSvg} size={18} alt="Profile" />
           </button>
 
           {isProfileOpen && (
