@@ -245,7 +245,7 @@ export default function LandingPage({
               <input
                 type="text"
                 className="landing-search-input"
-                placeholder={t.searchPlaceholder || 'Ask Smart Map Anything About Places, Services, Or Locations...'}
+                placeholder={t.searchPlaceholder || 'Ask Smart Map Anything...'}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />

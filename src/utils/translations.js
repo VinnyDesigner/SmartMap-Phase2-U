@@ -4,7 +4,7 @@ export const getTranslations = (lang) => ({
   allCategories: lang === 'ar' ? 'جميع الفئات' : 'All Categories',
   subTitle: lang === 'ar' ? 'اكتشف المزيد، اسأل بذكاء، استكشف أبوظبي' : 'Discover More, Ask Smarter, Explore Abu Dhabi',
   description: lang === 'ar' ? 'ابحث باستخدام اللغة الطبيعية أو استكشف الخرائط التفاعلية عبر أبوظبي — مع أكثر من 5,000 نقطة بيانات في متناول يدك.' : 'Search using natural language or explore interactive maps across Abu Dhabi — with 5K+ data points at your fingertips.',
-  searchPlaceholder: lang === 'ar' ? 'اسأل الخريطة الذكية عن أي شيء يتعلق بالأماكن أو الخدمات...' : 'Ask Smart Map Anything About Places, Services, Or Locations...',
+  searchPlaceholder: lang === 'ar' ? 'اسأل الخريطة الذكية عن أي شيء...' : 'Ask Smart Map Anything...',
   searchBtn: lang === 'ar' ? 'بحث' : 'Search',
   exploreMap: lang === 'ar' ? 'استكشف الخريطة' : 'Explore Map View',
   categories: lang === 'ar' ? 'الفئات' : 'Categories',
