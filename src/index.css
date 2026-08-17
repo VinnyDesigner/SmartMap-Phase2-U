@@ -3421,9 +3421,9 @@ input:checked+.slider:before {
   bottom: 16px !important;
   right: 16px !important;
   left: auto !important;
-  width: 380px !important;
-  min-width: 380px !important;
-  max-width: 380px !important;
+  width: 310px !important;
+  min-width: 310px !important;
+  max-width: 310px !important;
   height: calc(100vh - 92px) !important;
   max-height: calc(100vh - 92px) !important;
   z-index: 1001 !important;
@@ -3438,8 +3438,8 @@ input:checked+.slider:before {
 
 @media (max-width: 1440px) {
   .map-ai-panel-wrapper {
-    width: 380px !important;
-    max-width: 380px !important;
+    width: 310px !important;
+    max-width: 310px !important;
   }
 
   .map-ai-panel-wrapper.expanded-info {
@@ -3450,8 +3450,8 @@ input:checked+.slider:before {
 
 @media (max-width: 1280px) {
   .map-ai-panel-wrapper {
-    width: 360px !important;
-    max-width: 360px !important;
+    width: 310px !important;
+    max-width: 310px !important;
   }
 
   .map-ai-panel-wrapper.expanded-info {
@@ -3463,6 +3463,7 @@ input:checked+.slider:before {
 .map-ai-panel-container {
   position: relative;
   width: 100%;
+  padding: 14px 10px 14px 10px !important;
   max-width: 100%;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.14) 100%);
   backdrop-filter: blur(28px) saturate(190%);

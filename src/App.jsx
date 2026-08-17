@@ -1802,8 +1802,8 @@ function App() {
                 top: '80px',
                 bottom: '48px',
                 right: '16px',
-                width: selectedLocation ? '540px' : '380px',
-                maxWidth: selectedLocation ? '540px' : '380px',
+                width: selectedLocation ? '540px' : '310px',
+                maxWidth: selectedLocation ? '540px' : '310px',
                 height: 'calc(100vh - 130px)',
                 maxHeight: 'calc(100vh - 130px)',
                 zIndex: 1001,
@@ -1834,7 +1834,7 @@ function App() {
                   width: '100%',
                   margin: 0,
                   marginBottom: 0,
-                  padding: '16px 16px 16px 16px',
+                  padding: '14px 10px 14px 10px',
                   clipPath: 'url(#categoryDrawerTopBottomNotchClip)',
                   WebkitClipPath: 'url(#categoryDrawerTopBottomNotchClip)'
                 }}
@@ -1911,12 +1911,6 @@ function App() {
                           .map((msg, idx) => (
                             <div key={idx} className="chat-bubble-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '6px', width: '100%' }}>
                               <div className={`chat-bubble ${msg.sender}`}>
-                                {msg.sender === 'ai' && (
-                                  <div className="chat-avatar ai-avatar">
-                                    <Sparkles size={14} color="#1d68f2" />
-                                  </div>
-                                )}
-
                                 <div className="chat-bubble-content" style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                                   {msg.isSearching ? (
                                     <div className="typing-indicator">
