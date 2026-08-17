@@ -3004,7 +3004,7 @@ input:checked+.slider:before {
   height: 36px;
   padding: 0 14px;
   border-radius: 10px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.75) 0%, rgba(245, 247, 248, 0.60) 100%) !important;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(245, 247, 248, 0.75) 100%) !important;
   backdrop-filter: blur(18px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(18px) saturate(180%) !important;
   border: 1.5px solid rgba(255, 255, 255, 0.90) !important;
@@ -3012,17 +3012,15 @@ input:checked+.slider:before {
   font-family: 'Inter', sans-serif;
   font-size: 13px;
   font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 8px 20px rgba(0, 43, 91, 0.12), inset 0 1px 2px #ffffff !important;
-  transition: all 0.2s ease;
+  cursor: default !important;
+  user-select: none !important;
+  box-shadow: 0 4px 12px rgba(0, 43, 91, 0.08), inset 0 1px 2px #ffffff !important;
+  pointer-events: auto;
 }
 
 .map-location-badge:hover {
-  background: #ffffff !important;
-  border-color: #ffffff !important;
-  color: #2563EB !important;
-  transform: translateY(-2px) scale(1.03) !important;
-  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.25) !important;
+  transform: none !important;
+  cursor: default !important;
 }
 
 /* GeoVision AI Assistant Floating Button (Matching Primary Explore Button) */
@@ -5047,7 +5045,6 @@ input:checked+.slider:before {
 
 .map-glass-icon-btn:hover,
 .map-glass-pill-btn:hover,
-.map-location-badge:hover,
 .map-glass-icon-btn.active {
   background: radial-gradient(41.72% 36.82% at 49.73% 100%, rgba(59, 130, 246, 0.55) 0%, rgba(2, 46, 91, 0.00) 100%), radial-gradient(50.19% 67.5% at 49.73% 50%, #10447C 0%, #011429 100%) !important;
   background-blend-mode: plus-lighter, normal !important;
@@ -5059,7 +5056,6 @@ input:checked+.slider:before {
 
 .map-glass-icon-btn:hover svg,
 .map-glass-pill-btn:hover svg,
-.map-location-badge:hover svg,
 .map-glass-icon-btn.active svg {
   color: #ffffff !important;
   stroke: #ffffff !important;

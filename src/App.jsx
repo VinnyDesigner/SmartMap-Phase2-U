@@ -1599,16 +1599,10 @@ function App() {
               transition: 'right 0.3s cubic-bezier(0.16, 1, 0.3, 1)'
             }}
           >
-            <button
-              className="map-location-badge"
-              onClick={() => {
-                if (mapInstanceRef.current) mapInstanceRef.current.setView([24.4539, 54.3773], 12, { animate: true });
-                showToast("Centered on Abu Dhabi");
-              }}
-            >
+            <div className="map-location-badge">
               <MapPin size={14} style={{ color: '#ef4444' }} />
               <span>Abu Dhabi</span>
-            </button>
+            </div>
           </div>
 
           {/* LEFT FLOATING VERTICAL & HORIZONTAL TOOLBAR STRIP (L-SHAPED LAYOUT AT BOTTOM-LEFT) */}
