@@ -1230,8 +1230,12 @@ input:checked+.slider:before {
 }
 
 .landing-nav-item:hover {
-  color: #10447C;
-  font-weight: 500;
+  background: radial-gradient(41.72% 36.82% at 49.73% 100%, rgba(59, 130, 246, 0.55) 0%, rgba(2, 46, 91, 0.00) 100%), radial-gradient(50.19% 67.5% at 49.73% 50%, #10447C 0%, #011429 100%) !important;
+  background-blend-mode: plus-lighter, normal !important;
+  color: #FFFFFF !important;
+  border-color: rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0 4px 14px rgba(16, 68, 124, 0.35) !important;
+  transform: scale(1.04) translateY(-1px) !important;
 }
 
 .landing-nav-item.active {
@@ -1303,11 +1307,12 @@ input:checked+.slider:before {
 .landing-btn-categories:hover,
 .landing-lang-btn:hover,
 .landing-icon-control:hover {
-  border-color: rgba(255, 255, 255, 0.7);
-  background: rgba(255, 255, 255, 0.75);
-  box-shadow: 0 6px 16px rgba(0, 43, 91, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.4);
-  color: #10447C;
-  transform: translateY(-1.5px);
+  background: radial-gradient(41.72% 36.82% at 49.73% 100%, rgba(59, 130, 246, 0.55) 0%, rgba(2, 46, 91, 0.00) 100%), radial-gradient(50.19% 67.5% at 49.73% 50%, #10447C 0%, #011429 100%) !important;
+  background-blend-mode: plus-lighter, normal !important;
+  color: #FFFFFF !important;
+  border-color: rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0 4px 14px rgba(16, 68, 124, 0.35) !important;
+  transform: scale(1.05) translateY(-1px) !important;
 }
 
 /* Profile button — active/selected state (dropdown is open) */
@@ -5075,7 +5080,9 @@ input:checked+.slider:before {
 .map-location-badge:hover .geovision-gradient-icon-wrapper,
 .map-glass-icon-btn.active .geovision-gradient-icon-wrapper,
 .landing-nav-item:hover .geovision-gradient-icon-wrapper,
-.landing-icon-control:hover .geovision-gradient-icon-wrapper {
+.landing-lang-btn:hover .geovision-gradient-icon-wrapper,
+.landing-icon-control:hover .geovision-gradient-icon-wrapper,
+.search-history-toggle-btn:hover .geovision-gradient-icon-wrapper {
   background: #ffffff !important;
 }
 
