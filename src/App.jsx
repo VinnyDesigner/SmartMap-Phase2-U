@@ -2648,7 +2648,6 @@ function App() {
                         onChange={(e) => setAiSearchQuery(e.target.value)}
                         onFocus={() => { if (panelHeight <= 100) setPanelHeight(200); }}
                         style={{ fontSize: '14px' }}
-                        autoFocus
                       />
                       <div className="landing-search-btn-wrapper">
                         <button type="submit" className="landing-search-btn-pill" disabled={!aiSearchQuery.trim()}>

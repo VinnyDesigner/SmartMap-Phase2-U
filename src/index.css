@@ -6747,16 +6747,36 @@ input:checked+.slider:before {
     justify-content: center !important;
   }
 
-  /* Map View AI Panel Overlay on Mobile */
+  /* Map View AI Panel Overlay on Mobile: Matches Search History & Category Panel glass & background */
   .map-ai-panel-wrapper {
-    width: 94vw !important;
-    max-width: 94vw !important;
-    left: 3vw !important;
-    right: 3vw !important;
+    position: fixed !important;
+    top: 64px !important;
+    left: 10px !important;
+    right: 10px !important;
+    width: calc(100vw - 20px) !important;
+    min-width: calc(100vw - 20px) !important;
+    max-width: calc(100vw - 20px) !important;
+    height: calc(100vh - 84px) !important;
+    height: calc(100dvh - 84px) !important;
+    max-height: calc(100vh - 84px) !important;
+    z-index: 2100 !important;
   }
 
   .map-ai-panel-container {
-    padding: 16px 12px !important;
+    background: linear-gradient(rgba(255, 255, 255, 0.20), rgba(255, 255, 255, 0.20)), url('/assets/panel_bg.png') no-repeat center center / cover !important;
+    backdrop-filter: blur(28px) saturate(190%) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
+    box-shadow: 0 25px 60px rgba(0, 43, 91, 0.25),
+      0 0 35px rgba(99, 181, 255, 0.35),
+      0 0 70px rgba(33, 88, 158, 0.25) !important;
+    border-radius: 16px !important;
+    clip-path: none !important;
+    -webkit-clip-path: none !important;
+    padding: 14px 12px 14px 12px !important;
+  }
+
+  .map-ai-panel-bg-img {
+    display: none !important;
   }
 
   /* 1. Mobile Map Controls & Reduced Floating Tabs (text 12px) */
