@@ -6480,24 +6480,27 @@ input:checked+.slider:before {
     text-align: center !important;
   }
 
-  /* 1. Increased search card wrapper width on mobile */
+  /* Increased search card wrapper width on mobile */
   .landing-search-card-wrapper {
-    width: calc(100% - 20px) !important;
+    width: calc(100% - 24px) !important;
     max-width: 100% !important;
     padding: 0 !important;
     box-sizing: border-box !important;
-    margin: 0 10px 14px 10px !important;
+    margin: 0 12px 14px 12px !important;
   }
 
-  /* 2. Top and bottom padding set to 12px inside the search card homepage */
+  /* Fixed mobile search card padding: remove desktop min-height (170px) and apply equal 16px padding on all sides */
   .landing-search-card {
     width: 100% !important;
     max-width: 100% !important;
-    padding: 12px 14px 12px 14px !important;
+    min-height: auto !important;
+    height: auto !important;
+    padding: 16px 16px 16px 16px !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    gap: 6px !important;
+    justify-content: center !important;
+    gap: 8px !important;
     clip-path: polygon(4.375% 3.53%, 30% 3.53%, 31.875% 8.24%, 68.125% 8.24%, 70% 3.53%, 95.625% 3.53%, 99.25% 20.59%, 99.25% 79.41%, 95.625% 96.47%, 70% 96.47%, 68.125% 91.76%, 31.875% 91.76%, 30% 96.47%, 4.375% 96.47%, 0.75% 79.41%, 0.75% 20.59%) !important;
     box-shadow: 0 25px 60px rgba(0, 43, 91, 0.20), 0 0 35px rgba(56, 189, 248, 0.30) !important;
     box-sizing: border-box !important;
@@ -6518,7 +6521,7 @@ input:checked+.slider:before {
 
   /* 44px height search bar container */
   .landing-search-container {
-    width: 96% !important;
+    width: 100% !important;
     max-width: 100% !important;
     height: 44px !important;
     min-height: 44px !important;
@@ -6556,14 +6559,14 @@ input:checked+.slider:before {
     border-radius: 8px !important;
   }
 
-  /* 3. Bottom chips width equivalent to the width of the search bar */
+  /* Bottom chips row matching exact width of search bar */
   .landing-chips-container {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    width: 96% !important;
+    width: 100% !important;
     max-width: 100% !important;
-    margin: 4px auto 0 auto !important;
+    margin: 2px auto 0 auto !important;
     gap: 4px !important;
   }
 
@@ -6578,7 +6581,7 @@ input:checked+.slider:before {
     align-items: center !important;
   }
 
-  /* Show 3 chips stretching to equal the exact search bar width */
+  /* Show 3 chips stretching across exact search bar width */
   .landing-chip-btn {
     flex: 1 !important;
     display: flex !important;
@@ -6586,7 +6589,7 @@ input:checked+.slider:before {
     align-items: center !important;
     gap: 4px !important;
     font-size: 10.5px !important;
-    padding: 4px 6px !important;
+    padding: 5px 6px !important;
     white-space: nowrap !important;
     border-radius: 8px !important;
     text-align: center !important;
@@ -6656,7 +6659,7 @@ input:checked+.slider:before {
   }
 
   .landing-search-card {
-    padding: 12px 10px 12px 10px !important;
+    padding: 14px 12px 14px 12px !important;
   }
 
   .landing-chip-btn {
