@@ -6412,39 +6412,42 @@ input:checked+.slider:before {
 
   .landing-header {
     padding: 8px 14px !important;
-    height: 58px !important;
+    height: 54px !important;
   }
 
   .landing-logo-left img {
-    height: 30px !important;
+    height: 28px !important;
   }
 
-  /* 3. Keep all content in the center of the screen vertically and horizontally */
+  /* 1. Keep all content vertically in the centre of the mobile screen */
   .hero-landing {
     min-height: 100vh !important;
+    min-height: 100dvh !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: center !important;
-    align-items: center !important;
-    padding: 72px 14px 32px !important;
+    justify-content: space-between !important;
+    padding: 0 !important;
     box-sizing: border-box !important;
   }
 
   .landing-hero {
+    flex: 1 1 auto !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
     width: 100% !important;
+    padding: 10px 14px 20px 14px !important;
+    margin: 0 auto !important;
     text-align: center !important;
-    margin: auto 0 !important;
+    box-sizing: border-box !important;
   }
 
   h1.landing-main-title {
-    font-size: 34px !important;
+    font-size: 32px !important;
     letter-spacing: -0.5px !important;
     text-align: center !important;
-    margin: 0 auto !important;
+    margin: 0 auto 6px auto !important;
   }
 
   .sparkle-decor-1 {
@@ -6462,40 +6465,37 @@ input:checked+.slider:before {
   }
 
   .landing-sub-title {
-    font-size: 18px !important;
+    font-size: 17px !important;
     line-height: 1.3 !important;
-    margin: 8px auto 8px auto !important;
-    padding: 0 10px !important;
+    margin: 4px auto 6px auto !important;
+    padding: 0 8px !important;
     text-align: center !important;
   }
 
   .landing-description {
-    font-size: 12px !important;
-    line-height: 1.45 !important;
-    max-width: 98% !important;
-    margin: 0 auto 22px !important;
+    font-size: 11.5px !important;
+    line-height: 1.4 !important;
+    max-width: 96% !important;
+    margin: 0 auto 18px auto !important;
     text-align: center !important;
   }
 
   .landing-search-card-wrapper {
     width: 100% !important;
     max-width: 100% !important;
-    padding: 0 6px !important;
+    padding: 0 4px !important;
     box-sizing: border-box !important;
-    margin: 0 auto 20px auto !important;
+    margin: 0 auto 16px auto !important;
   }
 
-  /* 2. Appropriate Desktop-Matched Search Card Shape */
+  /* Desktop-Matched Search Card Polygon Shape */
   .landing-search-card {
     width: 100% !important;
     max-width: 100% !important;
-    padding: 28px 18px 24px !important;
-    min-height: 100px !important;
+    padding: 22px 14px 18px !important;
     display: flex !important;
     flex-direction: column !important;
-    justify-content: center !important;
-    align-items: center !important;
-    gap: 0 !important;
+    gap: 10px !important;
     clip-path: polygon(4.375% 3.53%, 30% 3.53%, 31.875% 8.24%, 68.125% 8.24%, 70% 3.53%, 95.625% 3.53%, 99.25% 20.59%, 99.25% 79.41%, 95.625% 96.47%, 70% 96.47%, 68.125% 91.76%, 31.875% 91.76%, 30% 96.47%, 4.375% 96.47%, 0.75% 79.41%, 0.75% 20.59%) !important;
     box-shadow: 0 25px 60px rgba(0, 43, 91, 0.20), 0 0 35px rgba(56, 189, 248, 0.30) !important;
     box-sizing: border-box !important;
@@ -6514,60 +6514,102 @@ input:checked+.slider:before {
     display: none !important;
   }
 
+  /* 2. Reduce the height of the search bar and make it 44px */
   .landing-search-container {
     width: 100% !important;
-    height: 48px !important;
-    padding: 0 8px 0 10px !important;
-    border-radius: 14px !important;
+    height: 44px !important;
+    min-height: 44px !important;
+    max-height: 44px !important;
+    padding: 0 6px 0 10px !important;
+    border-radius: 12px !important;
     margin: 0 auto !important;
   }
 
   .search-star-loader-wrapper {
-    width: 28px !important;
-    height: 28px !important;
-    margin-right: 8px !important;
+    width: 26px !important;
+    height: 26px !important;
+    margin-right: 6px !important;
   }
 
   .landing-search-separator {
-    margin-right: 8px !important;
-    height: 20px !important;
+    margin-right: 6px !important;
+    height: 18px !important;
   }
 
   .landing-search-input,
   .landing-search-input::placeholder {
-    font-size: 13px !important;
+    font-size: 12.5px !important;
   }
 
   .landing-voice-btn {
-    width: 28px !important;
-    height: 28px !important;
+    width: 26px !important;
+    height: 26px !important;
     margin-right: 4px !important;
   }
 
   .landing-send-btn {
-    width: 32px !important;
-    height: 32px !important;
-    border-radius: 10px !important;
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 8px !important;
   }
 
-  /* 1. Remove categories from the home screen in mobile responsive design */
-  .landing-chips-container,
-  .landing-chips-wrapper,
-  .landing-chips-stepper {
+  /* 3. Bottom chips restored below the search bar inside the card */
+  .landing-chips-container {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    margin-top: 6px !important;
+  }
+
+  .landing-chips-wrapper {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    gap: 6px !important;
+    padding: 2px 0 4px 0 !important;
+    width: 100% !important;
+    justify-content: flex-start !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
+
+  .landing-chips-wrapper::-webkit-scrollbar {
     display: none !important;
+  }
+
+  .landing-chip-btn {
+    flex: 0 0 auto !important;
+    font-size: 11px !important;
+    padding: 5px 10px !important;
+    white-space: nowrap !important;
+    border-radius: 8px !important;
+  }
+
+  .landing-chip-toggle-btn {
+    flex: 0 0 30px !important;
+    max-width: 30px !important;
+    height: 28px !important;
+  }
+
+  .landing-chips-stepper {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 4px !important;
+    margin-top: 4px !important;
+    margin-bottom: 0 !important;
   }
 
   .landing-explore-btn-wrapper {
     width: 100% !important;
-    max-width: 230px !important;
-    margin: 12px auto 0 auto !important;
+    max-width: 220px !important;
+    margin: 10px auto 0 auto !important;
     display: flex !important;
     justify-content: center !important;
   }
 
   .landing-explore-btn {
-    font-size: 14.5px !important;
-    padding: 11px 20px !important;
+    font-size: 14px !important;
+    padding: 10px 18px !important;
     width: 100% !important;
     justify-content: center !important;
   }
@@ -6588,14 +6630,19 @@ input:checked+.slider:before {
 /* EXTRA SMALL MOBILE (max-width: 420px) */
 @media (max-width: 420px) {
   h1.landing-main-title {
-    font-size: 30px !important;
+    font-size: 28px !important;
   }
 
   .landing-sub-title {
-    font-size: 16px !important;
+    font-size: 15px !important;
   }
 
   .landing-search-card {
-    padding: 24px 12px 20px !important;
+    padding: 18px 10px 14px !important;
+  }
+
+  .landing-chip-btn {
+    font-size: 10.5px !important;
+    padding: 4px 8px !important;
   }
 }
