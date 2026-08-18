@@ -1035,12 +1035,14 @@ input:checked+.slider:before {
   inset: 0;
   z-index: -1;
   background: linear-gradient(to right,
-      rgba(255, 255, 255, 0.7) 0%,
-      rgba(255, 255, 255, 0.7) 20%,
-      rgba(255, 255, 255, 0.22) 32%,
-      rgba(255, 255, 255, 0.22) 68%,
-      rgba(255, 255, 255, 0.7) 80%,
-      rgba(255, 255, 255, 0.7) 100%);
+      rgba(255, 255, 255, 0.75) 0%,
+      rgba(255, 255, 255, 0.75) 28%,
+      rgba(185, 222, 255, 0.58) 32%,
+      rgba(135, 192, 250, 0.45) 50%,
+      rgba(185, 222, 255, 0.58) 68%,
+      rgba(255, 255, 255, 0.75) 72%,
+      rgba(255, 255, 255, 0.75) 100%),
+      url('/assets/panel_bg.png') no-repeat center center / cover;
   backdrop-filter: blur(28px) saturate(190%);
   -webkit-backdrop-filter: blur(28px) saturate(190%);
   clip-path: polygon(0% 0%,
@@ -1053,7 +1055,7 @@ input:checked+.slider:before {
       30% 100%,
       2% 100%,
       0% 75%);
-  filter: drop-shadow(0 12px 25px rgba(99, 181, 255, 0.18));
+  filter: drop-shadow(0 12px 25px rgba(99, 181, 255, 0.22));
   transition: all 0.3s ease;
 }
 
@@ -1645,7 +1647,11 @@ input:checked+.slider:before {
 .landing-search-card {
   width: 100%;
   max-width: 780px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.62) 0%, rgba(224, 242, 254, 0.48) 50%, rgba(191, 219, 254, 0.38) 100%);
+  background:
+    linear-gradient(180deg, rgba(185, 222, 255, 0.58) 0%, rgba(135, 192, 250, 0.45) 100%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.65) 0%, rgba(175, 218, 255, 0.48) 100%),
+    url('/assets/panel_bg.png') no-repeat center center / cover,
+    #badefc;
   backdrop-filter: blur(28px) saturate(190%);
   -webkit-backdrop-filter: blur(28px) saturate(190%);
   padding: 38px 28px 36px;
@@ -1656,7 +1662,7 @@ input:checked+.slider:before {
   position: relative;
   z-index: 1;
   clip-path: polygon(4.375% 3.53%, 30% 3.53%, 31.875% 8.24%, 68.125% 8.24%, 70% 3.53%, 95.625% 3.53%, 99.25% 20.59%, 99.25% 79.41%, 95.625% 96.47%, 70% 96.47%, 68.125% 91.76%, 31.875% 91.76%, 30% 96.47%, 4.375% 96.47%, 0.75% 79.41%, 0.75% 20.59%);
-  box-shadow: 0 25px 60px rgba(0, 43, 91, 0.20), 0 0 35px rgba(56, 189, 248, 0.30), 0 0 0 1.5px rgba(255, 255, 255, 0.70) inset;
+  box-shadow: 0 25px 60px rgba(0, 43, 91, 0.25), 0 0 35px rgba(56, 189, 248, 0.30), 0 0 0 1.5px rgba(255, 255, 255, 0.60) inset;
   min-height: 170px;
   box-sizing: border-box;
 }
