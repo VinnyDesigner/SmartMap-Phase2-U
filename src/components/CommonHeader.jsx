@@ -1,5 +1,5 @@
-import React from 'react';
-import { Bookmark } from 'lucide-react';
+import React, { useState } from 'react';
+import { Bookmark, Menu, X } from 'lucide-react';
 import leftLogo from '../assets/left.png';
 import rightLogo from '../assets/right.png';
 import lagIcon from '../assets/lag.svg';
@@ -39,6 +39,7 @@ export default function CommonHeader({
   setIsSidebarOpen,
   setActiveTab
 }) {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const isGreyBasemap = activeBasemap === 'light';
 
   return (
@@ -48,8 +49,8 @@ export default function CommonHeader({
         <img src={leftLogo} alt="Department of Government Enablement" style={{ height: '38px', objectFit: 'contain' }} />
       </a>
 
-      {/* Center Navigation */}
-      <nav className="landing-nav-center">
+      {/* Center Navigation (Desktop) */}
+      <nav className="landing-nav-center desktop-only-nav">
         <button 
           className={`landing-nav-item ${!showMap ? 'active' : ''}`} 
           onClick={() => setShowMap(false)}
@@ -61,8 +62,8 @@ export default function CommonHeader({
         </button>
       </nav>
 
-      {/* Right Controls */}
-      <div className="landing-controls-right">
+      {/* Right Controls (Desktop) */}
+      <div className="landing-controls-right desktop-only-controls">
         <button className="landing-lang-btn" onClick={() => setLang(lang === 'en' ? 'ar' : 'en')}>
           {lang === 'en' ? (
             <GeoVisionGradientIcon src={arabicSvg} size={16} alt="Arabic" />
@@ -141,6 +142,127 @@ export default function CommonHeader({
           <img src={rightLogo} alt="Abu Dhabi Spatial Data" style={{ height: '42px', objectFit: 'contain' }} />
         </div>
       </div>
+
+      {/* Hamburger Toggle Button for Tablet & Mobile (matching attached design) */}
+      <button 
+        className="landing-hamburger-btn mobile-tablet-only-btn" 
+        onClick={() => setIsMobileMenuOpen(prev => !prev)}
+        aria-label="Toggle navigation menu"
+      >
+        {isMobileMenuOpen ? <X size={22} style={{ color: '#063360' }} /> : <Menu size={22} style={{ color: '#063360' }} />}
+      </button>
+
+      {/* Glassmorphic Mobile/Tablet Navigation Drawer */}
+      {isMobileMenuOpen && (
+        <div className="mobile-header-menu-overlay" onClick={() => setIsMobileMenuOpen(false)}>
+          <div className="mobile-header-menu-content" onClick={(e) => e.stopPropagation()}>
+            <div className="mobile-menu-header">
+              <span className="mobile-menu-title">Navigation</span>
+              <button className="mobile-menu-close" onClick={() => setIsMobileMenuOpen(false)}>
+                <X size={20} />
+              </button>
+            </div>
+
+            <div className="mobile-menu-items">
+              <button 
+                className={`mobile-menu-btn ${!showMap ? 'active' : ''}`}
+                onClick={() => { setShowMap(false); setIsMobileMenuOpen(false); }}
+              >
+                <GeoVisionGradientIcon src={homeSvg} size={18} alt="Home" />
+                <span>{t.home}</span>
+              </button>
+
+              <button 
+                className="mobile-menu-btn"
+                onClick={() => { handleSearchSubmit(''); setIsMobileMenuOpen(false); }}
+              >
+                <GeoVisionGradientIcon src={aboutUsSvg} size={18} alt="About Us" />
+                <span>{t.aboutUs}</span>
+              </button>
+
+              <div className="mobile-menu-divider" />
+
+              <div className="mobile-menu-row">
+                <button 
+                  className="mobile-menu-btn mobile-menu-half-btn"
+                  onClick={() => { setLang(lang === 'en' ? 'ar' : 'en'); showToast(`Language switched to ${lang === 'en' ? 'Arabic' : 'English'}`); }}
+                >
+                  <GeoVisionGradientIcon src={arabicSvg} size={18} alt="Language" />
+                  <span>{lang === 'en' ? 'العربية' : 'English'}</span>
+                </button>
+
+                <button 
+                  className="mobile-menu-btn mobile-menu-half-btn"
+                  onClick={() => { setTheme(theme === 'dark' ? 'light' : 'dark'); showToast(`Theme switched to ${theme === 'dark' ? 'Light' : 'Dark'}`); }}
+                >
+                  <GeoVisionGradientIcon src={theme === 'dark' ? lightThemeSvg : darkThemeSvg} size={18} alt="Theme" />
+                  <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
+                </button>
+              </div>
+
+              <div className="mobile-menu-divider" />
+
+              <button 
+                className="mobile-menu-btn"
+                onClick={() => { 
+                  setIsMobileMenuOpen(false); 
+                  setShowMap(true); 
+                  if (setIsSidebarOpen) setIsSidebarOpen(true);
+                  if (setActiveTab) setActiveTab('history');
+                  showToast("Search History Opened"); 
+                }}
+              >
+                <img src={historyIcon} alt="History" className="profile-item-icon" />
+                <span>History</span>
+              </button>
+
+              {isLoggedIn && (
+                <button 
+                  className="mobile-menu-btn"
+                  onClick={() => { 
+                    setIsMobileMenuOpen(false); 
+                    setShowMap(true); 
+                    if (setIsSidebarOpen) setIsSidebarOpen(true);
+                    if (setActiveTab) setActiveTab('collections');
+                    showToast("My Collections Opened"); 
+                  }}
+                >
+                  <Bookmark size={18} style={{ color: '#022E5B' }} />
+                  <span>My Collections</span>
+                </button>
+              )}
+
+              <button 
+                className="mobile-menu-btn"
+                onClick={() => { setIsMobileMenuOpen(false); showToast("Share Feedback modal opened"); }}
+              >
+                <img src={feedbackIcon} alt="Feedback" className="profile-item-icon" />
+                <span>Share Feedback</span>
+              </button>
+
+              <button 
+                className="mobile-menu-btn"
+                onClick={() => { setIsMobileMenuOpen(false); showToast("Help & Support documentation"); }}
+              >
+                <img src={helpIcon} alt="Help" className="profile-item-icon" />
+                <span>Help & Support</span>
+              </button>
+
+              <button 
+                className="mobile-menu-btn mobile-menu-signin"
+                onClick={() => { 
+                  setIsMobileMenuOpen(false); 
+                  setIsLoggedIn(prev => !prev);
+                  showToast(!isLoggedIn ? "Signed In Successfully" : "Signed Out"); 
+                }}
+              >
+                <img src={signInIcon} alt="Sign In" className="profile-item-icon" />
+                <span>{isLoggedIn ? 'Sign Out' : 'Sign In'}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Custom Bottom Tech Border */}
       <div className="header-bottom-border-container">
