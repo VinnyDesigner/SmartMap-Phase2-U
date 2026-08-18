@@ -6470,27 +6470,27 @@ input:checked+.slider:before {
 
   .landing-logo-left img {
     height: 29px !important;
-    max-width: 132px !important;
+    max-width: 135px !important;
     object-fit: contain !important;
   }
 
-  /* Center hamburger icon on mobile reduced by 20% with 4px bottom padding */
+  /* Center hamburger icon on mobile: reduced 20% & shifted 4px up */
   .landing-hamburger-btn {
     display: flex !important;
-    position: absolute !important;
-    left: 50% !important;
-    top: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    z-index: 2002 !important;
-    margin: 0 !important;
-    width: 32px !important;
-    height: 32px !important;
-    padding-bottom: 4px !important;
     align-items: center !important;
     justify-content: center !important;
+    position: absolute !important;
+    left: 50% !important;
+    top: calc(50% - 4px) !important;
+    transform: translate(-50%, -50%) !important;
+    width: 32px !important;
+    height: 32px !important;
+    padding: 4px !important;
+    z-index: 2002 !important;
+    margin: 0 !important;
   }
 
-  /* Right logo on mobile (+10% size) */
+  /* Right logo on mobile */
   .mobile-only-logo {
     display: flex !important;
     align-items: center !important;
@@ -6500,7 +6500,7 @@ input:checked+.slider:before {
 
   .mobile-only-logo img {
     height: 31px !important;
-    max-width: 122px !important;
+    max-width: 125px !important;
     object-fit: contain !important;
   }
 
