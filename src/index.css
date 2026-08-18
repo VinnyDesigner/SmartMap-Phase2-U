@@ -6747,12 +6747,14 @@ input:checked+.slider:before {
     justify-content: center !important;
   }
 
-  /* Map View AI Panel Overlay on Mobile: Matches Search History & Category Panel glass & background */
+  /* Map View AI Panel Overlay on Mobile: Increased Height & Identical Search History Background */
+  .landing-search-card-wrapper.map-ai-panel-wrapper,
   .map-ai-panel-wrapper {
     position: fixed !important;
     top: 64px !important;
     left: 10px !important;
     right: 10px !important;
+    bottom: 16px !important;
     width: calc(100vw - 20px) !important;
     min-width: calc(100vw - 20px) !important;
     max-width: calc(100vw - 20px) !important;
@@ -6760,9 +6762,13 @@ input:checked+.slider:before {
     height: calc(100dvh - 84px) !important;
     max-height: calc(100vh - 84px) !important;
     z-index: 2100 !important;
+    background: transparent !important;
   }
 
+  .map-ai-panel-container.landing-search-card,
   .map-ai-panel-container {
+    height: 100% !important;
+    max-height: 100% !important;
     background: linear-gradient(rgba(255, 255, 255, 0.20), rgba(255, 255, 255, 0.20)), url('/assets/panel_bg.png') no-repeat center center / cover !important;
     backdrop-filter: blur(28px) saturate(190%) !important;
     -webkit-backdrop-filter: blur(28px) saturate(190%) !important;
@@ -6775,6 +6781,7 @@ input:checked+.slider:before {
     padding: 14px 12px 14px 12px !important;
   }
 
+  .map-ai-panel-container .map-ai-panel-bg-img,
   .map-ai-panel-bg-img {
     display: none !important;
   }
