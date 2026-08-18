@@ -6747,7 +6747,7 @@ input:checked+.slider:before {
     justify-content: center !important;
   }
 
-  /* Mobile AI Spatial Search & Sidebar Panels: 16px Margins, Frosted Glass & Tech Depth Top/Bottom Notch */
+  /* Mobile AI Spatial Search & Sidebar Panels: 70% Screen Width & Viewport Height */
   .landing-search-card-wrapper.map-ai-panel-wrapper,
   .map-ai-panel-wrapper,
   .search-history-left-panel,
@@ -6755,14 +6755,14 @@ input:checked+.slider:before {
     position: fixed !important;
     top: 64px !important;
     left: 16px !important;
-    right: 16px !important;
+    right: auto !important;
     bottom: 16px !important;
-    width: calc(100vw - 32px) !important;
-    min-width: calc(100vw - 32px) !important;
-    max-width: calc(100vw - 32px) !important;
-    height: calc(100vh - 84px) !important;
-    height: calc(100dvh - 84px) !important;
-    max-height: calc(100vh - 84px) !important;
+    width: 70vw !important;
+    min-width: 70vw !important;
+    max-width: 70vw !important;
+    height: calc(100vh - 80px) !important;
+    height: calc(100dvh - 80px) !important;
+    max-height: calc(100vh - 80px) !important;
     z-index: 2100 !important;
     background: transparent !important;
     padding: 0 !important;
