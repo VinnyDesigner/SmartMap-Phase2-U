@@ -6581,10 +6581,17 @@ input:checked+.slider:before {
     align-items: center !important;
   }
 
-  /* Show 3 chips stretching across exact search bar width */
-  .landing-chip-btn {
-    flex: 1 !important;
+  /* Default collapsed view on mobile: Show Education (1), Healthcare (2), and 12 More (5). Hide 3rd & 4th */
+  .landing-chips-wrapper:not(.mobile-drag-active) .landing-chip-btn:nth-child(3),
+  .landing-chips-wrapper:not(.mobile-drag-active) .landing-chip-btn:nth-child(4) {
+    display: none !important;
+  }
+
+  .landing-chips-wrapper:not(.mobile-drag-active) .landing-chip-btn:nth-child(1),
+  .landing-chips-wrapper:not(.mobile-drag-active) .landing-chip-btn:nth-child(2),
+  .landing-chips-wrapper:not(.mobile-drag-active) .landing-chip-btn:nth-child(5) {
     display: flex !important;
+    flex: 1 !important;
     justify-content: center !important;
     align-items: center !important;
     gap: 4px !important;
@@ -6595,12 +6602,36 @@ input:checked+.slider:before {
     text-align: center !important;
   }
 
-  .landing-chip-btn:nth-child(n+4) {
+  /* Mobile Drag Mode: horizontally scrollable/draggable row for all chips */
+  .landing-chips-wrapper.mobile-drag-active {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    justify-content: flex-start !important;
+    width: 100% !important;
+    padding: 2px 0 !important;
+    gap: 6px !important;
+    touch-action: pan-x !important;
+  }
+
+  .landing-chips-wrapper.mobile-drag-active::-webkit-scrollbar {
     display: none !important;
   }
 
-  .landing-chip-toggle-btn {
-    display: none !important;
+  .landing-chips-wrapper.mobile-drag-active .landing-chip-btn {
+    display: flex !important;
+    flex: 0 0 auto !important;
+    font-size: 10.5px !important;
+    padding: 5px 10px !important;
+    white-space: nowrap !important;
+    border-radius: 8px !important;
+  }
+
+  .landing-chips-wrapper.mobile-drag-active .landing-chip-toggle-btn {
+    display: flex !important;
+    flex: 0 0 auto !important;
   }
 
   /* Stepper dots */
