@@ -1595,8 +1595,8 @@ function App() {
                   cursor: 'pointer'
                 }}
               >
-                <GeoVisionGradientIcon src={categorySvg} size={13} alt="Categories" />
                 <span>{t.allCategories}</span>
+                <GeoVisionGradientIcon src={categorySvg} size={13} alt="Categories" />
               </button>
             </div>
           )}
@@ -1758,7 +1758,7 @@ function App() {
                 <GeoVisionGradientIcon src={homeSvg} size={16} alt="Home" />
               </button>
               <div
-                className="map-glass-pill-btn"
+                className="map-glass-pill-static"
                 title="Coordinates"
                 style={{
                   display: 'flex',
@@ -1808,13 +1808,12 @@ function App() {
                   >
                     {isCopiedCoords ? <Check size={15} /> : <Copy size={15} />}
                   </button>
-                  <ChevronDown size={15} style={{ color: '#475569', cursor: 'pointer' }} />
                 </div>
               </div>
 
               {/* GRAPHIC GIS SCALE BAR PILL */}
               <div
-                className="map-glass-pill-btn"
+                className="map-glass-pill-static"
                 title="Scale Bar"
                 style={{
                   display: 'flex',
