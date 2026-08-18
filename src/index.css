@@ -6437,7 +6437,7 @@ input:checked+.slider:before {
     align-items: center !important;
     justify-content: center !important;
     width: 100% !important;
-    padding: 12px 16px 24px 16px !important;
+    padding: 12px 14px 20px 14px !important;
     margin: 0 auto !important;
     text-align: center !important;
     box-sizing: border-box !important;
@@ -6480,22 +6480,23 @@ input:checked+.slider:before {
     text-align: center !important;
   }
 
-  /* 3. Reduce search bar card wrapper width & maintain padding accordingly */
+  /* 1. Increased card width with 16px left & right margins */
   .landing-search-card-wrapper {
-    width: 92% !important;
-    max-width: 340px !important;
+    width: calc(100% - 32px) !important;
+    max-width: 100% !important;
     padding: 0 !important;
     box-sizing: border-box !important;
-    margin: 0 auto 16px auto !important;
+    margin: 0 16px 16px 16px !important;
   }
 
-  /* 1. Maintain symmetric top, bottom, left, and right padding (20px 18px 20px 18px) */
+  /* 1. Symmetric top, bottom, left, and right padding (22px 18px 22px 18px) */
   .landing-search-card {
     width: 100% !important;
     max-width: 100% !important;
-    padding: 20px 18px 20px 18px !important;
+    padding: 22px 18px 22px 18px !important;
     display: flex !important;
     flex-direction: column !important;
+    align-items: center !important;
     gap: 8px !important;
     clip-path: polygon(4.375% 3.53%, 30% 3.53%, 31.875% 8.24%, 68.125% 8.24%, 70% 3.53%, 95.625% 3.53%, 99.25% 20.59%, 99.25% 79.41%, 95.625% 96.47%, 70% 96.47%, 68.125% 91.76%, 31.875% 91.76%, 30% 96.47%, 4.375% 96.47%, 0.75% 79.41%, 0.75% 20.59%) !important;
     box-shadow: 0 25px 60px rgba(0, 43, 91, 0.20), 0 0 35px rgba(56, 189, 248, 0.30) !important;
@@ -6515,9 +6516,10 @@ input:checked+.slider:before {
     display: none !important;
   }
 
-  /* Reduced width 44px search bar container */
+  /* 4. Reduced search bar container width with 44px height & internal inset padding */
   .landing-search-container {
-    width: 100% !important;
+    width: 94% !important;
+    max-width: 100% !important;
     height: 44px !important;
     min-height: 44px !important;
     max-height: 44px !important;
@@ -6554,13 +6556,14 @@ input:checked+.slider:before {
     border-radius: 8px !important;
   }
 
-  /* 2. Only show 2-3 chips below the search bar */
+  /* 2 & 3. Display 2-3 chips & stepper dots below search bar */
   .landing-chips-container {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     width: 100% !important;
     margin-top: 4px !important;
+    gap: 6px !important;
   }
 
   .landing-chips-wrapper {
@@ -6574,7 +6577,7 @@ input:checked+.slider:before {
     align-items: center !important;
   }
 
-  /* Show only the first 3 chips on mobile */
+  /* 2. Show only the first 3 chips on mobile */
   .landing-chip-btn {
     flex: 0 1 auto !important;
     font-size: 10.5px !important;
@@ -6591,8 +6594,21 @@ input:checked+.slider:before {
     display: none !important;
   }
 
+  /* 3. Keep the stepper dots */
   .landing-chips-stepper {
-    display: none !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 6px !important;
+    margin-top: 4px !important;
+    margin-bottom: 0 !important;
+  }
+
+  .stepper-dot {
+    display: inline-block !important;
+    width: 6px !important;
+    height: 6px !important;
+    border-radius: 50% !important;
   }
 
   .landing-explore-btn-wrapper {
@@ -6634,11 +6650,11 @@ input:checked+.slider:before {
   }
 
   .landing-search-card {
-    padding: 18px 10px 14px !important;
+    padding: 20px 14px 20px 14px !important;
   }
 
   .landing-chip-btn {
-    font-size: 10.5px !important;
-    padding: 4px 8px !important;
+    font-size: 10px !important;
+    padding: 4px 6px !important;
   }
 }
