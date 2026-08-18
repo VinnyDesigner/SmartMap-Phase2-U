@@ -6383,7 +6383,8 @@ input:checked+.slider:before {
   }
 
   .landing-search-card {
-    padding: 26px 20px 22px !important;
+    padding: 28px 20px 24px !important;
+    clip-path: polygon(4.375% 3.53%, 30% 3.53%, 31.875% 8.24%, 68.125% 8.24%, 70% 3.53%, 95.625% 3.53%, 99.25% 20.59%, 99.25% 79.41%, 95.625% 96.47%, 70% 96.47%, 68.125% 91.76%, 31.875% 91.76%, 30% 96.47%, 4.375% 96.47%, 0.75% 79.41%, 0.75% 20.59%) !important;
   }
 
   .tech-card-border-container {
@@ -6400,7 +6401,7 @@ input:checked+.slider:before {
   }
 }
 
-/* MOBILE RESPONSIVE (max-width: 767px) - Matches Mobile Mockup */
+/* MOBILE RESPONSIVE (max-width: 767px) - Matches Mobile Mockup & Exact Desktop Card Shape */
 @media (max-width: 767px) {
   .landing-header {
     padding: 8px 14px !important;
@@ -6451,15 +6452,17 @@ input:checked+.slider:before {
   .landing-search-card-wrapper {
     width: 100% !important;
     max-width: 100% !important;
-    padding: 0 8px !important;
+    padding: 0 6px !important;
     box-sizing: border-box !important;
     margin-bottom: 18px !important;
   }
 
+  /* Exact Desktop Card Polygon Shape applied to Mobile */
   .landing-search-card {
-    padding: 18px 12px 16px !important;
+    padding: 24px 14px 20px !important;
     gap: 12px !important;
-    clip-path: polygon(3% 0%, 97% 0%, 100% 4%, 100% 96%, 97% 100%, 3% 100%, 0% 96%, 0% 4%) !important;
+    clip-path: polygon(4.375% 3.53%, 30% 3.53%, 31.875% 8.24%, 68.125% 8.24%, 70% 3.53%, 95.625% 3.53%, 99.25% 20.59%, 99.25% 79.41%, 95.625% 96.47%, 70% 96.47%, 68.125% 91.76%, 31.875% 91.76%, 30% 96.47%, 4.375% 96.47%, 0.75% 79.41%, 0.75% 20.59%) !important;
+    box-shadow: 0 25px 60px rgba(0, 43, 91, 0.20), 0 0 35px rgba(56, 189, 248, 0.30) !important;
   }
 
   .tech-card-border-container {
@@ -6476,36 +6479,36 @@ input:checked+.slider:before {
   }
 
   .landing-search-container {
-    height: 50px !important;
+    height: 48px !important;
     padding: 0 8px 0 10px !important;
     border-radius: 14px !important;
   }
 
   .search-star-loader-wrapper {
-    width: 30px !important;
-    height: 30px !important;
+    width: 28px !important;
+    height: 28px !important;
     margin-right: 8px !important;
   }
 
   .landing-search-separator {
     margin-right: 8px !important;
-    height: 22px !important;
+    height: 20px !important;
   }
 
   .landing-search-input,
   .landing-search-input::placeholder {
-    font-size: 13.5px !important;
+    font-size: 13px !important;
   }
 
   .landing-voice-btn {
-    width: 30px !important;
-    height: 30px !important;
+    width: 28px !important;
+    height: 28px !important;
     margin-right: 4px !important;
   }
 
   .landing-send-btn {
-    width: 34px !important;
-    height: 34px !important;
+    width: 32px !important;
+    height: 32px !important;
     border-radius: 10px !important;
   }
 
@@ -6578,7 +6581,7 @@ input:checked+.slider:before {
   }
 
   .landing-search-card {
-    padding: 14px 8px 14px !important;
+    padding: 22px 10px 18px !important;
   }
 
   .landing-chip-btn {
