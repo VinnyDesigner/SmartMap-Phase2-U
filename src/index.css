@@ -1129,15 +1129,14 @@ input:checked+.slider:before {
   }
 }
 
-/* Mobile Header expands end-to-end full width across screen */
+/* Mobile Header maintains full-width tech depth shape and animated border flow */
 @media (max-width: 680px) {
   .landing-header::before {
-    clip-path: none !important;
-    border-bottom: 1.5px solid rgba(59, 130, 246, 0.25) !important;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 98% 100%, 70% 100%, 68.5% 84.375%, 31.5% 84.375%, 30% 100%, 2% 100%, 0% 75%) !important;
   }
 
   .header-bottom-border-container {
-    display: none !important;
+    display: block !important;
   }
 }
 
@@ -6415,7 +6414,7 @@ input:checked+.slider:before {
     width: 0 !important;
   }
 
-  /* Mobile Header expanded end to end (100% full width) */
+  /* Mobile Header expanded end to end (100% full width) with signature tech depth shape */
   .landing-header {
     width: 100% !important;
     left: 0 !important;
@@ -6428,19 +6427,35 @@ input:checked+.slider:before {
     display: flex !important;
     justify-content: space-between !important;
     align-items: center !important;
+    z-index: 2000 !important;
   }
 
   .landing-header::before {
-    clip-path: none !important;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 98% 100%, 70% 100%, 68.5% 84.375%, 31.5% 84.375%, 30% 100%, 2% 100%, 0% 75%) !important;
     width: 100% !important;
     left: 0 !important;
     right: 0 !important;
-    inset: 0 !important;
-    border-bottom: 1.5px solid rgba(59, 130, 246, 0.25) !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    position: absolute !important;
   }
 
   .header-bottom-border-container {
-    display: none !important;
+    display: block !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: 56px !important;
+    pointer-events: none !important;
+    z-index: 1001 !important;
+  }
+
+  .header-bottom-border-container svg {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
   }
 
   .landing-logo-left img {
