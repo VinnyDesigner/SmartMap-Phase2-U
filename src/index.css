@@ -6758,6 +6758,106 @@ input:checked+.slider:before {
   .map-ai-panel-container {
     padding: 16px 12px !important;
   }
+
+  /* 1. Mobile Map Controls & Reduced Floating Tabs (text 12px) */
+  .map-controls-top-left {
+    top: 62px !important;
+    left: 10px !important;
+    gap: 6px !important;
+  }
+
+  .map-controls-top-right {
+    top: 62px !important;
+    right: 10px !important;
+    gap: 6px !important;
+  }
+
+  .map-glass-icon-btn {
+    height: 32px !important;
+    width: 32px !important;
+    border-radius: 8px !important;
+  }
+
+  .map-glass-pill-btn,
+  .map-all-categories-btn,
+  .map-location-badge {
+    height: 32px !important;
+    padding: 0 10px !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    gap: 5px !important;
+  }
+
+  .map-all-categories-btn span,
+  .map-location-badge span {
+    font-size: 12px !important;
+    white-space: nowrap !important;
+  }
+
+  /* 2. Search History and Category Drawer Panels Mobile Responsive Fix */
+  .search-history-left-panel,
+  .categories-left-panel {
+    position: fixed !important;
+    top: 64px !important;
+    left: 10px !important;
+    right: 10px !important;
+    width: calc(100vw - 20px) !important;
+    min-width: calc(100vw - 20px) !important;
+    max-width: calc(100vw - 20px) !important;
+    height: calc(100vh - 84px) !important;
+    height: calc(100dvh - 84px) !important;
+    max-height: calc(100vh - 84px) !important;
+    z-index: 2100 !important;
+    padding: 14px 12px 14px 12px !important;
+    gap: 8px !important;
+    clip-path: none !important;
+    border-radius: 16px !important;
+  }
+
+  .search-history-title {
+    font-size: 13.5px !important;
+  }
+
+  .search-history-filter-input {
+    height: 34px !important;
+    font-size: 12px !important;
+    border-radius: 10px !important;
+  }
+
+  .search-history-card {
+    border-radius: 12px !important;
+    padding: 6px !important;
+  }
+
+  .search-history-item {
+    padding: 8px 10px !important;
+    font-size: 12px !important;
+  }
+
+  .search-history-item-text {
+    font-size: 12px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .categories-accordion-header {
+    height: 34px !important;
+    min-height: 34px !important;
+    padding: 0 10px !important;
+    font-size: 12px !important;
+  }
+
+  .categories-header-title span {
+    font-size: 12px !important;
+  }
+
+  .categories-subcat-item {
+    min-height: 28px !important;
+    padding: 4px 8px !important;
+    font-size: 11.5px !important;
+  }
 }
 
 /* EXTRA SMALL MOBILE (max-width: 420px) */
