@@ -6489,13 +6489,13 @@ input:checked+.slider:before {
     margin: 0 12px 14px 12px !important;
   }
 
-  /* Fixed mobile search card padding: remove desktop min-height (170px) and apply equal 16px padding on all sides */
+  /* Fixed mobile search card padding: 12px top and bottom padding */
   .landing-search-card {
     width: 100% !important;
     max-width: 100% !important;
     min-height: auto !important;
     height: auto !important;
-    padding: 16px 16px 16px 16px !important;
+    padding: 12px 16px 12px 16px !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
