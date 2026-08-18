@@ -6747,26 +6747,28 @@ input:checked+.slider:before {
     justify-content: center !important;
   }
 
-  /* Mobile AI Spatial Search & Sidebar Panels: 70% Screen Width & Viewport Height */
+  /* Mobile AI Spatial Search & Sidebar Panels: 70% Screen Width & Full Viewport Height */
   .landing-search-card-wrapper.map-ai-panel-wrapper,
   .map-ai-panel-wrapper,
   .search-history-left-panel,
   .categories-left-panel {
     position: fixed !important;
-    top: 64px !important;
+    top: 56px !important;
     left: 16px !important;
     right: auto !important;
-    bottom: 16px !important;
+    bottom: 12px !important;
     width: 70vw !important;
     min-width: 70vw !important;
     max-width: 70vw !important;
-    height: calc(100vh - 80px) !important;
-    height: calc(100dvh - 80px) !important;
-    max-height: calc(100vh - 80px) !important;
+    height: calc(100vh - 68px) !important;
+    height: calc(100dvh - 68px) !important;
+    max-height: calc(100vh - 68px) !important;
     z-index: 2100 !important;
     background: transparent !important;
     padding: 0 !important;
     box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
 
   .map-ai-panel-container.landing-search-card,
@@ -6775,6 +6777,9 @@ input:checked+.slider:before {
   .categories-left-panel {
     height: 100% !important;
     max-height: 100% !important;
+    min-height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(224, 242, 254, 0.35) 100%), url('/assets/panel_bg.png') no-repeat center center / cover !important;
     backdrop-filter: blur(24px) saturate(180%) !important;
     -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
@@ -6814,15 +6819,55 @@ input:checked+.slider:before {
     z-index: 1001 !important;
   }
 
+  /* Inner Card Containers Expansion to Fill Full Viewport Height */
+  .search-history-card {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: 100% !important;
+    overflow: hidden !important;
+    border-radius: 12px !important;
+    padding: 6px !important;
+  }
+
+  .search-history-list,
+  .drawer-accordion-list {
+    flex: 1 !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: 100% !important;
+    overflow-y: auto !important;
+  }
+
+  .map-ai-panel-main-grid,
+  .map-ai-panel-left-col {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: 100% !important;
+  }
+
+  .map-ai-panel-body {
+    flex: 1 !important;
+    height: 100% !important;
+    min-height: 0 !important;
+    max-height: 100% !important;
+    overflow-y: auto !important;
+  }
+
   /* 1. Mobile Map Controls & Reduced Floating Tabs (text 12px) */
   .map-controls-top-left {
-    top: 62px !important;
+    top: 58px !important;
     left: 16px !important;
     gap: 6px !important;
   }
 
   .map-controls-top-right {
-    top: 62px !important;
+    top: 58px !important;
     right: 16px !important;
     gap: 6px !important;
   }
@@ -6858,11 +6903,6 @@ input:checked+.slider:before {
     height: 34px !important;
     font-size: 12px !important;
     border-radius: 10px !important;
-  }
-
-  .search-history-card {
-    border-radius: 12px !important;
-    padding: 6px !important;
   }
 
   .search-history-item {
