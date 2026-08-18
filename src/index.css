@@ -6419,7 +6419,7 @@ input:checked+.slider:before {
     height: 28px !important;
   }
 
-  /* 1. Maintain symmetric hero padding & keep content vertically in center */
+  /* Maintain symmetric hero padding & keep content vertically in center */
   .hero-landing {
     min-height: 100vh !important;
     min-height: 100dvh !important;
@@ -6437,7 +6437,7 @@ input:checked+.slider:before {
     align-items: center !important;
     justify-content: center !important;
     width: 100% !important;
-    padding: 12px 14px 20px 14px !important;
+    padding: 12px 10px 20px 10px !important;
     margin: 0 auto !important;
     text-align: center !important;
     box-sizing: border-box !important;
@@ -6480,24 +6480,24 @@ input:checked+.slider:before {
     text-align: center !important;
   }
 
-  /* 1. Increased card width with 16px left & right margins */
+  /* 1. Increased search card width on mobile */
   .landing-search-card-wrapper {
-    width: calc(100% - 32px) !important;
+    width: calc(100% - 16px) !important;
     max-width: 100% !important;
     padding: 0 !important;
     box-sizing: border-box !important;
-    margin: 0 16px 16px 16px !important;
+    margin: 0 auto 16px auto !important;
   }
 
-  /* 1. Symmetric top, bottom, left, and right padding (22px 18px 22px 18px) */
+  /* 2. Reduced top & bottom padding; exact same padding on top and bottom (16px 14px 16px 14px) */
   .landing-search-card {
     width: 100% !important;
     max-width: 100% !important;
-    padding: 22px 18px 22px 18px !important;
+    padding: 16px 14px 16px 14px !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    gap: 8px !important;
+    gap: 6px !important;
     clip-path: polygon(4.375% 3.53%, 30% 3.53%, 31.875% 8.24%, 68.125% 8.24%, 70% 3.53%, 95.625% 3.53%, 99.25% 20.59%, 99.25% 79.41%, 95.625% 96.47%, 70% 96.47%, 68.125% 91.76%, 31.875% 91.76%, 30% 96.47%, 4.375% 96.47%, 0.75% 79.41%, 0.75% 20.59%) !important;
     box-shadow: 0 25px 60px rgba(0, 43, 91, 0.20), 0 0 35px rgba(56, 189, 248, 0.30) !important;
     box-sizing: border-box !important;
@@ -6516,9 +6516,9 @@ input:checked+.slider:before {
     display: none !important;
   }
 
-  /* 4. Reduced search bar container width with 44px height & internal inset padding */
+  /* Search bar container with 44px height */
   .landing-search-container {
-    width: 94% !important;
+    width: 96% !important;
     max-width: 100% !important;
     height: 44px !important;
     min-height: 44px !important;
@@ -6556,14 +6556,14 @@ input:checked+.slider:before {
     border-radius: 8px !important;
   }
 
-  /* 2 & 3. Display 2-3 chips & stepper dots below search bar */
+  /* 3. Make bottom chips total width equivalent to search bar width */
   .landing-chips-container {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    width: 100% !important;
-    margin-top: 4px !important;
-    gap: 6px !important;
+    width: 96% !important;
+    margin: 4px auto 0 auto !important;
+    gap: 4px !important;
   }
 
   .landing-chips-wrapper {
@@ -6573,17 +6573,28 @@ input:checked+.slider:before {
     gap: 6px !important;
     padding: 0 !important;
     width: 100% !important;
-    justify-content: center !important;
+    justify-content: space-between !important;
     align-items: center !important;
   }
 
-  /* 2. Show only the first 3 chips on mobile */
+  /* 3. Equal flex-grow distribution across the search bar width for 3 chips */
   .landing-chip-btn {
-    flex: 0 1 auto !important;
-    font-size: 10.5px !important;
-    padding: 4px 8px !important;
-    white-space: nowrap !important;
+    flex: 1 1 0px !important;
+    width: 0 !important;
+    font-size: 11px !important;
+    padding: 5px 4px !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 4px !important;
     border-radius: 8px !important;
+    text-align: center !important;
+  }
+
+  .landing-chip-btn span {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
   }
 
   .landing-chip-btn:nth-child(n+4) {
@@ -6594,7 +6605,7 @@ input:checked+.slider:before {
     display: none !important;
   }
 
-  /* 3. Keep the stepper dots */
+  /* Keep stepper dots centered */
   .landing-chips-stepper {
     display: flex !important;
     justify-content: center !important;
