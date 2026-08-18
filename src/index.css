@@ -6419,7 +6419,7 @@ input:checked+.slider:before {
     height: 28px !important;
   }
 
-  /* Maintain symmetric hero padding & keep content vertically in center */
+  /* Maintain vertical centering in hero landing */
   .hero-landing {
     min-height: 100vh !important;
     min-height: 100dvh !important;
@@ -6437,7 +6437,7 @@ input:checked+.slider:before {
     align-items: center !important;
     justify-content: center !important;
     width: 100% !important;
-    padding: 12px 10px 20px 10px !important;
+    padding: 12px 14px 20px 14px !important;
     margin: 0 auto !important;
     text-align: center !important;
     box-sizing: border-box !important;
@@ -6480,20 +6480,20 @@ input:checked+.slider:before {
     text-align: center !important;
   }
 
-  /* 1. Increased search card width on mobile */
+  /* 1. Increased search card wrapper width with 8px side margins */
   .landing-search-card-wrapper {
     width: calc(100% - 16px) !important;
     max-width: 100% !important;
     padding: 0 !important;
     box-sizing: border-box !important;
-    margin: 0 auto 16px auto !important;
+    margin: 0 8px 16px 8px !important;
   }
 
-  /* 2. Reduced top & bottom padding; exact same padding on top and bottom (16px 14px 16px 14px) */
+  /* 2. Top and bottom padding explicitly set to 12px */
   .landing-search-card {
     width: 100% !important;
     max-width: 100% !important;
-    padding: 16px 14px 16px 14px !important;
+    padding: 12px 14px 12px 14px !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
@@ -6516,7 +6516,7 @@ input:checked+.slider:before {
     display: none !important;
   }
 
-  /* Search bar container with 44px height */
+  /* 3 & 4. 44px Search bar container width matching chips width */
   .landing-search-container {
     width: 96% !important;
     max-width: 100% !important;
@@ -6556,7 +6556,7 @@ input:checked+.slider:before {
     border-radius: 8px !important;
   }
 
-  /* 3. Make bottom chips total width equivalent to search bar width */
+  /* 3. Bottom chips container matching exact search bar width (96%) */
   .landing-chips-container {
     display: flex !important;
     flex-direction: column !important;
@@ -6577,24 +6577,17 @@ input:checked+.slider:before {
     align-items: center !important;
   }
 
-  /* 3. Equal flex-grow distribution across the search bar width for 3 chips */
+  /* 3. 3 chips stretch to match exact width of search bar above */
   .landing-chip-btn {
     flex: 1 1 0px !important;
-    width: 0 !important;
-    font-size: 11px !important;
-    padding: 5px 4px !important;
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
-    gap: 4px !important;
+    font-size: 10.5px !important;
+    padding: 4px 4px !important;
+    white-space: nowrap !important;
     border-radius: 8px !important;
     text-align: center !important;
-  }
-
-  .landing-chip-btn span {
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
   }
 
   .landing-chip-btn:nth-child(n+4) {
@@ -6605,7 +6598,7 @@ input:checked+.slider:before {
     display: none !important;
   }
 
-  /* Keep stepper dots centered */
+  /* Stepper dots */
   .landing-chips-stepper {
     display: flex !important;
     justify-content: center !important;
@@ -6661,11 +6654,11 @@ input:checked+.slider:before {
   }
 
   .landing-search-card {
-    padding: 20px 14px 20px 14px !important;
+    padding: 12px 10px 12px 10px !important;
   }
 
   .landing-chip-btn {
     font-size: 10px !important;
-    padding: 4px 6px !important;
+    padding: 4px 2px !important;
   }
 }
