@@ -6469,23 +6469,25 @@ input:checked+.slider:before {
   }
 
   .landing-logo-left img {
-    height: 26px !important;
-    max-width: 120px !important;
+    height: 29px !important;
+    max-width: 135px !important;
     object-fit: contain !important;
   }
 
-  /* Center hamburger icon on mobile */
+  /* Center hamburger icon on mobile - reduced size by 20% */
   .landing-hamburger-btn {
     display: flex !important;
     position: absolute !important;
     left: 50% !important;
     top: 50% !important;
-    transform: translate(-50%, -50%) !important;
+    transform: translate(-50%, -50%) scale(0.8) !important;
     z-index: 2002 !important;
     margin: 0 !important;
+    padding: 5px !important;
+    border-radius: 8px !important;
   }
 
-  /* Right logo on mobile */
+  /* Right logo on mobile - increased size by 10% */
   .mobile-only-logo {
     display: flex !important;
     align-items: center !important;
@@ -6494,8 +6496,8 @@ input:checked+.slider:before {
   }
 
   .mobile-only-logo img {
-    height: 28px !important;
-    max-width: 110px !important;
+    height: 31px !important;
+    max-width: 125px !important;
     object-fit: contain !important;
   }
 
