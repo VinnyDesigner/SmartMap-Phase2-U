@@ -1176,6 +1176,10 @@ input:checked+.slider:before {
   text-decoration: none;
 }
 
+.mobile-only-logo {
+  display: none;
+}
+
 .landing-logo-text {
   display: flex;
   flex-direction: column;
@@ -6414,13 +6418,13 @@ input:checked+.slider:before {
     width: 0 !important;
   }
 
-  /* Mobile Header expanded end to end (100% full width) with signature tech depth shape */
+  /* Mobile Header: Left logo on left, hamburger in center, right logo on right */
   .landing-header {
     width: 100% !important;
     left: 0 !important;
     right: 0 !important;
     top: 0 !important;
-    padding: 8px 16px !important;
+    padding: 8px 14px !important;
     height: 56px !important;
     position: absolute !important;
     box-sizing: border-box !important;
@@ -6458,8 +6462,41 @@ input:checked+.slider:before {
     display: block !important;
   }
 
+  .landing-logo-left {
+    display: flex !important;
+    align-items: center !important;
+    z-index: 2002 !important;
+  }
+
   .landing-logo-left img {
+    height: 26px !important;
+    max-width: 120px !important;
+    object-fit: contain !important;
+  }
+
+  /* Center hamburger icon on mobile */
+  .landing-hamburger-btn {
+    display: flex !important;
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    z-index: 2002 !important;
+    margin: 0 !important;
+  }
+
+  /* Right logo on mobile */
+  .mobile-only-logo {
+    display: flex !important;
+    align-items: center !important;
+    z-index: 2002 !important;
+    text-decoration: none !important;
+  }
+
+  .mobile-only-logo img {
     height: 28px !important;
+    max-width: 110px !important;
+    object-fit: contain !important;
   }
 
   /* Maintain hero vertical centering */

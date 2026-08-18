@@ -143,7 +143,7 @@ export default function CommonHeader({
         </div>
       </div>
 
-      {/* Hamburger Toggle Button for Tablet & Mobile (matching attached design) */}
+      {/* Hamburger Toggle Button for Tablet & Mobile */}
       <button 
         className="landing-hamburger-btn mobile-tablet-only-btn" 
         onClick={() => setIsMobileMenuOpen(prev => !prev)}
@@ -151,6 +151,11 @@ export default function CommonHeader({
       >
         {isMobileMenuOpen ? <X size={22} style={{ color: '#063360' }} /> : <Menu size={22} style={{ color: '#063360' }} />}
       </button>
+
+      {/* Right Logo for Mobile */}
+      <a href="#" className="landing-logo-right mobile-only-logo" onClick={(e) => { e.preventDefault(); setShowMap(false); }}>
+        <img src={rightLogo} alt="Abu Dhabi Spatial Data" style={{ height: '28px', objectFit: 'contain' }} />
+      </a>
 
       {/* Glassmorphic Mobile/Tablet Navigation Drawer */}
       {isMobileMenuOpen && (
