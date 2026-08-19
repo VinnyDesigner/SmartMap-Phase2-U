@@ -7231,11 +7231,11 @@ input:checked+.slider:before {
     box-sizing: border-box !important;
   }
 
-  /* Mobile Draw Tool Popover: Aligned with Draw Icon button, 2x3 matrix, reduced sizes & 10% lower opacity */
+  /* Mobile Draw Tool Popover: Aligned with top Draw Pencil Icon button, 2x3 matrix, reduced sizes & 10% lower opacity */
   .map-popover-card.draw-popover-card {
     position: fixed !important;
     left: 58px !important;
-    bottom: max(62px, calc(env(safe-area-inset-bottom, 0px) + 62px)) !important;
+    bottom: max(168px, calc(env(safe-area-inset-bottom, 0px) + 168px)) !important;
     top: auto !important;
     right: auto !important;
     width: 215px !important;
