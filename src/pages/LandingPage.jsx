@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import mobileHomeBg from '../assets/mobile_home_bg.png';
+import homeBg from '../assets/home_bg.png';
 import { ArrowUp, GraduationCap, Heart, Car, Trees, LayoutGrid, Plus, Map, Info, Brain, Send, ChevronLeft, ChevronRight, Zap, Compass, Trophy, Leaf, HardHat, Home, ShieldCheck, Sun, Hammer, Flame, Sprout, Briefcase } from 'lucide-react';
 import FourPointStar from '../components/FourPointStar.jsx';
 import CommonHeader from '../components/CommonHeader.jsx';
@@ -40,7 +42,7 @@ export default function LandingPage({
   const [isMobileDragActive, setIsMobileDragActive] = useState(false);
 
   return (
-    <div className="hero-landing">
+    <div className="hero-landing" style={{ '--mobile-bg-img': `url(${mobileHomeBg})`, '--desktop-bg-img': `url(${homeBg})` }}>
 
       <div className="hero-overlay" />
 
