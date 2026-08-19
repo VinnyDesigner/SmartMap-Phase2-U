@@ -6851,22 +6851,20 @@ input:checked+.slider:before {
     justify-content: center !important;
   }
 
-  /* Mobile AI Spatial Search & Sidebar Panels: Top aligned with Location chip (68px), Bottom aligned with bottom CTA (20px) */
+  /* Mobile AI Spatial Search & Sidebar Panels: Top aligned with Location chip, Bottom aligned with GeoVision AI button */
   .search-history-left-panel,
   .categories-left-panel,
   .collections-left-panel {
     position: fixed !important;
-    top: 68px !important;
-    left: 14px !important;
+    top: max(62px, calc(env(safe-area-inset-top, 0px) + 60px)) !important;
+    bottom: max(16px, env(safe-area-inset-bottom, 16px)) !important;
+    left: 12px !important;
     right: auto !important;
-    bottom: 20px !important;
     width: 70vw !important;
     min-width: 70vw !important;
     max-width: 70vw !important;
-    height: calc(100vh - 88px) !important;
-    height: calc(100dvh - 88px) !important;
-    max-height: calc(100vh - 88px) !important;
-    max-height: calc(100dvh - 88px) !important;
+    height: auto !important;
+    max-height: calc(100dvh - max(62px, calc(env(safe-area-inset-top, 0px) + 60px)) - max(16px, env(safe-area-inset-bottom, 16px))) !important;
     z-index: 2100 !important;
     background: transparent !important;
     padding: 0 !important;
@@ -7273,9 +7271,9 @@ input:checked+.slider:before {
   .search-history-left-panel,
   .categories-left-panel,
   .collections-left-panel {
-    width: 82vw !important;
-    min-width: 82vw !important;
-    max-width: 82vw !important;
+    width: 70vw !important;
+    min-width: 70vw !important;
+    max-width: 70vw !important;
   }
 
   .landing-search-card-wrapper.map-ai-panel-wrapper,
