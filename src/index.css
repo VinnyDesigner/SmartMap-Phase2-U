@@ -6550,16 +6550,16 @@ input:checked+.slider:before {
     border-radius: 10px !important;
   }
 
-  /* Tablet Homepage Background Overlay Opacity (10%) */
+  /* Tablet Homepage Background */
   .hero-landing {
-    background: linear-gradient(180deg, rgba(1, 30, 61, 0.08) 0%, rgba(2, 10, 25, 0.10) 100%), url('/assets/mobile_home_bg.png') no-repeat center center / cover !important;
+    background: #011E3D url('/assets/mobile_home_bg.png') no-repeat center center / cover !important;
   }
 
   .hero-overlay {
     position: absolute !important;
     inset: 0 !important;
-    background: radial-gradient(circle at 50% 40%, rgba(14, 165, 233, 0.04) 0%, rgba(1, 15, 35, 0.08) 100%) !important;
-    opacity: 0.10 !important;
+    background: radial-gradient(circle at 50% 40%, rgba(14, 165, 233, 0.15) 0%, rgba(1, 15, 35, 0.40) 100%) !important;
+    opacity: 0.60 !important;
     z-index: 1 !important;
     pointer-events: none !important;
   }
@@ -6696,23 +6696,28 @@ input:checked+.slider:before {
     object-fit: contain !important;
   }
 
-  /* Maintain hero vertical centering & set Mobile Home Page Background with 10% Overlay */
+  /* Maintain hero vertical centering & set Mobile Home Page Background with Opaque Base */
   .hero-landing {
-    min-height: 100vh !important;
-    min-height: 100dvh !important;
-    background: linear-gradient(180deg, rgba(1, 30, 61, 0.08) 0%, rgba(2, 10, 25, 0.10) 100%), url('/assets/mobile_home_bg.png') no-repeat center center / cover !important;
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    z-index: 100 !important;
+    background: #011E3D url('/assets/mobile_home_bg.png') no-repeat center center / cover !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
     padding: 0 !important;
     box-sizing: border-box !important;
+    overflow-y: auto !important;
   }
 
   .hero-overlay {
     position: absolute !important;
     inset: 0 !important;
-    background: radial-gradient(circle at 50% 40%, rgba(14, 165, 233, 0.04) 0%, rgba(1, 15, 35, 0.08) 100%) !important;
-    opacity: 0.10 !important;
+    background: radial-gradient(circle at 50% 40%, rgba(14, 165, 233, 0.15) 0%, rgba(1, 15, 35, 0.40) 100%) !important;
+    opacity: 0.60 !important;
     z-index: 1 !important;
     pointer-events: none !important;
   }
