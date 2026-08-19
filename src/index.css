@@ -1267,73 +1267,6 @@ input:checked+.slider:before {
   gap: 14px;
 }
 
-/* Desktop Header Right Controls Alignment: Keep controls strictly right-aligned without overlapping center nav */
-@media (min-width: 776px) {
-  .landing-header {
-    direction: ltr !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    width: 100% !important;
-    height: 64px !important;
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    padding: 8px 24px !important;
-    box-sizing: border-box !important;
-  }
-
-  .landing-logo-left {
-    margin-right: auto !important;
-    margin-left: 0 !important;
-    flex-shrink: 0 !important;
-  }
-
-  .landing-nav-center {
-    position: absolute !important;
-    left: 50% !important;
-    top: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    z-index: 10 !important;
-    margin: 0 !important;
-    pointer-events: auto !important;
-  }
-
-  .landing-controls-right {
-    direction: ltr !important;
-    margin-left: auto !important;
-    margin-right: 0 !important;
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    justify-content: flex-end !important;
-    gap: 12px !important;
-    z-index: 20 !important;
-    flex-shrink: 0 !important;
-  }
-
-  [dir="rtl"] .landing-header,
-  html[lang="ar"] .landing-header {
-    direction: ltr !important;
-  }
-
-  [dir="rtl"] .landing-controls-right,
-  html[lang="ar"] .landing-controls-right {
-    direction: ltr !important;
-    margin-left: auto !important;
-    margin-right: 0 !important;
-    justify-content: flex-end !important;
-  }
-
-  [dir="rtl"] .landing-nav-center,
-  html[lang="ar"] .landing-nav-center {
-    left: 50% !important;
-    right: auto !important;
-    transform: translate(-50%, -50%) !important;
-  }
-}
-
 .landing-btn-categories,
 .landing-lang-btn,
 .landing-icon-control {
@@ -6550,16 +6483,16 @@ input:checked+.slider:before {
     border-radius: 10px !important;
   }
 
-  /* Tablet Homepage Background */
+  /* Tablet Homepage Background Overlay Opacity (10%) */
   .hero-landing {
-    background: #011E3D url('/assets/mobile_home_bg.png') no-repeat center center / cover !important;
+    background: linear-gradient(180deg, rgba(1, 30, 61, 0.08) 0%, rgba(2, 10, 25, 0.10) 100%), url('/assets/mobile_home_bg.png') no-repeat center center / cover !important;
   }
 
   .hero-overlay {
     position: absolute !important;
     inset: 0 !important;
-    background: radial-gradient(circle at 50% 40%, rgba(14, 165, 233, 0.15) 0%, rgba(1, 15, 35, 0.40) 100%) !important;
-    opacity: 0.60 !important;
+    background: radial-gradient(circle at 50% 40%, rgba(14, 165, 233, 0.04) 0%, rgba(1, 15, 35, 0.08) 100%) !important;
+    opacity: 0.10 !important;
     z-index: 1 !important;
     pointer-events: none !important;
   }
@@ -6696,28 +6629,23 @@ input:checked+.slider:before {
     object-fit: contain !important;
   }
 
-  /* Maintain hero vertical centering & set Mobile Home Page Background with Opaque Base */
+  /* Maintain hero vertical centering & set Mobile Home Page Background with 10% Overlay */
   .hero-landing {
-    position: fixed !important;
-    inset: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    height: 100dvh !important;
-    z-index: 100 !important;
-    background: #011E3D url('/assets/mobile_home_bg.png') no-repeat center center / cover !important;
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+    background: linear-gradient(180deg, rgba(1, 30, 61, 0.08) 0%, rgba(2, 10, 25, 0.10) 100%), url('/assets/mobile_home_bg.png') no-repeat center center / cover !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
     padding: 0 !important;
     box-sizing: border-box !important;
-    overflow-y: auto !important;
   }
 
   .hero-overlay {
     position: absolute !important;
     inset: 0 !important;
-    background: radial-gradient(circle at 50% 40%, rgba(14, 165, 233, 0.15) 0%, rgba(1, 15, 35, 0.40) 100%) !important;
-    opacity: 0.60 !important;
+    background: radial-gradient(circle at 50% 40%, rgba(14, 165, 233, 0.04) 0%, rgba(1, 15, 35, 0.08) 100%) !important;
+    opacity: 0.10 !important;
     z-index: 1 !important;
     pointer-events: none !important;
   }
@@ -6729,33 +6657,33 @@ input:checked+.slider:before {
     align-items: center !important;
     justify-content: center !important;
     width: 100% !important;
-    padding: 10px 12px 18px 12px !important;
-    margin: 0 auto !important;
-    transform: none !important;
+    padding: 0 12px 18px 12px !important;
+    margin: -20px auto 0 auto !important;
+    transform: translateY(-20px) !important;
     text-align: center !important;
     box-sizing: border-box !important;
   }
 
   h1.landing-main-title {
-    font-size: 28px !important;
-    font-weight: 700 !important;
-    letter-spacing: -0.5px !important;
+    font-size: 38px !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.8px !important;
     text-align: center !important;
-    margin: 0 auto 4px auto !important;
+    margin: 0 auto 6px auto !important;
   }
 
   .sparkle-decor-1 {
-    right: -18px !important;
-    top: -4px !important;
-    width: 20px !important;
-    height: 20px !important;
+    right: -24px !important;
+    top: -14px !important;
+    width: 22px !important;
+    height: 22px !important;
   }
 
   .sparkle-decor-2 {
-    right: -26px !important;
-    top: 18px !important;
-    width: 14px !important;
-    height: 14px !important;
+    right: -34px !important;
+    top: 6px !important;
+    width: 15px !important;
+    height: 15px !important;
   }
 
   /* 2. Subtitle text kept strictly in ONE line on mobile */
