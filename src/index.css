@@ -7284,6 +7284,60 @@ input:checked+.slider:before {
     white-space: nowrap !important;
   }
 
+  /* Mobile Basemap Tool Popover: Aligned with Basemap Icon button, compact 2-column matrix & 10% lower opacity */
+  .basemap-grid-popover {
+    position: fixed !important;
+    left: 58px !important;
+    bottom: max(122px, calc(env(safe-area-inset-bottom, 0px) + 122px)) !important;
+    top: auto !important;
+    right: auto !important;
+    width: 215px !important;
+    min-width: 215px !important;
+    max-width: calc(100vw - 72px) !important;
+    padding: 8px 10px !important;
+    background: rgba(240, 248, 255, 0.55) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border: 1.5px solid rgba(255, 255, 255, 0.70) !important;
+    box-shadow: 0 8px 24px rgba(2, 132, 199, 0.15), inset 0 1px 2px rgba(255, 255, 255, 0.85) !important;
+    border-radius: 12px !important;
+    z-index: 2200 !important;
+  }
+
+  .basemap-grid-popover .popover-header {
+    margin-bottom: 6px !important;
+    padding-bottom: 4px !important;
+  }
+
+  .basemap-grid-popover .popover-header h3 {
+    font-size: 11.5px !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+  }
+
+  .basemap-grid-popover .basemap-grid-2col {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 6px !important;
+    width: 100% !important;
+  }
+
+  .basemap-grid-popover .basemap-card-2col {
+    padding: 4px !important;
+    border-radius: 8px !important;
+  }
+
+  .basemap-grid-popover .basemap-card-img {
+    height: 44px !important;
+    border-radius: 6px !important;
+    object-fit: cover !important;
+  }
+
+  .basemap-grid-popover .basemap-card-title {
+    font-size: 9.5px !important;
+    margin-top: 3px !important;
+  }
+
   /* Compact Horizontal Arm at Bottom Left */
   .map-controls-horizontal-arm {
     display: flex !important;
