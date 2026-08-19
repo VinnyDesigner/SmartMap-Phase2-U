@@ -1595,7 +1595,7 @@ function App() {
                   cursor: 'pointer'
                 }}
               >
-                <span>{t.allCategories}</span>
+                <span className="map-all-categories-text">{t.allCategories}</span>
                 <GeoVisionGradientIcon src={categorySvg} size={13} alt="Categories" />
               </button>
             </div>
