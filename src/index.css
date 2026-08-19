@@ -7030,34 +7030,70 @@ input:checked+.slider:before {
     flex-shrink: 0 !important;
   }
 
-  /* 1. Mobile Map Controls & Reduced Floating Tabs (text 11px) - 58px Gap Below Header */
+  /* 1. Mobile Top Map Controls: Uniform 32px Height for Collapse Icon, All Categories & Abu Dhabi Badge */
   .map-controls-top-left {
-    top: max(58px, calc(env(safe-area-inset-top, 0px) + 56px)) !important;
-    left: 10px !important;
-    gap: 4px !important;
+    top: max(62px, calc(env(safe-area-inset-top, 0px) + 60px)) !important;
+    left: 12px !important;
+    gap: 6px !important;
+    align-items: center !important;
   }
 
   .map-controls-top-right {
-    top: max(58px, calc(env(safe-area-inset-top, 0px) + 56px)) !important;
-    right: 10px !important;
-    gap: 4px !important;
+    top: max(62px, calc(env(safe-area-inset-top, 0px) + 60px)) !important;
+    right: 12px !important;
+    gap: 6px !important;
+    align-items: center !important;
+  }
+
+  .map-controls-top-left .map-glass-icon-btn {
+    height: 32px !important;
+    width: 32px !important;
+    min-height: 32px !important;
+    min-width: 32px !important;
+    max-height: 32px !important;
+    max-width: 32px !important;
+    border-radius: 8px !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+  }
+
+  .map-controls-top-left .map-glass-icon-btn svg {
+    width: 15px !important;
+    height: 15px !important;
   }
 
   .map-glass-pill-btn,
   .map-all-categories-btn,
   .map-location-badge {
-    height: 26px !important;
-    padding: 0 7px !important;
-    font-size: 11px !important;
+    height: 32px !important;
+    min-height: 32px !important;
+    max-height: 32px !important;
+    padding: 0 10px !important;
+    font-size: 12px !important;
     font-weight: 600 !important;
-    border-radius: 6px !important;
-    gap: 4px !important;
+    border-radius: 8px !important;
+    gap: 6px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
   }
 
   .map-all-categories-btn span,
   .map-location-badge span {
-    font-size: 11px !important;
+    font-size: 12px !important;
     white-space: nowrap !important;
+  }
+
+  .map-all-categories-btn img,
+  .map-all-categories-btn svg,
+  .map-location-badge img,
+  .map-location-badge svg {
+    width: 14px !important;
+    height: 14px !important;
   }
 
   /* Mobile Bottom-Left Vertical Stacking: Ultra-compact 26px tool sizing & 16px bottom safe area so entire strip fits inside real mobile viewports */
