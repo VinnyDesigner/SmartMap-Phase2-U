@@ -1919,7 +1919,7 @@ function App() {
           )}
 
           {activeLeftPopover === 'draw' && (
-            <div ref={leftPopoverRef} className="map-popover-card" style={{ bottom: '70px', left: isSidebarOpen ? 'calc(15% + 82px)' : '62px' }}>
+            <div ref={leftPopoverRef} className="map-popover-card draw-popover-card" style={{ bottom: '70px', left: isSidebarOpen ? 'calc(15% + 82px)' : '62px' }}>
               <div className="popover-grid">
                 <button
                   className={`popover-tile ${activeDrawTool === 'circle' ? 'active' : ''}`}
