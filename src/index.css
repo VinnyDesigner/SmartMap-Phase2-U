@@ -1003,6 +1003,14 @@ input:checked+.slider:before {
   font-family: var(--font-sans);
 }
 
+/* Mobile / Tablet background for Hero Landing (320px to 1024px) */
+@media (max-width: 1024px) {
+  .hero-landing {
+    background: #011E3D url('/assets/mobile_background.png') no-repeat center center !important;
+    background-size: cover !important;
+  }
+}
+
 /* Dark blue gradient overlay to dim the bright background image */
 .hero-overlay {
   position: absolute;
@@ -1262,9 +1270,15 @@ input:checked+.slider:before {
 }
 
 .landing-controls-right {
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
   align-items: center;
   gap: 14px;
+  direction: ltr !important;
+  z-index: 10;
 }
 
 .landing-btn-categories,
@@ -6629,31 +6643,15 @@ input:checked+.slider:before {
     object-fit: contain !important;
   }
 
-  /* Maintain hero vertical centering & set Mobile Home Page Background */
+  /* Maintain hero vertical centering & set Mobile Home Page Background with 10% Overlay */
   .hero-landing {
     min-height: 100vh !important;
     min-height: 100dvh !important;
-    background-color: #e0f2fe !important;
-    background-image: url('/assets/mobile_home_bg.png') !important;
-    background-repeat: no-repeat !important;
-    background-position: center center !important;
-    background-size: cover !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
     padding: 0 !important;
     box-sizing: border-box !important;
-  }
-
-  /* Explicit Mobile Viewport Range (320px to 558px): Background image override for .hero-landing */
-  @media (min-width: 320px) and (max-width: 558px) {
-    .hero-landing {
-      background-color: #e0f2fe !important;
-      background-image: url('/assets/mobile_home_bg.png') !important;
-      background-repeat: no-repeat !important;
-      background-position: center center !important;
-      background-size: cover !important;
-    }
   }
 
   .hero-overlay {
