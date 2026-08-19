@@ -7096,57 +7096,72 @@ input:checked+.slider:before {
     height: 14px !important;
   }
 
-  /* Mobile Bottom-Left Vertical Stacking: Ultra-compact 26px tool sizing & 16px bottom safe area so entire strip fits inside real mobile viewports */
+  /* Mobile Bottom-Left Map Tools: 40px x 40px Tool Buttons & Hidden Coordinates/Scale Pills on Mobile */
   .map-controls-left-strip {
     position: fixed !important;
     bottom: max(16px, env(safe-area-inset-bottom, 16px)) !important;
-    left: 10px !important;
+    left: 12px !important;
     top: auto !important;
-    gap: 3px !important;
-    max-height: calc(100dvh - 110px) !important;
+    gap: 6px !important;
     z-index: 1000 !important;
   }
 
-  /* Compact Tool Icon Buttons in Left Column */
+  /* 40px x 40px Tool Icon Buttons in Left Column & Bottom Icons Row */
   .map-controls-left-strip .map-glass-icon-btn,
-  .map-controls-left-strip .map-glass-segmented-wrapper,
   .map-controls-icons-row .map-glass-icon-btn {
-    width: 26px !important;
-    height: 26px !important;
-    min-width: 26px !important;
-    min-height: 26px !important;
-    max-width: 26px !important;
-    max-height: 26px !important;
-    border-radius: 6px !important;
-    padding: 3px !important;
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+    min-height: 40px !important;
+    max-width: 40px !important;
+    max-height: 40px !important;
+    border-radius: 10px !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     box-sizing: border-box !important;
+    flex-shrink: 0 !important;
   }
 
   .map-controls-left-strip .map-glass-segmented-wrapper {
-    height: 52px !important;
-    min-height: 52px !important;
-    max-height: 52px !important;
+    width: 40px !important;
+    height: 80px !important;
+    min-width: 40px !important;
+    min-height: 80px !important;
+    max-width: 40px !important;
+    max-height: 80px !important;
+    border-radius: 10px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 
   .map-controls-left-strip .map-glass-icon-btn-segmented {
-    width: 26px !important;
-    height: 26px !important;
-    min-width: 26px !important;
-    min-height: 26px !important;
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+    min-height: 40px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 
   .map-controls-left-strip svg,
-  .map-controls-icons-row svg {
-    width: 12px !important;
-    height: 12px !important;
+  .map-controls-icons-row svg,
+  .map-controls-left-strip img,
+  .map-controls-icons-row img {
+    width: 18px !important;
+    height: 18px !important;
   }
 
   /* Compact Horizontal Arm at Bottom Left */
   .map-controls-horizontal-arm {
     display: flex !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 2px !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 6px !important;
     margin: 0 !important;
     padding: 0 !important;
   }
@@ -7154,57 +7169,14 @@ input:checked+.slider:before {
   .map-controls-icons-row {
     display: flex !important;
     flex-direction: row !important;
-    gap: 3px !important;
+    gap: 6px !important;
     margin: 0 !important;
   }
 
-  /* Ultra-Compact Coordinates Pill */
-  .map-coordinates-pill {
-    height: 18px !important;
-    min-height: 18px !important;
-    max-height: 18px !important;
-    padding: 0 5px !important;
-    border-radius: 5px !important;
-    font-size: 8.5px !important;
-    line-height: 18px !important;
-    box-sizing: border-box !important;
-    gap: 3px !important;
-    margin: 0 !important;
-    max-width: calc(100vw - 120px) !important;
-  }
-
-  .map-coordinates-pill span,
-  .map-coordinates-pill button {
-    font-size: 8.5px !important;
-    line-height: 1 !important;
-  }
-
-  .map-coordinates-pill svg {
-    width: 9px !important;
-    height: 9px !important;
-  }
-
-  /* Ultra-Compact Scale Pill */
+  /* Hide Coordinates Pill & Scale Bar Pill on Mobile Viewports */
+  .map-coordinates-pill,
   .map-scale-pill {
-    height: 16px !important;
-    min-height: 16px !important;
-    max-height: 16px !important;
-    padding: 0 4px !important;
-    border-radius: 4px !important;
-    box-sizing: border-box !important;
-    margin: 0 !important;
-  }
-
-  .map-scale-pill svg {
-    width: 55px !important;
-    height: 5px !important;
-  }
-
-  .map-scale-pill>div>div {
-    width: 55px !important;
-    font-size: 6.5px !important;
-    line-height: 1 !important;
-    margin-top: 1px !important;
+    display: none !important;
   }
 
   /* Mobile GeoVision AI Assistant Floating CTA Button (Bottom Right) */
