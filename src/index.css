@@ -6584,7 +6584,15 @@ input:checked+.slider:before {
     object-fit: contain !important;
   }
 
-  /* Mobile Hamburger Icon: compact 28px x 28px size & positioned on the right side after left logo */
+  /* Mobile Right Group: Abu Dhabi Spatial Data Logo + Hamburger Icon immediately after */
+  .mobile-header-right-group {
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    z-index: 2002 !important;
+  }
+
+  /* Mobile Hamburger Icon: compact 28px x 28px size positioned right after Abu Dhabi Spatial Data logo */
   .landing-hamburger-btn {
     display: flex !important;
     align-items: center !important;
@@ -6603,8 +6611,8 @@ input:checked+.slider:before {
     padding: 0 !important;
     border-radius: 8px !important;
     z-index: 2002 !important;
-    margin-left: 6px !important;
-    margin-right: auto !important;
+    margin: 0 !important;
+    flex-shrink: 0 !important;
   }
 
   /* Right logo on mobile */
@@ -6617,7 +6625,7 @@ input:checked+.slider:before {
 
   .mobile-only-logo img {
     height: 31px !important;
-    max-width: 125px !important;
+    max-width: 120px !important;
     object-fit: contain !important;
   }
 
