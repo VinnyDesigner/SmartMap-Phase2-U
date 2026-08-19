@@ -6637,8 +6637,8 @@ input:checked+.slider:before {
   .hero-landing {
     min-height: 100vh !important;
     min-height: 100dvh !important;
-    background-color: #011E3D !important;
-    background-image: linear-gradient(180deg, rgba(1, 30, 61, 0.20) 0%, rgba(2, 10, 25, 0.25) 100%), var(--mobile-bg-img, url('/assets/mobile_home_bg.png')) !important;
+    background-color: #e0f2fe !important;
+    background-image: var(--mobile-bg-img, url('/assets/mobile_home_bg.png')) !important;
     background-repeat: no-repeat !important;
     background-position: center center !important;
     background-size: cover !important;
