@@ -6584,20 +6584,27 @@ input:checked+.slider:before {
     object-fit: contain !important;
   }
 
-  /* Center hamburger icon on mobile: reduced 20% & shifted 4px up */
+  /* Mobile Hamburger Icon: compact 28px x 28px size & positioned on the right side after left logo */
   .landing-hamburger-btn {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    position: absolute !important;
-    left: 50% !important;
-    top: calc(50% - 4px) !important;
-    transform: translate(-50%, -50%) !important;
-    width: 32px !important;
-    height: 32px !important;
-    padding: 4px !important;
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    transform: none !important;
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    min-height: 28px !important;
+    max-width: 28px !important;
+    max-height: 28px !important;
+    padding: 0 !important;
+    border-radius: 8px !important;
     z-index: 2002 !important;
-    margin: 0 !important;
+    margin-left: 6px !important;
+    margin-right: auto !important;
   }
 
   /* Right logo on mobile */

@@ -149,7 +149,7 @@ export default function CommonHeader({
         onClick={() => setIsMobileMenuOpen(prev => !prev)}
         aria-label="Toggle navigation menu"
       >
-        {isMobileMenuOpen ? <X size={18} style={{ color: '#063360' }} /> : <Menu size={18} style={{ color: '#063360' }} />}
+        {isMobileMenuOpen ? <X size={14} style={{ color: '#063360' }} /> : <Menu size={14} style={{ color: '#063360' }} />}
       </button>
 
       {/* Right Logo for Mobile */}
