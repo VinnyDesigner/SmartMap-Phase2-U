@@ -7028,7 +7028,7 @@ input:checked+.slider:before {
     flex-shrink: 0 !important;
   }
 
-  /* 1. Mobile Top Map Controls: Uniform 32px Height for Collapse Icon, All Categories & Abu Dhabi Badge */
+  /* 1. Mobile Top Map Controls: 40px Height for Collapse Icon, All Categories & Abu Dhabi Badge */
   .map-controls-top-left {
     top: max(62px, calc(env(safe-area-inset-top, 0px) + 60px)) !important;
     left: 12px !important;
@@ -7044,13 +7044,13 @@ input:checked+.slider:before {
   }
 
   .map-controls-top-left .map-glass-icon-btn {
-    height: 32px !important;
-    width: 32px !important;
-    min-height: 32px !important;
-    min-width: 32px !important;
-    max-height: 32px !important;
-    max-width: 32px !important;
-    border-radius: 8px !important;
+    height: 40px !important;
+    width: 40px !important;
+    min-height: 40px !important;
+    min-width: 40px !important;
+    max-height: 40px !important;
+    max-width: 40px !important;
+    border-radius: 10px !important;
     padding: 0 !important;
     display: flex !important;
     align-items: center !important;
@@ -7059,20 +7059,20 @@ input:checked+.slider:before {
   }
 
   .map-controls-top-left .map-glass-icon-btn svg {
-    width: 15px !important;
-    height: 15px !important;
+    width: 18px !important;
+    height: 18px !important;
   }
 
   .map-glass-pill-btn,
   .map-all-categories-btn,
   .map-location-badge {
-    height: 32px !important;
-    min-height: 32px !important;
-    max-height: 32px !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    max-height: 40px !important;
     padding: 0 10px !important;
-    font-size: 12px !important;
+    font-size: 11.5px !important;
     font-weight: 600 !important;
-    border-radius: 8px !important;
+    border-radius: 10px !important;
     gap: 6px !important;
     display: flex !important;
     align-items: center !important;
@@ -7080,9 +7080,22 @@ input:checked+.slider:before {
     box-sizing: border-box !important;
   }
 
-  .map-all-categories-btn span,
+  /* All Categories Text Container Dimension: Exact 60.13px * 15px */
+  .map-all-categories-btn span {
+    width: 60.13px !important;
+    height: 15px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 11.5px !important;
+    line-height: 15px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
   .map-location-badge span {
-    font-size: 12px !important;
+    font-size: 11.5px !important;
     white-space: nowrap !important;
   }
 
@@ -7154,6 +7167,23 @@ input:checked+.slider:before {
     height: 18px !important;
   }
 
+  /* Mobile Map Popover Cards (Basemap, Draw, Legend): Contained safely next to 40px left tools strip */
+  .map-popover-card,
+  .basemap-grid-popover {
+    position: fixed !important;
+    left: 58px !important;
+    bottom: max(16px, env(safe-area-inset-bottom, 16px)) !important;
+    top: auto !important;
+    right: auto !important;
+    width: min(260px, calc(100vw - 72px)) !important;
+    max-width: calc(100vw - 72px) !important;
+    max-height: calc(100dvh - 120px) !important;
+    overflow-y: auto !important;
+    z-index: 2200 !important;
+    border-radius: 14px !important;
+    box-sizing: border-box !important;
+  }
+
   /* Compact Horizontal Arm at Bottom Left */
   .map-controls-horizontal-arm {
     display: flex !important;
@@ -7177,34 +7207,39 @@ input:checked+.slider:before {
     display: none !important;
   }
 
-  /* Mobile GeoVision AI Assistant Floating CTA Button (Bottom Right) */
+  /* Mobile GeoVision AI Assistant Floating CTA Button (Bottom Right - Matching 40px Icon Height) */
   .geovision-ai-btn-wrapper {
     position: fixed !important;
     bottom: max(16px, env(safe-area-inset-bottom, 16px)) !important;
-    right: 10px !important;
+    right: 12px !important;
     left: auto !important;
     top: auto !important;
     z-index: 1000 !important;
     padding: 2px !important;
-    border-radius: 10px !important;
+    border-radius: 12px !important;
   }
 
   .geovision-ai-btn {
-    padding: 5px 10px !important;
-    font-size: 11px !important;
-    height: 28px !important;
-    border-radius: 8px !important;
-    gap: 4px !important;
+    padding: 0 14px !important;
+    font-size: 12px !important;
+    height: 40px !important;
+    min-height: 40px !important;
+    max-height: 40px !important;
+    border-radius: 10px !important;
+    gap: 6px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 
   .geovision-ai-btn span {
-    font-size: 11px !important;
+    font-size: 12px !important;
     white-space: nowrap !important;
   }
 
   .geovision-ai-btn svg {
-    width: 13px !important;
-    height: 13px !important;
+    width: 16px !important;
+    height: 16px !important;
   }
 
   /* Mobile Leaflet Map Attribution Bar (Subtle & Compact at Bottom) */
