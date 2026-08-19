@@ -1729,36 +1729,38 @@ function App() {
             </div>
 
             {/* HORIZONTAL BASE ARM OF THE "L" (COMPASS, MY LOCATION, HOME, COORDINATES, SCALE) */}
-            <div style={{ display: 'flex', flexDirection: 'row', gap: '6px' }}>
-              <button
-                className="map-glass-icon-btn"
-                title="Compass / Orient North"
-                onClick={() => showToast("Map Oriented North")}
-              >
-                <GeoVisionGradientIcon src={compassSvg} size={16} alt="Compass" />
-              </button>
-              <button
-                className="map-glass-icon-btn"
-                title="My Location"
-                onClick={() => {
-                  if (mapInstanceRef.current) mapInstanceRef.current.flyTo([24.4539, 54.3773], 15);
-                  showToast("Centered to My Location (Abu Dhabi)");
-                }}
-              >
-                <GeoVisionGradientIcon src={navigationSvg} size={16} alt="My Location" />
-              </button>
-              <button
-                className="map-glass-icon-btn"
-                title="Home View"
-                onClick={() => {
-                  if (mapInstanceRef.current) mapInstanceRef.current.flyTo([24.4539, 54.3773], 12);
-                  showToast("Reset to Abu Dhabi Home View");
-                }}
-              >
-                <GeoVisionGradientIcon src={homeSvg} size={16} alt="Home" />
-              </button>
+            <div className="map-controls-horizontal-arm" style={{ display: 'flex', flexDirection: 'row', gap: '6px' }}>
+              <div className="map-controls-icons-row" style={{ display: 'flex', flexDirection: 'row', gap: '6px' }}>
+                <button
+                  className="map-glass-icon-btn"
+                  title="Compass / Orient North"
+                  onClick={() => showToast("Map Oriented North")}
+                >
+                  <GeoVisionGradientIcon src={compassSvg} size={16} alt="Compass" />
+                </button>
+                <button
+                  className="map-glass-icon-btn"
+                  title="My Location"
+                  onClick={() => {
+                    if (mapInstanceRef.current) mapInstanceRef.current.flyTo([24.4539, 54.3773], 15);
+                    showToast("Centered to My Location (Abu Dhabi)");
+                  }}
+                >
+                  <GeoVisionGradientIcon src={navigationSvg} size={16} alt="My Location" />
+                </button>
+                <button
+                  className="map-glass-icon-btn"
+                  title="Home View"
+                  onClick={() => {
+                    if (mapInstanceRef.current) mapInstanceRef.current.flyTo([24.4539, 54.3773], 12);
+                    showToast("Reset to Abu Dhabi Home View");
+                  }}
+                >
+                  <GeoVisionGradientIcon src={homeSvg} size={16} alt="Home" />
+                </button>
+              </div>
               <div
-                className="map-glass-pill-static"
+                className="map-glass-pill-static map-coordinates-pill"
                 title="Coordinates"
                 style={{
                   display: 'flex',
@@ -1813,7 +1815,7 @@ function App() {
 
               {/* GRAPHIC GIS SCALE BAR PILL */}
               <div
-                className="map-glass-pill-static"
+                className="map-glass-pill-static map-scale-pill"
                 title="Scale Bar"
                 style={{
                   display: 'flex',

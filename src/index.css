@@ -6202,6 +6202,20 @@ input:checked+.slider:before {
   .mobile-tablet-only-btn {
     display: flex !important;
   }
+
+  /* Tablet Responsive Height & Width for Search History & Categories Panels */
+  .search-history-left-panel,
+  .categories-left-panel {
+    top: 76px !important;
+    bottom: 32px !important;
+    height: calc(100vh - 108px) !important;
+    height: calc(100dvh - 108px) !important;
+    max-height: calc(100vh - 108px) !important;
+    max-height: calc(100dvh - 108px) !important;
+    width: 280px !important;
+    min-width: 280px !important;
+    max-width: 280px !important;
+  }
 }
 
 /* Hamburger Button */
@@ -6350,44 +6364,66 @@ input:checked+.slider:before {
   font-size: 13px;
 }
 
-/* TABLET RESPONSIVE (768px - 1024px) - Matches Tablet Mockup */
-@media (max-width: 1024px) {
+/* TABLET RESPONSIVE (768px - 1024px) - Matches Tablet Mockup in Reference Design */
+@media (min-width: 768px) and (max-width: 1024px) {
   .landing-header {
-    padding: 10px 20px !important;
-    height: 62px !important;
+    padding: 10px 24px !important;
+    height: 60px !important;
   }
 
   .landing-logo-left img {
-    height: 34px !important;
+    height: 32px !important;
   }
 
   .landing-hero {
-    padding: 88px 20px 36px !important;
+    padding: 70px 24px 28px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 
+  /* Increase title text size by ~50% (38px -> 57px) */
+  .hero-landing .landing-hero h1.landing-main-title,
   h1.landing-main-title {
-    font-size: 48px !important;
+    font-size: 57px !important;
     line-height: 1.1 !important;
+    font-weight: 700 !important;
+    margin-bottom: 10px !important;
   }
 
+  /* Increase sub text size by ~50% (21px -> 31px) */
+  .hero-landing .landing-hero .landing-sub-title,
   .landing-sub-title {
-    font-size: 24px !important;
-    padding: 0 16px !important;
+    font-size: 31px !important;
+    font-weight: 700 !important;
+    line-height: 1.25 !important;
+    padding: 0 12px !important;
+    margin-bottom: 14px !important;
   }
 
+  .hero-landing .landing-hero .landing-description,
   .landing-description {
-    font-size: 13.5px !important;
-    max-width: 88% !important;
-    margin: 0 auto 26px !important;
+    font-size: 15.5px !important;
+    line-height: 1.45 !important;
+    max-width: 520px !important;
+    margin: 0 auto 24px !important;
+    opacity: 0.9 !important;
   }
 
+  /* Middle Search Card on Tablet: Reduced width & +24px increased height */
+  .hero-landing .landing-search-card-wrapper,
   .landing-search-card-wrapper {
-    max-width: 90% !important;
-    margin-bottom: 20px !important;
+    width: 78% !important;
+    max-width: 440px !important;
+    margin: 0 auto 22px !important;
   }
 
+  .hero-landing .landing-search-card,
   .landing-search-card {
-    padding: 28px 20px 24px !important;
+    padding: 34px 20px 30px 20px !important;
+    min-height: 194px !important;
+    box-sizing: border-box !important;
     clip-path: polygon(4.375% 3.53%, 30% 3.53%, 31.875% 8.24%, 68.125% 8.24%, 70% 3.53%, 95.625% 3.53%, 99.25% 20.59%, 99.25% 79.41%, 95.625% 96.47%, 70% 96.47%, 68.125% 91.76%, 31.875% 91.76%, 30% 96.47%, 4.375% 96.47%, 0.75% 79.41%, 0.75% 20.59%) !important;
   }
 
@@ -6395,17 +6431,56 @@ input:checked+.slider:before {
     display: block !important;
   }
 
-  .landing-chips-wrapper {
+  .landing-search-container {
+    height: 44px !important;
+    padding: 0 8px 0 12px !important;
+    border-radius: 12px !important;
+  }
+
+  .landing-search-input {
+    font-size: 13px !important;
+  }
+
+  .landing-chips-container {
+    margin-top: 16px !important;
     gap: 8px !important;
   }
 
+  .landing-chips-wrapper {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    width: 100% !important;
+  }
+
   .landing-chip-btn {
-    font-size: 12px !important;
-    padding: 7px 12px !important;
+    font-size: 11.5px !important;
+    padding: 6px 12px !important;
+    height: 32px !important;
+    white-space: nowrap !important;
+    border-radius: 8px !important;
+  }
+
+  .landing-chips-stepper {
+    margin-top: 12px !important;
+    gap: 6px !important;
+  }
+
+  /* Explore Map Button on Tablet */
+  .landing-explore-btn-wrapper {
+    margin-top: 10px !important;
+  }
+
+  .landing-explore-btn {
+    font-size: 14px !important;
+    padding: 10px 22px !important;
+    height: 40px !important;
+    border-radius: 10px !important;
   }
 }
 
-/* MOBILE RESPONSIVE (max-width: 767px) - Mobile Version Only (Desktop & Tablet Untouched) */
+/* MOBILE RESPONSIVE (320px to 767px) - Mobile Version Only (Desktop & Tablet Untouched) */
 @media (max-width: 767px) {
   /* 1. Completely remove & hide category drawer on mobile homepage */
   .landing-categories-drawer,
@@ -6504,15 +6579,24 @@ input:checked+.slider:before {
     object-fit: contain !important;
   }
 
-  /* Maintain hero vertical centering */
+  /* Maintain hero vertical centering & set Mobile Home Page Background with Light Overlay */
   .hero-landing {
     min-height: 100vh !important;
     min-height: 100dvh !important;
+    background: linear-gradient(180deg, rgba(1, 30, 61, 0.15) 0%, rgba(2, 10, 25, 0.22) 100%), url('/assets/mobile_home_bg.png') no-repeat center center / cover !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: space-between !important;
     padding: 0 !important;
     box-sizing: border-box !important;
+  }
+
+  .hero-overlay {
+    position: absolute !important;
+    inset: 0 !important;
+    background: radial-gradient(circle at 50% 40%, rgba(14, 165, 233, 0.06) 0%, rgba(1, 15, 35, 0.12) 100%) !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
   }
 
   .landing-hero {
@@ -6747,22 +6831,22 @@ input:checked+.slider:before {
     justify-content: center !important;
   }
 
-  /* Mobile AI Spatial Search & Sidebar Panels: 70% Screen Width & Full Viewport Height */
-  .landing-search-card-wrapper.map-ai-panel-wrapper,
-  .map-ai-panel-wrapper,
+  /* Mobile AI Spatial Search & Sidebar Panels: Top aligned with Location chip (68px), Bottom aligned with bottom CTA (20px) */
   .search-history-left-panel,
-  .categories-left-panel {
+  .categories-left-panel,
+  .collections-left-panel {
     position: fixed !important;
-    top: 56px !important;
-    left: 16px !important;
+    top: 68px !important;
+    left: 14px !important;
     right: auto !important;
-    bottom: 12px !important;
+    bottom: 20px !important;
     width: 70vw !important;
     min-width: 70vw !important;
     max-width: 70vw !important;
-    height: calc(100vh - 68px) !important;
-    height: calc(100dvh - 68px) !important;
-    max-height: calc(100vh - 68px) !important;
+    height: calc(100vh - 88px) !important;
+    height: calc(100dvh - 88px) !important;
+    max-height: calc(100vh - 88px) !important;
+    max-height: calc(100dvh - 88px) !important;
     z-index: 2100 !important;
     background: transparent !important;
     padding: 0 !important;
@@ -6771,13 +6855,48 @@ input:checked+.slider:before {
     flex-direction: column !important;
   }
 
+  /* Dedicated Right-aligned AI Spatial Search panel on mobile (Right-aligned with Location chip at 16px) */
+  .landing-search-card-wrapper.map-ai-panel-wrapper,
+  .map-ai-panel-wrapper,
+  .map-ai-panel-wrapper.sidebar-collapsed {
+    position: fixed !important;
+    top: 68px !important;
+    left: auto !important;
+    right: 16px !important;
+    bottom: 20px !important;
+    margin: 0 !important;
+    margin-left: auto !important;
+    margin-right: 0 !important;
+    width: 75vw !important;
+    min-width: 75vw !important;
+    max-width: 75vw !important;
+    height: calc(100vh - 88px) !important;
+    height: calc(100dvh - 88px) !important;
+    max-height: calc(100vh - 88px) !important;
+    max-height: calc(100dvh - 88px) !important;
+    z-index: 2100 !important;
+    background: transparent !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    transform: none !important;
+  }
+
+  /* Dedicated AI Spatial Search Inner Container: Fills wrapper height to align SVG border overlay */
+  .map-ai-panel-container.landing-search-card,
+  .map-ai-panel-container {
+    height: 100% !important;
+    min-height: 100% !important;
+    max-height: 100% !important;
+    flex: 1 !important;
+  }
+
   .map-ai-panel-container.landing-search-card,
   .map-ai-panel-container,
   .search-history-left-panel,
-  .categories-left-panel {
-    height: 100% !important;
-    max-height: 100% !important;
-    min-height: 100% !important;
+  .categories-left-panel,
+  .collections-left-panel {
     display: flex !important;
     flex-direction: column !important;
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.45) 0%, rgba(224, 242, 254, 0.35) 100%), url('/assets/panel_bg.png') no-repeat center center / cover !important;
@@ -6789,7 +6908,8 @@ input:checked+.slider:before {
     border-radius: 0 !important;
     clip-path: url(#categoryDrawerTopBottomNotchClip) !important;
     -webkit-clip-path: url(#categoryDrawerTopBottomNotchClip) !important;
-    padding: 14px 14px 14px 14px !important;
+    padding: 12px 10px 18px 10px !important;
+    box-sizing: border-box !important;
   }
 
   .map-ai-panel-container .map-ai-panel-bg-img,
@@ -6849,6 +6969,9 @@ input:checked+.slider:before {
     height: 100% !important;
     min-height: 0 !important;
     max-height: 100% !important;
+    overflow: hidden !important;
+    justify-content: space-between !important;
+    box-sizing: border-box !important;
   }
 
   .map-ai-panel-body {
@@ -6857,17 +6980,45 @@ input:checked+.slider:before {
     min-height: 0 !important;
     max-height: 100% !important;
     overflow-y: auto !important;
+    margin: 4px 0 !important;
+    padding: 2px 0 !important;
   }
 
-  /* 1. Mobile Map Controls & Reduced Floating Tabs (text 12px) */
+  /* Ensure search bar inside AI Spatial Panel fits inside frame without overflowing */
+  .map-ai-panel-container .landing-search-container {
+    margin: 0 0 4px 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    box-sizing: border-box !important;
+    border-radius: 12px !important;
+    flex: 0 0 42px !important;
+    height: 42px !important;
+    min-height: 42px !important;
+    max-height: 42px !important;
+    padding: 0 6px 0 8px !important;
+  }
+
+  .map-ai-panel-container .landing-search-input {
+    font-size: 12px !important;
+    min-width: 0 !important;
+  }
+
+  .map-ai-panel-container .landing-search-btn-pill {
+    height: 30px !important;
+    min-width: 30px !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* 1. Mobile Map Controls & Reduced Floating Tabs (text 12px) - 8px Gap Below Header */
   .map-controls-top-left {
-    top: 58px !important;
+    top: 68px !important;
     left: 16px !important;
     gap: 6px !important;
   }
 
   .map-controls-top-right {
-    top: 58px !important;
+    top: 68px !important;
     right: 16px !important;
     gap: 6px !important;
   }
@@ -6893,6 +7044,55 @@ input:checked+.slider:before {
   .map-location-badge span {
     font-size: 12px !important;
     white-space: nowrap !important;
+  }
+
+  /* Mobile Bottom-Left Vertical Stacking: Icons Row on top, Coordinates pill below, Scale pill below coordinates */
+  .map-controls-left-strip {
+    bottom: 10px !important;
+    left: 14px !important;
+    gap: 4px !important;
+  }
+
+  .map-controls-horizontal-arm {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 4px !important;
+  }
+
+  .map-controls-icons-row {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 6px !important;
+  }
+
+  .map-coordinates-pill,
+  .map-scale-pill {
+    font-size: 10px !important;
+    height: 22px !important;
+    padding: 0 8px !important;
+    border-radius: 6px !important;
+    box-sizing: border-box !important;
+  }
+
+  .map-coordinates-pill span,
+  .map-coordinates-pill button {
+    font-size: 10px !important;
+  }
+
+  .map-coordinates-pill svg {
+    width: 11px !important;
+    height: 11px !important;
+  }
+
+  .map-scale-pill svg {
+    width: 75px !important;
+    height: 7px !important;
+  }
+
+  .map-scale-pill > div > div {
+    width: 75px !important;
+    font-size: 7.5px !important;
   }
 
   .search-history-title {
@@ -6935,8 +7135,27 @@ input:checked+.slider:before {
   }
 }
 
-/* EXTRA SMALL MOBILE (max-width: 420px) */
+/* EXTRA SMALL MOBILE (320px - 420px) */
 @media (max-width: 420px) {
+  .search-history-left-panel,
+  .categories-left-panel,
+  .collections-left-panel {
+    width: 82vw !important;
+    min-width: 82vw !important;
+    max-width: 82vw !important;
+  }
+
+  .landing-search-card-wrapper.map-ai-panel-wrapper,
+  .map-ai-panel-wrapper,
+  .map-ai-panel-wrapper.sidebar-collapsed {
+    width: 82vw !important;
+    min-width: 82vw !important;
+    max-width: 82vw !important;
+    right: 16px !important;
+    left: auto !important;
+    margin-left: auto !important;
+  }
+
   h1.landing-main-title {
     font-size: 26px !important;
   }
